@@ -14,6 +14,8 @@ Prompt engineering is the process of structuring an instruction that can be inte
 
 # [Query Enhancement](https://raghunaathan.medium.com/query-translation-for-rag-retrieval-augmented-generation-applications-46d74bff8f07)
 
+Query Translation in Retrieval-Augmented Generation (RAG) pipeline refers to the process of transforming the initial query into various forms or sub-queries that can enhance the retrieval process.
+
 # [Retrieval](https://drive.google.com/drive/folders/1B8zEdEai5LSXwuQSRiktdcKo2zwLN_nA)
 
 
