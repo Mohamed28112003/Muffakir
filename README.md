@@ -8,8 +8,8 @@
   - Choroma
   - FAIIS
 - [Embeddings](https://www.rungalileo.io/blog/mastering-rag-how-to-select-an-embedding-model)
-- AraBert
-- ARBERT
+  - AraBert
+  - ARBERT
 
 # [Prompt Template](https://www.promptingguide.ai/)
 Prompt engineering is the process of structuring an instruction that can be interpreted and understood by a generative AI model.
