@@ -9,6 +9,8 @@
 - Choroma
 - FAISS
 # [Prompt Template](https://www.promptingguide.ai/)
+Prompt engineering is the process of structuring an instruction that can be interpreted and understood by a generative AI model.
+
 
 # [Query Enhancement](https://raghunaathan.medium.com/query-translation-for-rag-retrieval-augmented-generation-applications-46d74bff8f07)
 
