@@ -4,10 +4,13 @@
 - Preprocessing
 
 # Embeddings & VectorDB
+- [VectorDB](https://youtu.be/VCnhiF88a9c?si=F3ikOSL7yhzlI76F)
+  - Choroma
+  - FAIIS
+- [Embeddings](https://www.rungalileo.io/blog/mastering-rag-how-to-select-an-embedding-model)
 - AraBert
 - ARBERT
-- Choroma
-- FAISS
+
 # [Prompt Template](https://www.promptingguide.ai/)
 Prompt engineering is the process of structuring an instruction that can be interpreted and understood by a generative AI model.
 
@@ -30,7 +33,7 @@ Retrieval is used to enhance the language model by pulling in external informati
 
 - [Weave](https://www.wandb.courses/courses/101-weave)
 
-# Deployment
+# [Deployment](https://haystack.deepset.ai/blog/rag-deployment)
 - FastApi 
 
 # [Papers](https://drive.google.com/drive/folders/1lsWBci2YlcuNnnOi4zfFiHkKI3a4XW3n)
