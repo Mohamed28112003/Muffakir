@@ -23,14 +23,15 @@ Retrieval is used to enhance the language model by pulling in external informati
 # Generation LLM 
 - [Groq](https://console.groq.com/playground)
 - [Ollama](https://youtu.be/6zG4Idxldvg?si=hlpJ6ScZaZ-uliOA)
+- [Nvidia](https://build.nvidia.com/explore/discover)
   
 
 # [Evaluation](https://towardsdatascience.com/evaluating-rag-applications-with-ragas-81d67b0ee31a)
 
 - [Weave](https://www.wandb.courses/courses/101-weave)
 
-# [Deployment]
-
+# Deployment
+- FastApi 
 
 # [Papers](https://drive.google.com/drive/folders/1lsWBci2YlcuNnnOi4zfFiHkKI3a4XW3n)
 
