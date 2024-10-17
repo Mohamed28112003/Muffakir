@@ -36,6 +36,12 @@ Retrieval is used to enhance the language model by pulling in external informati
 # [Deployment](https://haystack.deepset.ai/blog/rag-deployment)
 - FastApi 
 
+# Important Repositories
+- [All-about-LangChain](https://github.com/OmarKhaled0K/All-about-LangChain.git)
+- [RAG_Techniques](https://github.com/NirDiamant/RAG_Techniques.git)
+- [practical_llms](https://github.com/ahmadelsallab/practical_llms.git)
+- [Hands-On-LLM-Applications-Development](https://github.com/youssefHosni/Hands-On-LLM-Applications-Development.git)
+
 # [Papers](https://drive.google.com/drive/folders/1lsWBci2YlcuNnnOi4zfFiHkKI3a4XW3n)
 
 
