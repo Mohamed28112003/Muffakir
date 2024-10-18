@@ -27,7 +27,7 @@ Retrieval is used to enhance the language model by pulling in external informati
 - [Fusion-in-Decoder](https://github.com/facebookresearch/FiD.git)
 - [Memory RAG](https://medium.com/thedeephub/lets-normalize-online-in-memory-rag-88e8169e9806)
 - [Adaptive RAG](https://medium.com/@drissiisismail/adaptive-rag-implementation-using-langgraph-12cdea350e31)
-  -[Adaptive RAG Implementation](https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_adaptive_rag/)   
+-[Adaptive RAG Implementation](https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_adaptive_rag/)   
 
 
 # Generation LLM 
