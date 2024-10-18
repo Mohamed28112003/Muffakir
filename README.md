@@ -40,6 +40,7 @@ Retrieval is used to enhance the language model by pulling in external informati
 
 - [Weave](https://www.wandb.courses/courses/101-weave)
 - [Giskard](https://www.youtube.com/watch?v=ZPX3W77h_1E&ab_channel=Underfitted)
+- [RAGAS](https://youtu.be/mEv-2Xnb_Wk?si=nDxWLjAqQjPcI2Wr)
 
 # [Deployment](https://haystack.deepset.ai/blog/rag-deployment)
 - FastApi 
