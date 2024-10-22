@@ -6,6 +6,26 @@
 
 
 
+
+from langchain_community.embeddings import HuggingFaceEmbeddings
+
+print("loading embedding model and index ....")
+
+model_kwargs = {'device': 'cuda'}
+encode_kwargs = {'normalize_embeddings': False}
+embedding_model_id = "asafaya/bert-large-arabic"
+
+embeddings = HuggingFaceEmbeddings(
+    model_name = embedding_model_id,
+    model_kwargs=model_kwargs,
+    encode_kwargs=encode_kwargs
+)
+
+
+
+
+
+
 # Path to the persisted ChromaDB
 persist_directory = "/content/chroma_db"
 
