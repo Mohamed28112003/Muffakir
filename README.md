@@ -53,6 +53,7 @@ Retrieval is used to enhance the language model by pulling in external informati
 
 # Important Articles 
 - [LangChain vs LlamaIndex](https://www.datacamp.com/blog/langchain-vs-llamaindex)
+- [The Best RAG Stack to Date](https://freedium.cfd/https://pub.towardsai.net/the-best-rag-stack-to-date-8dc035075e13)
 
 # [Papers](https://drive.google.com/drive/folders/1lsWBci2YlcuNnnOi4zfFiHkKI3a4XW3n)
 
