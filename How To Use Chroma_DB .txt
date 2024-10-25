@@ -4,10 +4,11 @@
 
 !unzip /content/chroma_db.zip -d /content/chroma_db
 
+from langchain.vectorstores import Chroma
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.docstore.document import Document
 
 
-
-from langchain_community.embeddings import HuggingFaceEmbeddings
 
 print("loading embedding model and index ....")
 
@@ -19,17 +20,13 @@ embeddings = HuggingFaceEmbeddings(
     model_name = embedding_model_id,
     model_kwargs=model_kwargs,
     encode_kwargs=encode_kwargs
-)
+) 
 
 
+persist_directory = "/content/chroma_db/content/chroma_db"  # Path where ChromaDB will be persisted
 
-
-
-
-# Path to the persisted ChromaDB
-persist_directory = "/content/chroma_db"
-
-# Reload ChromaDB
 chroma_db = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
 
-print("ChromaDB loaded successfully!")
+
+# Check the lenght of the database 
+len(chroma_db.get()["documents"])
