@@ -60,7 +60,6 @@ Retrieval is used to enhance the language model by pulling in external informati
 - [Prompt Engineering Is Dead: DSPy Is New Paradigm For Prompting](https://freedium.cfd/https://medium.com/aiguys/prompt-engineering-is-dead-dspy-is-new-paradigm-for-prompting-c80ba3fc4896)
   - [What Is DSPy? How It Works, Use Cases, and Resources](https://www.datacamp.com/blog/dspy-introduction)
 - [RAG 2.0: Retrieval Augmented Language Models](https://freedium.cfd/https://medium.com/aiguys/rag-2-0-retrieval-augmented-language-models-3762f3047256)
-  - [Introducing RAG 2.0](https://contextual.ai/introducing-rag2/)  
 
 # [Papers](https://drive.google.com/drive/folders/1lsWBci2YlcuNnnOi4zfFiHkKI3a4XW3n)
 
