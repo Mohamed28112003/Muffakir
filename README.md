@@ -58,7 +58,7 @@ Retrieval is used to enhance the language model by pulling in external informati
 - [LangChain vs LlamaIndex](https://www.datacamp.com/blog/langchain-vs-llamaindex)
 - [The Best RAG Stack to Date](https://freedium.cfd/https://pub.towardsai.net/the-best-rag-stack-to-date-8dc035075e13)
 - [Prompt Engineering Is Dead: DSPy Is New Paradigm For Prompting](https://freedium.cfd/https://medium.com/aiguys/prompt-engineering-is-dead-dspy-is-new-paradigm-for-prompting-c80ba3fc4896)
-  -[What Is DSPy? How It Works, Use Cases, and Resources](https://www.datacamp.com/blog/dspy-introduction) 
+  - [What Is DSPy? How It Works, Use Cases, and Resources](https://www.datacamp.com/blog/dspy-introduction) 
 
 # [Papers](https://drive.google.com/drive/folders/1lsWBci2YlcuNnnOi4zfFiHkKI3a4XW3n)
 
