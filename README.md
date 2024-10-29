@@ -61,6 +61,7 @@ Retrieval is used to enhance the language model by pulling in external informati
   - [What Is DSPy? How It Works, Use Cases, and Resources](https://www.datacamp.com/blog/dspy-introduction)
   - [An Exploratory Tour of DSPy: A Framework for Programing Language Models, not Prompting](https://medium.com/the-modern-scientist/an-exploratory-tour-of-dspy-a-framework-for-programing-language-models-not-prompting-711bc4a56376)
 - [RAG 2.0: Retrieval Augmented Language Models](https://freedium.cfd/https://medium.com/aiguys/rag-2-0-retrieval-augmented-language-models-3762f3047256)
+- [3 Advanced Document Retrieval Techniques To Improve RAG Systems](https://freedium.cfd/https://medium.com/towards-data-science/3-advanced-document-retrieval-techniques-to-improve-rag-systems-0703a2375e1c)
 
 # [Papers](https://drive.google.com/drive/folders/1lsWBci2YlcuNnnOi4zfFiHkKI3a4XW3n)
 
