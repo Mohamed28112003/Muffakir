@@ -46,7 +46,8 @@ Retrieval is used to enhance the language model by pulling in external informati
 
 # [Deployment](https://haystack.deepset.ai/blog/rag-deployment)
 - FastApi
-- [Gradio](https://www.gradio.app/guides/quickstart) 
+- [Gradio](https://www.gradio.app/guides/quickstart)
+- [LLM Proxie](https://www.youtube.com/watch?v=o_5wxk0dh0w&t=15s&ab_channel=AbuBakrSoliman) 
 
 # Important Repositories
 - [All-about-LangChain](https://github.com/OmarKhaled0K/All-about-LangChain.git)
