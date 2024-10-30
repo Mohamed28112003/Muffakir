@@ -1,13 +1,15 @@
 
 ![Muffakir](https://github.com/user-attachments/assets/151b70ea-41ff-4f03-b9cd-88c9a12feafc)
 
-# Once everyone completes their notebook and the required function, please upload it to the repository. Good luck to all! :heart: 
+# Once everyone completes their notebook and the required function, please upload it to the repository. Make sure to add your name to the notebook filename. Remember, this is just a starting point, and you can explore further by searching and building on this work. Good luck to all! :heart: 
 
 # [Data Collection](https://drive.google.com/drive/folders/1uM1vCilnFpSN_GAC4pJIzD_8EqFBjt1G)
 - [OCR](https://azure.microsoft.com/en-us/products/ai-services/ai-document-intelligence)
 - Chunks
   - [Article 1](https://freedium.cfd/https://medium.com/towards-data-science/the-art-of-chunking-boosting-ai-performance-in-rag-architectures-acdbdb8bdc2b)
-  - [Article 2](https://freedium.cfd/https://medium.com/towards-data-science/agentic-chunking-for-rags-091beccd94b1) 
+  - [Article 2](https://freedium.cfd/https://medium.com/towards-data-science/agentic-chunking-for-rags-091beccd94b1)
+  - [Article 3](https://www.mongodb.com/developer/products/atlas/choosing-chunking-strategy-rag/)
+  - [Code]() 
 - Preprocessing It is Up to You :smiley:
 
 # Embeddings & VectorDB
@@ -15,6 +17,11 @@
   - [Choroma](https://docs.trychroma.com/) 
   - [FAISS](https://faiss.ai/)
 - [Embeddings](https://www.rungalileo.io/blog/mastering-rag-how-to-select-an-embedding-model)
+- [Fine-tuning Embeddings](https://medium.com/gopenai/fine-tuning-embeddings-for-specific-domains-a-comprehensive-guide-5e4298b42185)
+- [How to Choose the Best Embedding Model for Your LLM Application](https://www.mongodb.com/developer/products/atlas/choose-embedding-model-rag/)
+- [ColBert](https://youtu.be/kEgeegk9iqo?si=bLVNGfUzx6FCXAdf)
+  - [Article](https://www.pondhouse-data.com/blog/advanced-rag-colbert-reranker)  
+- [Adapted Embedding Model](https://freedium.cfd/https://medium.com/towards-data-science/improve-your-rag-context-recall-by-40-with-an-adapted-embedding-model-5d4a8f583f32)
   - AraBert
   - ARBERT
 
