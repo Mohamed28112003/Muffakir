@@ -1,3 +1,7 @@
+
+![Muffakir](https://github.com/user-attachments/assets/151b70ea-41ff-4f03-b9cd-88c9a12feafc)
+
+
 # [Data Collection](https://drive.google.com/drive/folders/1uM1vCilnFpSN_GAC4pJIzD_8EqFBjt1G)
 - [OCR](https://azure.microsoft.com/en-us/products/ai-services/ai-document-intelligence)
 - Chunks 
