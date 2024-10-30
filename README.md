@@ -1,19 +1,19 @@
 
 ![Muffakir](https://github.com/user-attachments/assets/151b70ea-41ff-4f03-b9cd-88c9a12feafc)
 
-# Once everyone completes their notebook and the required function, please upload it to the repository. Good luck to all! 
+# Once everyone completes their notebook and the required function, please upload it to the repository. Good luck to all! :heart: 
 
 # [Data Collection](https://drive.google.com/drive/folders/1uM1vCilnFpSN_GAC4pJIzD_8EqFBjt1G)
 - [OCR](https://azure.microsoft.com/en-us/products/ai-services/ai-document-intelligence)
 - Chunks
   - [Article 1](https://freedium.cfd/https://medium.com/towards-data-science/the-art-of-chunking-boosting-ai-performance-in-rag-architectures-acdbdb8bdc2b)
   - [Article 2](https://freedium.cfd/https://medium.com/towards-data-science/agentic-chunking-for-rags-091beccd94b1) 
-- Preprocessing
+- Preprocessing It is Up to You :smiley:
 
 # Embeddings & VectorDB
 - [VectorDB](https://youtu.be/VCnhiF88a9c?si=F3ikOSL7yhzlI76F)
-  - Choroma
-  - FAIIS
+  - [Choroma](https://docs.trychroma.com/) 
+  - [FAISS](https://faiss.ai/)
 - [Embeddings](https://www.rungalileo.io/blog/mastering-rag-how-to-select-an-embedding-model)
   - AraBert
   - ARBERT
