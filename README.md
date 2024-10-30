@@ -9,7 +9,7 @@
   - [Article 1](https://freedium.cfd/https://medium.com/towards-data-science/the-art-of-chunking-boosting-ai-performance-in-rag-architectures-acdbdb8bdc2b)
   - [Article 2](https://freedium.cfd/https://medium.com/towards-data-science/agentic-chunking-for-rags-091beccd94b1)
   - [Article 3](https://www.mongodb.com/developer/products/atlas/choosing-chunking-strategy-rag/)
-  - [Code]() 
+  - [Code](https://github.com/OmarKhaled0K/All-about-LangChain/blob/main/Indexing.ipynb) 
 - Preprocessing It is Up to You :smiley:
 
 # Embeddings & VectorDB
@@ -22,8 +22,7 @@
 - [ColBert](https://youtu.be/kEgeegk9iqo?si=bLVNGfUzx6FCXAdf)
   - [Article](https://www.pondhouse-data.com/blog/advanced-rag-colbert-reranker)  
 - [Adapted Embedding Model](https://freedium.cfd/https://medium.com/towards-data-science/improve-your-rag-context-recall-by-40-with-an-adapted-embedding-model-5d4a8f583f32)
-  - AraBert
-  - ARBERT
+
 
 # [Prompt Template](https://www.promptingguide.ai/)
 Prompt engineering is the process of structuring an instruction that can be interpreted and understood by a generative AI model.
