@@ -4,7 +4,9 @@
 
 # [Data Collection](https://drive.google.com/drive/folders/1uM1vCilnFpSN_GAC4pJIzD_8EqFBjt1G)
 - [OCR](https://azure.microsoft.com/en-us/products/ai-services/ai-document-intelligence)
-- [Chunks](https://freedium.cfd/https://medium.com/towards-data-science/the-art-of-chunking-boosting-ai-performance-in-rag-architectures-acdbdb8bdc2b) 
+- Chunks
+  - [Article 1](https://freedium.cfd/https://medium.com/towards-data-science/the-art-of-chunking-boosting-ai-performance-in-rag-architectures-acdbdb8bdc2b)
+  - [Article 2](https://freedium.cfd/https://medium.com/towards-data-science/agentic-chunking-for-rags-091beccd94b1) 
 - Preprocessing
 
 # Embeddings & VectorDB
