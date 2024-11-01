@@ -36,7 +36,7 @@ Prompt engineering is the process of structuring an instruction that can be inte
 # [Retrieval](https://drive.google.com/drive/folders/1B8zEdEai5LSXwuQSRiktdcKo2zwLN_nA)
 Retrieval is used to enhance the language model by pulling in external information from a knowledge base or document store. This allows the model to provide more accurate and contextually relevant responses.
 - [MemoRAG](https://github.com/qhjqhj00/MemoRAG.git)
-- [Agentic RAG](https://github.com/irvingvjuarez/react-agentic-rag-app.git](https://www.moveworks.com/us/en/resources/blog/what-is-agentic-rag)
+- [Agentic RAG](https://www.moveworks.com/us/en/resources/blog/what-is-agentic-rag)
 - [Hyde](https://medium.com/@juanc.olamendy/revolutionizing-retrieval-the-mastering-hypothetical-document-embeddings-hyde-b1fc06b9a6cc)
 - [Fusion-in-Decoder](https://github.com/facebookresearch/FiD.git)
 - [Memory RAG](https://medium.com/thedeephub/lets-normalize-online-in-memory-rag-88e8169e9806)
