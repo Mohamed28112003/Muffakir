@@ -57,6 +57,7 @@ Retrieval is used to enhance the language model by pulling in external informati
 - [Giskard](https://www.youtube.com/watch?v=ZPX3W77h_1E&ab_channel=Underfitted)
 - [RAGAS](https://youtu.be/mEv-2Xnb_Wk?si=nDxWLjAqQjPcI2Wr)
 - [Azure Prompt Flow](https://learn.microsoft.com/en-us/azure/machine-learning/prompt-flow/overview-what-is-prompt-flow?view=azureml-api-2)
+- [LLM As Judge](https://www.evidentlyai.com/llm-guide/llm-as-a-judge) 
 
 # [Deployment](https://haystack.deepset.ai/blog/rag-deployment)
 - FastApi
