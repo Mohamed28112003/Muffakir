@@ -79,6 +79,7 @@ Retrieval is used to enhance the language model by pulling in external informati
 - [RAG 2.0: Retrieval Augmented Language Models](https://freedium.cfd/https://medium.com/aiguys/rag-2-0-retrieval-augmented-language-models-3762f3047256)
 - [3 Advanced Document Retrieval Techniques To Improve RAG Systems](https://freedium.cfd/https://medium.com/towards-data-science/3-advanced-document-retrieval-techniques-to-improve-rag-systems-0703a2375e1c)
 - [ColBert](https://www.pondhouse-data.com/blog/advanced-rag-colbert-reranker)
+- [What is Agentic RAG](https://weaviate.io/blog/what-is-agentic-rag)
 
 # [Papers](https://drive.google.com/drive/folders/1lsWBci2YlcuNnnOi4zfFiHkKI3a4XW3n)
 
