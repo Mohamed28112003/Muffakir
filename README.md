@@ -57,6 +57,8 @@ Retrieval is used to enhance the language model by pulling in external informati
 - [Giskard](https://www.youtube.com/watch?v=ZPX3W77h_1E&ab_channel=Underfitted)
 - [RAGAS](https://youtu.be/mEv-2Xnb_Wk?si=nDxWLjAqQjPcI2Wr)
 - [Azure Prompt Flow](https://learn.microsoft.com/en-us/azure/machine-learning/prompt-flow/overview-what-is-prompt-flow?view=azureml-api-2)
+- [How to Create a RAG Evaluation Dataset From Documents](https://freedium.cfd/https://towardsdatascience.com/how-to-create-a-rag-evaluation-dataset-from-documents-140daa3cbe71)
+
 - [LLM As Judge](https://www.evidentlyai.com/llm-guide/llm-as-a-judge) 
 
 # [Deployment](https://haystack.deepset.ai/blog/rag-deployment)
@@ -80,7 +82,6 @@ Retrieval is used to enhance the language model by pulling in external informati
 - [3 Advanced Document Retrieval Techniques To Improve RAG Systems](https://freedium.cfd/https://medium.com/towards-data-science/3-advanced-document-retrieval-techniques-to-improve-rag-systems-0703a2375e1c)
 - [ColBert](https://www.pondhouse-data.com/blog/advanced-rag-colbert-reranker)
 - [What is Agentic RAG](https://weaviate.io/blog/what-is-agentic-rag)
-- [How to Create a RAG Evaluation Dataset From Documents](https://freedium.cfd/https://towardsdatascience.com/how-to-create-a-rag-evaluation-dataset-from-documents-140daa3cbe71)
 
 # [Papers](https://drive.google.com/drive/folders/1lsWBci2YlcuNnnOi4zfFiHkKI3a4XW3n)
 
