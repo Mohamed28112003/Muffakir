@@ -58,15 +58,13 @@ Retrieval is used to enhance the language model by pulling in external informati
 - [RAGAS](https://youtu.be/mEv-2Xnb_Wk?si=nDxWLjAqQjPcI2Wr)
 - [Azure Prompt Flow](https://learn.microsoft.com/en-us/azure/machine-learning/prompt-flow/overview-what-is-prompt-flow?view=azureml-api-2)
 - [How to Create a RAG Evaluation Dataset From Documents](https://freedium.cfd/https://towardsdatascience.com/how-to-create-a-rag-evaluation-dataset-from-documents-140daa3cbe71)
-- [LLMOps](https://www.deeplearning.ai/short-courses/llmops/)
-  
-
 - [LLM As Judge](https://www.evidentlyai.com/llm-guide/llm-as-a-judge) 
 
 # [Deployment](https://haystack.deepset.ai/blog/rag-deployment)
 - FastApi
 - [Gradio](https://www.gradio.app/guides/quickstart)
-- [LLM Proxie](https://www.youtube.com/watch?v=o_5wxk0dh0w&t=15s&ab_channel=AbuBakrSoliman) 
+- [LLM Proxie](https://www.youtube.com/watch?v=o_5wxk0dh0w&t=15s&ab_channel=AbuBakrSoliman)
+- [LLMOps](https://www.deeplearning.ai/short-courses/llmops/)   
 
 # Important Repositories
 - [All-about-LangChain](https://github.com/OmarKhaled0K/All-about-LangChain.git)
