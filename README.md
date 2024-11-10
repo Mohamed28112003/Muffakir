@@ -22,7 +22,6 @@
 - [ColBert](https://youtu.be/kEgeegk9iqo?si=bLVNGfUzx6FCXAdf)
   - [Article](https://www.pondhouse-data.com/blog/advanced-rag-colbert-reranker)  
 - [Adapted Embedding Model](https://freedium.cfd/https://medium.com/towards-data-science/improve-your-rag-context-recall-by-40-with-an-adapted-embedding-model-5d4a8f583f32)
-- [Fine-Tuning Embeddings for Better Retrieval](https://www.youtube.com/watch?v=gUJkyp9j3sM&ab_channel=AIMakerspace)
 
 
 # [Prompt Template](https://www.promptingguide.ai/)
@@ -43,7 +42,15 @@ Retrieval is used to enhance the language model by pulling in external informati
 - [Memory RAG](https://medium.com/thedeephub/lets-normalize-online-in-memory-rag-88e8169e9806)
 - [Adaptive RAG](https://medium.com/@drissiisismail/adaptive-rag-implementation-using-langgraph-12cdea350e31)
 - [Adaptive RAG Implementation](https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_adaptive_rag/)
-- [AutoRAG](https://github.com/Marker-Inc-Korea/AutoRAG.git)   
+- [AutoRAG](https://github.com/Marker-Inc-Korea/AutoRAG.git)
+
+# Fine-Tuning
+- [Fine Tuning LLM Models](https://www.youtube.com/watch?v=iOdFUJiB0Zc&ab_channel=freeCodeCamp.org)
+- [Fine Tuning Complete Course](https://parlance-labs.com/education/#fine-tuning)
+- [Fine-Tuning Embeddings for Better Retrieval](https://www.youtube.com/watch?v=gUJkyp9j3sM&ab_channel=AIMakerspace)
+- [Optimizing Phi-2: A Deep Dive into Fine-Tuning Small Language Models](https://medium.com/thedeephub/optimizing-phi-2-a-deep-dive-into-fine-tuning-small-language-models-9d545ac90a99)
+- [D2SLM Doc to Dataset to Fine-Tune Small Language Model](https://www.youtube.com/watch?v=khIDeJwBf4k&ab_channel=AIMakerspace)
+- [Train a Small Language Model](https://www.youtube.com/watch?v=1ILVm4IeNY8&ab_channel=AIAnytime)
 
 
 # Generation LLM 
@@ -54,10 +61,12 @@ Retrieval is used to enhance the language model by pulling in external informati
 
 # [Evaluation](https://towardsdatascience.com/evaluating-rag-applications-with-ragas-81d67b0ee31a)
 
-- [Weave](https://www.wandb.courses/courses/101-weave)
-- [Giskard](https://www.youtube.com/watch?v=ZPX3W77h_1E&ab_channel=Underfitted)
-- [RAGAS](https://youtu.be/mEv-2Xnb_Wk?si=nDxWLjAqQjPcI2Wr)
-- [Azure Prompt Flow](https://learn.microsoft.com/en-us/azure/machine-learning/prompt-flow/overview-what-is-prompt-flow?view=azureml-api-2)
+- Tools 
+  - [Weave](https://www.wandb.courses/courses/101-weave)
+  - [Giskard](https://www.youtube.com/watch?v=ZPX3W77h_1E&ab_channel=Underfitted)
+  - [RAGAS](https://youtu.be/mEv-2Xnb_Wk?si=nDxWLjAqQjPcI2Wr)
+  - [Azure Prompt Flow](https://learn.microsoft.com/en-us/azure/machine-learning/prompt-flow/overview-what-is-prompt-flow?view=azureml-api-2)
+-  [Measuring the performance of LLM products](https://parlance-labs.com/education/evals/)
 - [How to Create a RAG Evaluation Dataset From Documents](https://freedium.cfd/https://towardsdatascience.com/how-to-create-a-rag-evaluation-dataset-from-documents-140daa3cbe71)
 - [LLM As Judge](https://www.evidentlyai.com/llm-guide/llm-as-a-judge) 
 
