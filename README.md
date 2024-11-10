@@ -16,7 +16,7 @@
 - [VectorDB](https://youtu.be/VCnhiF88a9c?si=F3ikOSL7yhzlI76F)
   - [Choroma](https://docs.trychroma.com/) 
   - [FAISS](https://faiss.ai/)
-- [Embeddings](https://www.rungalileo.io/blog/mastering-rag-how-to-select-an-embedding-model)
+- [How to Select an Embedding Model](https://www.rungalileo.io/blog/mastering-rag-how-to-select-an-embedding-model)
 - [Fine-tuning Embeddings](https://medium.com/gopenai/fine-tuning-embeddings-for-specific-domains-a-comprehensive-guide-5e4298b42185)
 - [How to Choose the Best Embedding Model for Your LLM Application](https://www.mongodb.com/developer/products/atlas/choose-embedding-model-rag/)
 - [ColBert](https://youtu.be/kEgeegk9iqo?si=bLVNGfUzx6FCXAdf)
