@@ -22,6 +22,7 @@
 - [ColBert](https://youtu.be/kEgeegk9iqo?si=bLVNGfUzx6FCXAdf)
   - [Article](https://www.pondhouse-data.com/blog/advanced-rag-colbert-reranker)  
 - [Adapted Embedding Model](https://freedium.cfd/https://medium.com/towards-data-science/improve-your-rag-context-recall-by-40-with-an-adapted-embedding-model-5d4a8f583f32)
+- [Fine-Tuning Embeddings for Better Retrieval](https://www.youtube.com/watch?v=gUJkyp9j3sM&ab_channel=AIMakerspace)
 
 
 # [Prompt Template](https://www.promptingguide.ai/)
