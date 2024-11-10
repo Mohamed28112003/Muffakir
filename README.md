@@ -1,5 +1,5 @@
 
-![Muffakir](https://github.com/user-attachments/assets/151b70ea-41ff-4f03-b9cd-88c9a12feafc)
+![GP Project](https://github.com/user-attachments/assets/5fff568c-ee59-474a-a088-ee155c1213eb)
 
 # Once everyone completes their notebook and the required function, please upload it to the repository. Make sure to add your name to the notebook filename. Remember, this is just a starting point, and you can explore further by searching and building on this work. Good luck to all! :heart: 
 
