@@ -81,6 +81,7 @@ Retrieval is used to enhance the language model by pulling in external informati
 - [RAG_Techniques](https://github.com/NirDiamant/RAG_Techniques.git)
 - [practical_llms DR.Ahmed Elsallab](https://github.com/ahmadelsallab/practical_llms.git)
 - [Hands-On-LLM-Applications-Development](https://github.com/youssefHosni/Hands-On-LLM-Applications-Development.git)
+- [Hands On Large Language Models Book](https://github.com/HandsOnLLM/Hands-On-Large-Language-Models)
 
 # Important Articles 
 - [LangChain vs LlamaIndex](https://www.datacamp.com/blog/langchain-vs-llamaindex)
