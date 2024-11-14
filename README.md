@@ -45,6 +45,9 @@ Retrieval is used to enhance the language model by pulling in external informati
 - [AutoRAG](https://github.com/Marker-Inc-Korea/AutoRAG.git)
 
 # [Fine-Tuning](https://www.datacamp.com/tutorial/fine-tuning-large-language-models)
+- Fine Tuning Techniques
+  - [Fine-Tuning Large Language Models with LORA](https://medium.com/@kailash.thiyagarajan/fine-tuning-large-language-models-with-lora-demystifying-efficient-adaptation-25fa0a389075)
+  - [Fine-Tuning LLMs using RLHF](https://www.labellerr.com/blog/reinforcement-learning-from-human-feedback/)
 - [Fine Tuning LLM Models](https://www.youtube.com/watch?v=iOdFUJiB0Zc&ab_channel=freeCodeCamp.org)
 - [Fine Tuning Complete Course](https://parlance-labs.com/education/#fine-tuning)
 - [Fine-Tuning Embeddings for Better Retrieval](https://www.youtube.com/watch?v=gUJkyp9j3sM&ab_channel=AIMakerspace)
