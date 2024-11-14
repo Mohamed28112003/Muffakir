@@ -44,7 +44,7 @@ Retrieval is used to enhance the language model by pulling in external informati
 - [Adaptive RAG Implementation](https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_adaptive_rag/)
 - [AutoRAG](https://github.com/Marker-Inc-Korea/AutoRAG.git)
 
-# Fine-Tuning
+# [Fine-Tuning](https://www.datacamp.com/tutorial/fine-tuning-large-language-models)
 - [Fine Tuning LLM Models](https://www.youtube.com/watch?v=iOdFUJiB0Zc&ab_channel=freeCodeCamp.org)
 - [Fine Tuning Complete Course](https://parlance-labs.com/education/#fine-tuning)
 - [Fine-Tuning Embeddings for Better Retrieval](https://www.youtube.com/watch?v=gUJkyp9j3sM&ab_channel=AIMakerspace)
