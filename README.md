@@ -73,7 +73,8 @@ Retrieval is used to enhance the language model by pulling in external informati
   - [Azure Prompt Flow](https://learn.microsoft.com/en-us/azure/machine-learning/prompt-flow/overview-what-is-prompt-flow?view=azureml-api-2)
 -  [Measuring the performance of LLM products](https://parlance-labs.com/education/evals/)
 - [How to Create a RAG Evaluation Dataset From Documents](https://freedium.cfd/https://towardsdatascience.com/how-to-create-a-rag-evaluation-dataset-from-documents-140daa3cbe71)
-- [LLM As Judge](https://www.evidentlyai.com/llm-guide/llm-as-a-judge) 
+- [LLM As Judge](https://www.evidentlyai.com/llm-guide/llm-as-a-judge)
+- [Building and Evaluating Advanced RAG Applications Short Course](https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/) 
 
 # [Deployment](https://haystack.deepset.ai/blog/rag-deployment)
 - FastApi
