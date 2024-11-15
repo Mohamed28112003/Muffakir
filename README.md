@@ -100,6 +100,7 @@ Retrieval is used to enhance the language model by pulling in external informati
 - [What is Agentic RAG](https://weaviate.io/blog/what-is-agentic-rag)
 
 # [Papers](https://drive.google.com/drive/folders/1lsWBci2YlcuNnnOi4zfFiHkKI3a4XW3n)
+# [Books](https://drive.google.com/drive/folders/1eNS2c1nHRmJ-wEKZ7_3weyIqSZQA_Xs_?usp=sharing)
 
 
 
