@@ -13,16 +13,17 @@
 - Preprocessing It is Up to You :smiley:
 
 # Embeddings & VectorDB
-- [VectorDB](https://youtu.be/VCnhiF88a9c?si=F3ikOSL7yhzlI76F)
-  - [Choroma](https://docs.trychroma.com/) 
-  - [FAISS](https://faiss.ai/)
+- [VectorDB](https://www.datacamp.com/blog/the-top-5-vector-databases)
 - [How to Select an Embedding Model](https://www.rungalileo.io/blog/mastering-rag-how-to-select-an-embedding-model)
-- [Fine-tuning Embeddings](https://medium.com/gopenai/fine-tuning-embeddings-for-specific-domains-a-comprehensive-guide-5e4298b42185)
 - [How to Choose the Best Embedding Model for Your LLM Application](https://www.mongodb.com/developer/products/atlas/choose-embedding-model-rag/)
 - [ColBert](https://youtu.be/kEgeegk9iqo?si=bLVNGfUzx6FCXAdf)
-  - [Article](https://www.pondhouse-data.com/blog/advanced-rag-colbert-reranker)  
-- [Adapted Embedding Model](https://freedium.cfd/https://medium.com/towards-data-science/improve-your-rag-context-recall-by-40-with-an-adapted-embedding-model-5d4a8f583f32)
-- [Embedding Adapters](https://research.trychroma.com/embedding-adapters)
+  - [Article](https://www.pondhouse-data.com/blog/advanced-rag-colbert-reranker)
+
+- Fine Tuning Embeddings
+  - [Fine-tuning Embeddings](https://medium.com/gopenai/fine-tuning-embeddings-for-specific-domains-a-comprehensive-guide-5e4298b42185)
+  - [Fine-Tuning Embeddings for Better Retrieval](https://www.youtube.com/watch?v=gUJkyp9j3sM&ab_channel=AIMakerspace)
+  - [Adapted Embedding Model](https://freedium.cfd/https://medium.com/towards-data-science/improve-your-rag-context-recall-by-40-with-an-adapted-embedding-model-5d4a8f583f32)
+  - [Embedding Adapters](https://research.trychroma.com/embedding-adapters)  
 
 
 # [Prompt Template](https://www.promptingguide.ai/)
@@ -46,16 +47,17 @@ Retrieval is used to enhance the language model by pulling in external informati
 - [AutoRAG](https://github.com/Marker-Inc-Korea/AutoRAG.git)
 
 # [Fine-Tuning](https://www.datacamp.com/tutorial/fine-tuning-large-language-models)
-- Fine Tuning Techniques
+- Fine Tuning LLM Techniques
   - [Fine-Tuning Large Language Models with LORA](https://medium.com/@kailash.thiyagarajan/fine-tuning-large-language-models-with-lora-demystifying-efficient-adaptation-25fa0a389075)
   - [Fine-Tuning LLMs using RLHF](https://www.labellerr.com/blog/reinforcement-learning-from-human-feedback/)
   - [Supervised Fine-tuning](https://medium.com/mantisnlp/supervised-fine-tuning-customizing-llms-a2c1edbf22c3)
-- [Fine Tuning LLM Models](https://www.youtube.com/watch?v=iOdFUJiB0Zc&ab_channel=freeCodeCamp.org)
-- [Fine Tuning Complete Course](https://parlance-labs.com/education/#fine-tuning)
-- [Fine-Tuning Embeddings for Better Retrieval](https://www.youtube.com/watch?v=gUJkyp9j3sM&ab_channel=AIMakerspace)
-- [Optimizing Phi-2: A Deep Dive into Fine-Tuning Small Language Models](https://medium.com/thedeephub/optimizing-phi-2-a-deep-dive-into-fine-tuning-small-language-models-9d545ac90a99)
-- [D2SLM Doc to Dataset to Fine-Tune Small Language Model](https://www.youtube.com/watch?v=khIDeJwBf4k&ab_channel=AIMakerspace)
-- [Train a Small Language Model](https://www.youtube.com/watch?v=1ILVm4IeNY8&ab_channel=AIAnytime)
+  - [Fine Tuning LLM Models](https://www.youtube.com/watch?v=iOdFUJiB0Zc&ab_channel=freeCodeCamp.org)
+  - [Fine Tuning Complete Course](https://parlance-labs.com/education/#fine-tuning)
+    
+- SLM (Small Language Models) 
+  - [Optimizing Phi-2: A Deep Dive into Fine-Tuning Small Language Models](https://medium.com/thedeephub/optimizing-phi-2-a-deep-dive-into-fine-tuning-small-language-models-9d545ac90a99)
+  - [D2SLM Doc to Dataset to Fine-Tune Small Language Model](https://www.youtube.com/watch?v=khIDeJwBf4k&ab_channel=AIMakerspace)
+  - [Train a Small Language Model](https://www.youtube.com/watch?v=1ILVm4IeNY8&ab_channel=AIAnytime)
 
 
 # Generation LLM 
@@ -71,7 +73,8 @@ Retrieval is used to enhance the language model by pulling in external informati
   - [Giskard](https://www.youtube.com/watch?v=ZPX3W77h_1E&ab_channel=Underfitted)
   - [RAGAS](https://youtu.be/mEv-2Xnb_Wk?si=nDxWLjAqQjPcI2Wr)
   - [Azure Prompt Flow](https://learn.microsoft.com/en-us/azure/machine-learning/prompt-flow/overview-what-is-prompt-flow?view=azureml-api-2)
--  [Measuring the performance of LLM products](https://parlance-labs.com/education/evals/)
+
+- [Measuring the performance of LLM products](https://parlance-labs.com/education/evals/)
 - [How to Create a RAG Evaluation Dataset From Documents](https://freedium.cfd/https://towardsdatascience.com/how-to-create-a-rag-evaluation-dataset-from-documents-140daa3cbe71)
 - [LLM As Judge](https://www.evidentlyai.com/llm-guide/llm-as-a-judge)
 - [Building and Evaluating Advanced RAG Applications Short Course](https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/) 
