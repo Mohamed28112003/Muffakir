@@ -26,8 +26,8 @@
 
 
 # [Prompt Template](https://www.promptingguide.ai/)
-Prompt engineering is the process of structuring an instruction that can be interpreted and understood by a generative AI model.
-
+- [Prompt Engineering Guide](https://github.com/dair-ai/Prompt-Engineering-Guide?tab=readme-ov-file)
+- [A Guide to Prompt Engineering](https://dzone.com/articles/maximizing-the-potential-of-llms-a-guide-to-prompt)
 
 # [Query Enhancement](https://raghunaathan.medium.com/query-translation-for-rag-retrieval-augmented-generation-applications-46d74bff8f07)
 
