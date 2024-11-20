@@ -16,6 +16,7 @@
 - [VectorDB](https://www.datacamp.com/blog/the-top-5-vector-databases)
 - [How to Select an Embedding Model](https://www.rungalileo.io/blog/mastering-rag-how-to-select-an-embedding-model)
 - [How to Choose the Best Embedding Model for Your LLM Application](https://www.mongodb.com/developer/products/atlas/choose-embedding-model-rag/)
+- [Embedding Models: From Architecture to Implementation Short Course](https://www.deeplearning.ai/short-courses/embedding-models-from-architecture-to-implementation/)
 - [ColBert](https://youtu.be/kEgeegk9iqo?si=bLVNGfUzx6FCXAdf)
   - [Article](https://www.pondhouse-data.com/blog/advanced-rag-colbert-reranker)
 
