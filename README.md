@@ -59,13 +59,19 @@
 
 # [Fine-Tuning](https://www.datacamp.com/tutorial/fine-tuning-large-language-models)
 - Fine Tuning LLM Techniques
-  - [Fine-Tuning Large Language Models with LORA](https://medium.com/@kailash.thiyagarajan/fine-tuning-large-language-models-with-lora-demystifying-efficient-adaptation-25fa0a389075)
+  - QLoRA & LoRA  
+    - [Fine-Tuning Large Language Models with LORA](https://medium.com/@kailash.thiyagarajan/fine-tuning-large-language-models-with-lora-demystifying-efficient-adaptation-25fa0a389075)
+    - [QLoRA paper explained](https://www.youtube.com/watch?v=6l8GZDPbFn8&ab_channel=AIBites)
+    - [LoRA Fine-tuning & Hyperparameters Explained](https://www.entrypointai.com/blog/lora-fine-tuning/)
+    - [Finetuning LLMs with LoRA and QLoRA: Insights from Hundreds of Experiments](https://lightning.ai/pages/community/lora-insights/) 
   - [Fine-Tuning LLMs using RLHF](https://www.labellerr.com/blog/reinforcement-learning-from-human-feedback/)
   - [Supervised Fine-tuning](https://medium.com/mantisnlp/supervised-fine-tuning-customizing-llms-a2c1edbf22c3)
-- Tutorial
+  - [PEFT](https://www.leewayhertz.com/parameter-efficient-fine-tuning/)
+
+- Tutorials & Courses
     - [Fine Tuning LLM Models Video](https://www.youtube.com/watch?v=iOdFUJiB0Zc&ab_channel=freeCodeCamp.org)
-    - [Fine Tuning Complete Course](https://parlance-labs.com/education/#fine-tuning)
-    
+    - [Finetuning Large Language Models](https://www.deeplearning.ai/short-courses/finetuning-large-language-models/)
+    -     
 - SLM (Small Language Models) 
   - [Optimizing Phi-2: A Deep Dive into Fine-Tuning Small Language Models](https://medium.com/thedeephub/optimizing-phi-2-a-deep-dive-into-fine-tuning-small-language-models-9d545ac90a99)
   - [Train a Small Language Model](https://www.youtube.com/watch?v=1ILVm4IeNY8&ab_channel=AIAnytime)
