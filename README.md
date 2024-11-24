@@ -1,5 +1,5 @@
 
-![GP Project](https://github.com/user-attachments/assets/5fff568c-ee59-474a-a088-ee155c1213eb)
+![GP](https://github.com/user-attachments/assets/5f274e45-4e94-4287-9b48-7d009fa1db5e)
 
 # Once everyone completes their notebook and the required function, please upload it to the repository. Make sure to add your name to the notebook filename. Remember, this is just a starting point, and you can explore further by searching and building on this work. Good luck to all! :heart: 
 
