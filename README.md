@@ -45,15 +45,17 @@
 - [Query Classification](https://freedium.cfd/https://ai.gopubby.com/advanced-rag-11-query-classification-and-refinement-2aec79f4140b)
 
 # [Retrieval](https://drive.google.com/drive/folders/1B8zEdEai5LSXwuQSRiktdcKo2zwLN_nA)
-Retrieval is used to enhance the language model by pulling in external information from a knowledge base or document store. This allows the model to provide more accurate and contextually relevant responses.
-- [MemoRAG](https://github.com/qhjqhj00/MemoRAG.git)
-- [Agentic RAG](https://www.moveworks.com/us/en/resources/blog/what-is-agentic-rag)
-- [Hyde](https://medium.com/@juanc.olamendy/revolutionizing-retrieval-the-mastering-hypothetical-document-embeddings-hyde-b1fc06b9a6cc)
-- [Fusion-in-Decoder](https://github.com/facebookresearch/FiD.git)
-- [Memory RAG](https://medium.com/thedeephub/lets-normalize-online-in-memory-rag-88e8169e9806)
-- [Adaptive RAG](https://medium.com/@drissiisismail/adaptive-rag-implementation-using-langgraph-12cdea350e31)
-- [Adaptive RAG Implementation](https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_adaptive_rag/)
-- [AutoRAG](https://github.com/Marker-Inc-Korea/AutoRAG.git)
+
+- [Advanced RAG Youtube](https://youtube.com/playlist?list=PLRpFCi1nnSVbvP0Op4ihHNjWxVlkFp1q7&si=7q2plANguUq3npoy)
+- Tools
+  - [MemoRAG](https://github.com/qhjqhj00/MemoRAG.git)
+  - [Agentic RAG](https://www.moveworks.com/us/en/resources/blog/what-is-agentic-rag)
+  - [Hyde](https://medium.com/@juanc.olamendy/revolutionizing-retrieval-the-mastering-hypothetical-document-embeddings-hyde-b1fc06b9a6cc)
+  - [Fusion-in-Decoder](https://github.com/facebookresearch/FiD.git)
+  - [Memory RAG](https://medium.com/thedeephub/lets-normalize-online-in-memory-rag-88e8169e9806)
+  - [Adaptive RAG](https://medium.com/@drissiisismail/adaptive-rag-implementation-using-langgraph-12cdea350e31)
+  - [Adaptive RAG Implementation](https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_adaptive_rag/)
+  - [AutoRAG](https://github.com/Marker-Inc-Korea/AutoRAG.git)
 
 # [Fine-Tuning](https://www.datacamp.com/tutorial/fine-tuning-large-language-models)
 - Fine Tuning LLM Techniques
