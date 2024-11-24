@@ -5,6 +5,13 @@
 
 # [Data Collection](https://drive.google.com/drive/folders/1uM1vCilnFpSN_GAC4pJIzD_8EqFBjt1G)
 - [OCR](https://azure.microsoft.com/en-us/products/ai-services/ai-document-intelligence)
+
+- Building Datasets to Trian LLMs
+  - [LLMDataHub](https://github.com/Zjh-819/LLMDataHub.git)
+  - [Preparing a Dataset for Instruction Tuning](https://wandb.ai/capecape/alpaca_ft/reports/How-to-Fine-Tune-an-LLM-Part-1-Preparing-a-Dataset-for-Instruction-Tuning--Vmlldzo1NTcxNzE2)
+  - [Dataset creation for fine-tuning LLM code](https://colab.research.google.com/drive/1GH8PW9-zAe4cXEZyOIE-T9uHXblIldAg?usp=sharing)
+  - [How to Generate Instruction Datasets from Any Documents for LLM Fine-Tuning](https://medium.com/@kshitiz.sahay26/how-i-created-an-instruction-dataset-using-gpt-3-5-to-fine-tune-llama-2-for-news-classification-ed02fe41c81f)
+  - [Created an instruction dataset using GPT 3.5](https://medium.com/@kshitiz.sahay26/how-i-created-an-instruction-dataset-using-gpt-3-5-to-fine-tune-llama-2-for-news-classification-ed02fe41c81f)
 - Chunks
   - [Article 1](https://freedium.cfd/https://medium.com/towards-data-science/the-art-of-chunking-boosting-ai-performance-in-rag-architectures-acdbdb8bdc2b)
   - [Article 2](https://freedium.cfd/https://medium.com/towards-data-science/agentic-chunking-for-rags-091beccd94b1)
