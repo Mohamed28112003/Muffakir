@@ -62,7 +62,7 @@
   - [Fine-Tuning Large Language Models with LORA](https://medium.com/@kailash.thiyagarajan/fine-tuning-large-language-models-with-lora-demystifying-efficient-adaptation-25fa0a389075)
   - [Fine-Tuning LLMs using RLHF](https://www.labellerr.com/blog/reinforcement-learning-from-human-feedback/)
   - [Supervised Fine-tuning](https://medium.com/mantisnlp/supervised-fine-tuning-customizing-llms-a2c1edbf22c3)
-  - Tutorial
+- Tutorial
     - [Fine Tuning LLM Models Video](https://www.youtube.com/watch?v=iOdFUJiB0Zc&ab_channel=freeCodeCamp.org)
     - [Fine Tuning Complete Course](https://parlance-labs.com/education/#fine-tuning)
     
