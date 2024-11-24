@@ -71,7 +71,7 @@
 - Tutorials & Courses
     - [Fine Tuning LLM Models Video](https://www.youtube.com/watch?v=iOdFUJiB0Zc&ab_channel=freeCodeCamp.org)
     - [Finetuning Large Language Models](https://www.deeplearning.ai/short-courses/finetuning-large-language-models/)
-    -     
+   
 - SLM (Small Language Models) 
   - [Optimizing Phi-2: A Deep Dive into Fine-Tuning Small Language Models](https://medium.com/thedeephub/optimizing-phi-2-a-deep-dive-into-fine-tuning-small-language-models-9d545ac90a99)
   - [Train a Small Language Model](https://www.youtube.com/watch?v=1ILVm4IeNY8&ab_channel=AIAnytime)
