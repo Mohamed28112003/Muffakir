@@ -12,6 +12,8 @@
   - [Dataset creation for fine-tuning LLM code](https://colab.research.google.com/drive/1GH8PW9-zAe4cXEZyOIE-T9uHXblIldAg?usp=sharing)
   - [How to Generate Instruction Datasets from Any Documents for LLM Fine-Tuning](https://medium.com/@kshitiz.sahay26/how-i-created-an-instruction-dataset-using-gpt-3-5-to-fine-tune-llama-2-for-news-classification-ed02fe41c81f)
   - [Created an instruction dataset using GPT 3.5](https://medium.com/@kshitiz.sahay26/how-i-created-an-instruction-dataset-using-gpt-3-5-to-fine-tune-llama-2-for-news-classification-ed02fe41c81f)
+  - [D2SLM Doc to Dataset to Fine-Tune Small Language Model](https://www.youtube.com/watch?v=khIDeJwBf4k&ab_channel=AIMakerspace)
+
 - Chunks
   - [Article 1](https://freedium.cfd/https://medium.com/towards-data-science/the-art-of-chunking-boosting-ai-performance-in-rag-architectures-acdbdb8bdc2b)
   - [Article 2](https://freedium.cfd/https://medium.com/towards-data-science/agentic-chunking-for-rags-091beccd94b1)
@@ -64,7 +66,6 @@ Retrieval is used to enhance the language model by pulling in external informati
     
 - SLM (Small Language Models) 
   - [Optimizing Phi-2: A Deep Dive into Fine-Tuning Small Language Models](https://medium.com/thedeephub/optimizing-phi-2-a-deep-dive-into-fine-tuning-small-language-models-9d545ac90a99)
-  - [D2SLM Doc to Dataset to Fine-Tune Small Language Model](https://www.youtube.com/watch?v=khIDeJwBf4k&ab_channel=AIMakerspace)
   - [Train a Small Language Model](https://www.youtube.com/watch?v=1ILVm4IeNY8&ab_channel=AIAnytime)
 
 
