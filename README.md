@@ -29,6 +29,7 @@
   - [Article](https://www.pondhouse-data.com/blog/advanced-rag-colbert-reranker)
 
 - Fine Tuning Embeddings
+  - [Fine-Tuning Embedding Models for RAG Systems](https://www.youtube.com/watch?v=KuAn6Fy9UX4&ab_channel=AIMakerspace) 
   - [Sentence Transformer](https://sbert.net/docs/sentence_transformer/training_overview.html#dataset) 
   - [Fine-tuning Embeddings](https://medium.com/gopenai/fine-tuning-embeddings-for-specific-domains-a-comprehensive-guide-5e4298b42185)
   - [Fine-Tuning Embeddings for Better Retrieval](https://www.youtube.com/watch?v=gUJkyp9j3sM&ab_channel=AIMakerspace)
