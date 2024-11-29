@@ -70,6 +70,7 @@
 
 - Tutorials & Courses
     - [Fine Tuning LLM Models Video](https://www.youtube.com/watch?v=iOdFUJiB0Zc&ab_channel=freeCodeCamp.org)
+    - [Advanced NLP Course](https://youtube.com/playlist?list=PL8PYTP1V4I8D4BeyjwWczukWq9d8PNyZp&si=TqnZg1XR9F6MmHIX)
     - [Finetuning Large Language Models](https://www.deeplearning.ai/short-courses/finetuning-large-language-models/)
    
 - SLM (Small Language Models) 
