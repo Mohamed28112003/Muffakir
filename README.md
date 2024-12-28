@@ -49,6 +49,7 @@
 # [Retrieval](https://drive.google.com/drive/folders/1B8zEdEai5LSXwuQSRiktdcKo2zwLN_nA)
 
 - [Advanced RAG Youtube](https://youtube.com/playlist?list=PLRpFCi1nnSVbvP0Op4ihHNjWxVlkFp1q7&si=7q2plANguUq3npoy)
+- [Parent Document Retriever](https://towardsdatascience.com/langchains-parent-document-retriever-revisited-1fca8791f5a0)
 - Tools
   - [MemoRAG](https://github.com/qhjqhj00/MemoRAG.git)
   - [Agentic RAG](https://www.moveworks.com/us/en/resources/blog/what-is-agentic-rag)
