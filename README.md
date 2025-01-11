@@ -112,6 +112,7 @@
 - [practical_llms DR.Ahmed Elsallab](https://github.com/ahmadelsallab/practical_llms.git)
 - [Hands-On-LLM-Applications-Development](https://github.com/youssefHosni/Hands-On-LLM-Applications-Development.git)
 - [Hands On Large Language Models Book](https://github.com/HandsOnLLM/Hands-On-Large-Language-Models)
+- [RAG From Scratch](https://github.com/langchain-ai/rag-from-scratch.git)
 
 # Important Articles 
 - [LangChain vs LlamaIndex](https://www.datacamp.com/blog/langchain-vs-llamaindex)
