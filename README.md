@@ -1,8 +1,3 @@
-
-![GP](https://github.com/user-attachments/assets/5f274e45-4e94-4287-9b48-7d009fa1db5e)
-
-# Once everyone completes their notebook and the required function, please upload it to the repository. Make sure to add your name to the notebook filename. Remember, this is just a starting point, and you can explore further by searching and building on this work. Good luck to all! :heart: 
-
 # [Data Collection](https://drive.google.com/drive/folders/1uM1vCilnFpSN_GAC4pJIzD_8EqFBjt1G)
 - [OCR](https://azure.microsoft.com/en-us/products/ai-services/ai-document-intelligence)
 
@@ -114,6 +109,7 @@
 - [Hands On Large Language Models Book](https://github.com/HandsOnLLM/Hands-On-Large-Language-Models)
 - [RAG From Scratch](https://github.com/langchain-ai/rag-from-scratch.git)
 - [RAG_Techniques Part2](https://github.com/siddharth-Kharche/rag-cookbooks.git)
+- [AI Engineering Hub](https://github.com/patchy631/ai-engineering-hub/tree/main)
 
 # Important Articles 
 - [LangChain vs LlamaIndex](https://www.datacamp.com/blog/langchain-vs-llamaindex)
