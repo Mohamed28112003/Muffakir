@@ -1,30 +1,54 @@
-
-from LLMProvider.LLMProvider import *
-from PromptManager.PromptManager import *
+from typing import List, Optional, Union, Dict, Any
+from .base import BaseQueryTransformer
+from .factory import create_query_transformer
+from LLMProvider.LLMProvider import LLMProvider
+from PromptManager.PromptManager import MuffakirPrompt
 
 class QueryTransformer:
     """
-    A class responsible for transforming queries to improve retrieval.
+    Main Orchestrator class for query transformation in Muffakir RAG.
+
+    Supports pluggable transformation strategies (Query Rewriting, Multi-Query Expansion, etc.)
+    and integrates directly with LLMProvider and MuffakirPrompt.
     """
-    def __init__(self, llm_provider: LLMProvider, prompt_manager: PromptManager,prompt:str):
 
+    def __init__(
+        self,
+        llm_provider: LLMProvider,
+        prompt_manager: Optional[MuffakirPrompt] = None,
+        prompt: str = "query_rewrite",  # legacy/ignored — kept for backward compatibility
+        strategy: Union[str, BaseQueryTransformer] = "rewrite",
+        strategy_config: Optional[Dict[str, Any]] = None
+    ):
         self.llm_provider = llm_provider
-        self.query_rewrite_prompt = prompt_manager.get_prompt(prompt)
+        self.prompt_manager = prompt_manager or MuffakirPrompt(language="ar")
+        
+        if strategy_config is None:
+            strategy_config = {}
 
-    def transform_query(self, original_query: str) -> str:
+        if isinstance(strategy, str):
+            self.transformer = create_query_transformer(
+                strategy=strategy,
+                llm_provider=self.llm_provider,
+                prompt_manager=self.prompt_manager,
+                **strategy_config
+            )
+        else:
+            self.transformer = strategy
 
-        try:
-            llm = self.llm_provider.get_llm()
-            prompt = self.query_rewrite_prompt.format(original_query=original_query) ## propt
+    def transform_query(
+        self, 
+        original_query: str, 
+        conversation_history: Optional[List[Dict[str, str]]] = None
+    ) -> Union[str, List[str]]:
+        """
+        Transform the input query into an optimized representation for vector search.
+        """
+        return self.transformer.transform(
+            query=original_query, 
+            conversation_history=conversation_history
+        )
 
-            response = llm.invoke(prompt)
-
-            if hasattr(response, 'content'):
-                return response.content
-            elif isinstance(response, str):
-                return response
-            else:
-                return str(response)
-        except Exception as e:
-            print(f"Error QueryTransformer: {e}")
-            print("Switching API key and retrying QUERY...")
+    @property
+    def name(self) -> str:
+        return self.transformer.name

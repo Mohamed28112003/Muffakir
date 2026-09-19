@@ -1,313 +1,226 @@
-class PromptManager:
+import os
+import yaml
+import logging
+from string import Formatter
+from typing import Dict, Any, Mapping, Optional
+
+from .registry import PROMPT_SPECS
+
+class MuffakirPrompt:
     """
-    A centralized manager for all prompt templates used in the pipeline.
+    A centralized manager for all prompt templates used in the pipeline,
+    supporting localized prompt loading, dynamic listing, and dynamic edits.
     """
-    def __init__(self):
-
-        self.prompts = {
-
-            "query_classification_prompt":
-            '''
-السؤال: {query_transformed}
-
-حدد الفئة المناسبة وفقًا للقواعد:
-- أجب بـ "vector_db" فقط إذا كان السؤال عن قوانين أو تشريعات موجودة في قاعدة البيانات القانونية
-- أجب بـ "dummy_query" فقط إذا كان السؤال غير قانوني، غير أخلاقي، أو عامًا بعيدًا عن السياق القانوني
-
-يجب أن تكون الإجابة واحدة من هذه الخيارات فقط دون أي شرح إضافي:
-vector_db , dummy_query
-''',
-
-            "query_rewrite": """
-            أنت مساعد ذكي متخصص في تحسين استعلامات المستخدم لأنظمة الجيل المعزز بالاسترجاع (RAG).  
-            مهمتك هي أخذ الاستعلام الأصلي للمستخدم (الذي قد يكون غامضًا أو عامًا) وإعادة صياغته إلى نسخة أكثر تحديدًا وتفصيلاً وغنية سياقيًا؛ لتعزيز فرص الحصول على نتائج ذات صلة ودقيقة.
-
-            **التعليمات:**
-            1. حلِّل الاستعلام الأصلي لتحديد المفاهيم الأساسية والنية والسياق.
-            2. حدِّد أي مصطلحات أو عبارات غامضة واستبدلها بأخرى أكثر دقة.
-            3. وسِّع نطاق الاستعلام بإضافة تفاصيل ذات صلة لتوجيه نظام الاسترجاع لفهم احتياجات المستخدم بشكل أفضل.
-            4. تأكَّد من الحفاظ على النية الأصلية للاستعلام مع تعزيز الوضوح والتحديد.
-            5. يجب أن تكون إجابتك باللغة العربية فقط.
-
-            الاستعلام الأصلي: {original_query}
-
-            الاستعلام المعاد صياغته:
-            """,
-
-            "summary_generation": """
-            INSTRUCTIONS
-            You are an expert at summarizing Arabic text.
-            Create a concise but comprehensive summary that captures the main points.
-            Focus on key concepts and important details.
-            The summary should be in Arabic and self-contained.
-            Text: {text}
-
-            Summary:
-            """,
-
-            "question_generation": """
-            You are a model that generates questions based on text content.
-            Given the text below, generate a relevant question in Arabic.
-
-            Text: {text}
-
-            Question:
-            """,
-
-            "generation": "\n".join([
-                "استخدم السياق التالي للإجابة على السؤال باللغة العربية فقط،",
-                "[السياق]: {context}",
-                "[السؤال]: {question}",
-                "[التعليمات]:",
-                "١. الإجابة يجب أن تكون باللغة العربية فقط",
-                "٢. استخدام المعلومات من السياق المقدم حصريًا",
-                "٣. إذا كان السؤال غير مرتبط بالسياق، اذكر إجابة مناسبة",
-                "٤. إذا لم توجد معلومات للإجابة على السؤال، اكتب: لا يمكنني الإجابة على هذا السؤال",
-                "[الإجابة]:",
-            ]),
-
- "hallucination_check_prompt": """
-أنت مساعد ذكي متخصص في تنقية النصوص المكتوبة بالعربية.
-**التعليمات:**
-١. افحص النص المقدم لاكتشاف أي معلومات مختلقة (هلوسة) أو غير دقيقة
-٢. احذف أي كلمات أو رموز غير عربية (إنجليزية/أخرى) تمامًا
-٣. تخلص من التكرار والمعلومات الزائدة غير الضرورية
-٤. صحح الأخطاء الواقعية أو المعلومات المشكوك في صحتها
-٥. أعد صياغة النص ليكون مختصرًا، واضحًا ومعبّرًا
-٦. ركز على تقديم نسخة نظيفة من المحتوى الأصلي دون إضافات
-
-النص الأصلي: {answer}
-
-النص النظيف:
-""",
-
-            "MCQ": """
-أنت خبير في إنشاء الاختبارات التعليمية متخصص في صياغة أسئلة الاختيار من متعدد (MCQs).
-
-## السياق
-
-{context}
-
-## التعليمات
-استنادًا إلى السياق أعلاه، قم بإنشاء سؤال اختيار من متعدد عالي الجودة يتسم بما يلي:
-1. يختبر فهم المفاهيم الرئيسية أو الحقائق أو العلاقات الموجودة في النص.
-2. يحتوي على إجابة صحيحة واحدة فقط وثلاثة خيارات خاطئة محتملة.
-3. يغطي المعلومات المهمة بدلاً من التفاصيل الثانوية.
-4. يكون واضحًا، مختصرًا، وغير غامض.
-5. يتضمن شرحًا موجزًا يوضح سبب صحة الإجابة الصحيحة.
-
-## تنسيق الاستجابة
-لكل سؤال، اتبع التنسيق التالي:
-
-السؤال: [نص السؤال]
-
-الخيارات:
-أ. [نص الخيار]
-ب. [نص الخيار]
-ج. [نص الخيار]
-د. [نص الخيار]
-
-الإجابة الصحيحة: [حرف الخيار الصحيح]
-
-الشرح: [شرح موجز يوضح سبب صحة الإجابة الصحيحة]
-
-يجب أن تتضمن استجابتك الأسئلة الاختيارية المولدة فقط وفقًا للتنسيق المذكور أعلاه.
-لا تُضف أي تعليقات أو شروحات إضافية خارج التنسيق المحدد.
-""",
-
-"history_classification_prompt": """
-أنت مساعد مختص في تحليل الأسئلة وتحديد ما إذا كان السؤال الجديد يحتاج إلى استخدام سياق المحادثة السابقة أم أنه مستقل بذاته.
-
-المعلومات:
-سياق المحادثة السابقة:
-{conversation_history}
-
-السؤال الجديد:
-{new_query}
-
-المهمة:
-قم بتحليل السؤال الجديد وحدد تصنيفه الصحيح.
-
-قواعد الإخراج:
-1. يجب أن تقدم إجابتك في الهيكل XML المحدد أدناه
-2. اختر تصنيفًا واحدًا فقط: إما "original" (للأسئلة المستقلة) أو "history" (للأسئلة المعتمدة على السياق)
-3. لا تضف أي نص أو تفسير أو علامات ترقيم خارج بنية XML
-
-<output>
-<classification>CLASSIFICATION</classification>
-</output>
-
-حيث:
-- "original": يعني أن السؤال مستقل ولا يحتاج إلى السياق السابق لفهمه
-- "history": يعني أن السؤال يعتمد على السياق السابق لفهمه
-""",
-
-"search_query":"""
-
-أعد صياغة السؤال التالي لتكون مركزة حصريًا على البيانات والمعلومات الخاصة بمصر مع الحفاظ على السياق الأصلي. يجب أن تكون الصياغة: 
-- طبيعية وبلغة عربية سليمة
-- محددة جغرافيا بكلمة "مصر" أو "المصرية"
-- تحافظ على جوهر السؤال الأصلي
-- بدون إضافة أي تفاصيل خارجية
-
-السؤال الأصلي: {original_query}
-
-(الإجابة يجب أن تحتوي على السؤال الجديد فقط بدون أي كلمات إضافية)
-
-""",
-
-            "faithfulness_extraction": """
-            استخرج الادعاءات الفردية من الإجابة التالية. رقم كل ادعاء في سطر منفصل:
-            {answer}
-            المطلوب: ١. تحديد كل حقيقة أو ادعاء منفصل ٢. الترقيم التسلسلي ٣. عدم إضافة تفسيرات
-            قائمة الادعاءات:
-            """,
-             "faithfulness_verification": """
-    هل الادعاء التالي مدعوم مباشرة بالسياق المرفق؟
-    الادعاء: {claim}
-    السياق: {context}
-    
-    أجب بكلمة واحدة فقط (نعم/لا):
-    """,
-
-
-"youtube": """ 
-
-أنت مساعد ذكي مختص في تحسين استعلامات البحث عن محتوى تعليمي للطلاب على يوتيوب.
-
-مهمتك هي تحويل الجملة أو الكلمة المفتاحية التي يقدمها المستخدم إلى استعلام بحث مُحسَّن وواضح، بحيث يركّز على طلب "فيديوهات شرح" لهذا الموضوع على يوتيوب، مع تخصيص النتائج لتكون مرتبطة بالمحتوى المصري إن أمكن.
-
-التعليمات:
-- استخدم لغة عربية رسمية ومفهومة.
-- أضف كلمات مثل: "فيديوهات شرح"، و"في اليوتيوب"، وركز أن تكون النتائج لمصر إذا كان ذلك مناسبًا.
-- حدد المجال بدقة إن أمكن (مثلاً: القانون الجنائي المصري).
-
-مثال:
-- إدخال المستخدم: القانون الجنائي
-- استعلام محسن: فيديوهات شرح القانون الجنائي المصري في اليوتيوب
-
-السؤال:
-{original_query}
-
-ابدأ فقط بجملة الاستعلام المحسنة بدون مقدمات إضافية.
-
-
-
-
-""",
-
-"mindmap":"""
-
-
-
-حول النص التالي إلى JSON يمثل خريطة ذهنية.
-تأكد أن كل فكرة رئيسية تصبح فرعًا رئيسيًا، والأفكار الفرعية تصبح أطفالًا له.
-النص:
----
-{context}
----
-أعد فقط الـ JSON بدون أي شرح إضافي.
-
-
-""",
-
-"history_query_prompt":"""
-
-
-
-أنت مساعد ذكي متخصص في فهم سياق المحادثات والإجابة على الأسئلة بناءً على السياق السابق.
-
-في الاستفسار السابق، سأل المستخدم:
-"{last_query}"
-
-وكانت إجابتك:
-"{last_response}"
-
-الآن المستخدم يسأل سؤالًا جديدًا يعتمد على السياق السابق:
-"{new_query}"
-
-الرجاء الإجابة على السؤال الجديد مع الأخذ بعين الاعتبار السياق السابق. قدم إجابة كاملة ودقيقة تلبي احتياجات المستخدم.
-""",
-
-
-# Add these prompts to your existing PromptManager
-
-# In the PromptManager.__init__ method, add these to self.prompts dictionary:
-
-"summary_map": """
-أنت خبير في تلخيص النصوص العربية. الرجاء تلخيص النص التالي بشكل واضح وموجز:
-
-{text}
-
-ملخص:
-""",
-
-"summary_combine": """
-أنت خبير في دمج الملخصات باللغة العربية. فيما يلي مجموعة من الملخصات لأقسام مختلفة من نفس الوثيقة:
-
-{text}
-
-الرجاء دمج هذه الملخصات في ملخص واحد شامل ومترابط للوثيقة بأكملها. قم بتنظيم الملخص النهائي في فقرات مناسبة، مع التركيز على النقاط الرئيسية.
-
-الملخص النهائي:
-""",
-
-"summary_direct": """
-أنت خبير في تلخيص النصوص العربية. الرجاء تلخيص النص التالي بشكل واضح وموجز، مع التركيز على الأفكار والنقاط الرئيسية:
-
-{text}
-
-ملخص شامل:
-""",
-
-"summary_check": """
-أنت خبير في تقييم جودة ملخصات النصوص. قم بتقييم الملخص التالي من حيث:
-1. الشمولية (هل يغطي النقاط الرئيسية)
-2. الإيجاز (هل هو مختصر بشكل مناسب)
-3. الدقة (هل المعلومات الواردة فيه دقيقة)
-
-النص الأصلي:
-{original_text}
-
-الملخص:
-{summary}
-
-تقييمك (قم بتقييم كل عنصر على مقياس من 1-5، ثم قدم تعليقًا موجزًا):
-"""
-,
-"QA":"""
-
-أنت مساعد ذكي. بناءً على السياق التالي، استخرج سؤالًا وإجابة يمكن الإجابة عليهما فقط باستخدام المعلومات الواردة في هذا السياق.  
-يُمنع استخدام أي معلومات من خارج السياق أو الافتراض. يجب أن تكون الإجابة دقيقة ومرتكزة 100% على النص المقدم.
-
-السياق:
-
-{context}
-
-
-مهمتك:
-- اكتب سؤالًا واضحًا ومباشرًا يمكن الإجابة عليه من خلال هذا السياق فقط.
-- قدم إجابة دقيقة ومختصرة تعتمد بالكامل على النص.
-
-الصيغة المطلوبة:
-السؤال: <اكتب هنا السؤال>
-الإجابة: <اكتب هنا الإجابة>
-
-
-"""
-
-
-
-        }
+    def __init__(
+        self,
+        language: str = "ar",
+        custom_prompts_dir: Optional[str] = None,
+        overrides: Optional[Mapping[str, str]] = None,
+    ):
+        """
+        Initialize the MuffakirPrompt manager.
+        
+        Args:
+            language (str): Target language for prompt templates (e.g. "ar" or "en"). Defaults to "ar".
+            custom_prompts_dir (str, optional): Custom path to folder containing localized prompt files.
+        """
+        self.language = language.lower()
+        self.prompts: Dict[str, str] = {}
+        self.logger = logging.getLogger(__name__)
+        
+        # Determine the prompts directory path
+        if custom_prompts_dir:
+            self.prompts_dir = custom_prompts_dir
+        else:
+            self.prompts_dir = os.path.join(os.path.dirname(__file__), "prompts")
+            
+        self._load_prompts()
+        for key, template in dict(overrides or {}).items():
+            self.validate_prompt(key, template)
+            self.prompts[key] = template
+        
+    def _load_prompts(self):
+        # Load base prompts
+        self.prompts = self._load_from_file(self.language)
+        
+        # If language is not 'ar' (e.g. 'en'), load 'ar' as fallback for any missing keys
+        if self.language != "ar":
+            try:
+                ar_prompts = self._load_from_file("ar")
+                fallback_keys = [k for k in ar_prompts if k not in self.prompts]
+                for key, value in ar_prompts.items():
+                    if key not in self.prompts:
+                        self.prompts[key] = value
+                if fallback_keys:
+                    self.logger.debug(
+                        "%d prompt key(s) missing from '%s.yaml'; filled from "
+                        "Arabic fallback: %s",
+                        len(fallback_keys), self.language,
+                        ", ".join(sorted(fallback_keys)),
+                    )
+            except Exception as e:
+                self.logger.warning(f"Failed to load fallback prompts from 'ar': {e}")
+
+    def _load_from_file(self, lang: str) -> Dict[str, str]:
+        """Helper to load prompts from a specific language YAML file."""
+        lang_file = os.path.join(self.prompts_dir, f"{lang.lower()}.yaml")
+        
+        # Fallback to 'ar' if file does not exist (logged so the silent
+        # language substitution is visible to users).
+        if not os.path.exists(lang_file):
+            self.logger.warning(
+                "Prompt file '%s.yaml' not found in %s; falling back to "
+                "'ar.yaml'. Requested language will behave as Arabic.",
+                lang.lower(), self.prompts_dir,
+            )
+            lang_file = os.path.join(self.prompts_dir, "ar.yaml")
+            if not os.path.exists(lang_file):
+                raise FileNotFoundError(
+                    f"Could not load prompts. Neither {lang}.yaml nor ar.yaml found in {self.prompts_dir}"
+                )
+        
+        try:
+            with open(lang_file, "r", encoding="utf-8") as f:
+                prompts = yaml.safe_load(f) or {}
+        except Exception as e:
+            from Muffakir.exceptions import PromptLoadError
+
+            raise PromptLoadError(f"Failed to load prompts from {lang_file}: {e}") from e
+
+        # Warn on non-string template values (usually YAML indentation bugs).
+        # Values are still returned as-is to preserve backward compatibility.
+        for key, value in prompts.items():
+            if not isinstance(value, str):
+                self.logger.warning(
+                    "Prompt '%s' in %s is not a plain string (got %s); it may "
+                    "fail when formatted downstream.",
+                    key, lang_file, type(value).__name__,
+                )
+        return prompts
 
     def get_prompt(self, key: str) -> str:
+        """Get a specific prompt template by key."""
         if key not in self.prompts:
-            raise ValueError(f"Prompt '{key}' not found in PromptManager.")
+            raise ValueError(f"Prompt '{key}' not found in MuffakirPrompt.")
         return self.prompts[key]
 
-    def add_prompt(self, key: str, prompt_template: str):
-        self.prompts[key] = prompt_template
+    def validate_prompt(self, key: str, template: str) -> None:
+        """Strictly validate *template* without changing this manager."""
+        # Lazy import avoids PromptManager -> Muffakir.__init__ -> PromptManager
+        # during package initialization.
+        from Muffakir.exceptions import PromptValidationError
 
-# Example usage:
-# prompt_manager = PromptManager()
-# print(prompt_manager.get_prompt("hallucination_check_prompt"))
+        if key not in PROMPT_SPECS:
+            raise PromptValidationError(f"Unsupported prompt key: '{key}'.")
+        if not isinstance(template, str) or not template.strip():
+            raise PromptValidationError(f"Prompt '{key}' cannot be empty.")
+
+        spec = PROMPT_SPECS[key]
+        variables = set()
+        try:
+            for _literal, field_name, format_spec, conversion in Formatter().parse(template):
+                if field_name is None:
+                    continue
+                if not field_name:
+                    raise PromptValidationError(
+                        f"Prompt '{key}' contains an empty placeholder."
+                    )
+                if conversion is not None:
+                    raise PromptValidationError(
+                        f"Prompt '{key}' cannot use conversion '!{conversion}'."
+                    )
+                if format_spec:
+                    raise PromptValidationError(
+                        f"Prompt '{key}' cannot use format specifications."
+                    )
+                if field_name not in spec.allowed_variables:
+                    raise PromptValidationError(
+                        f"Prompt '{key}' contains unknown variable '{{{field_name}}}'. "
+                        f"Allowed: {', '.join(spec.allowed_variables)}."
+                    )
+                variables.add(field_name)
+        except PromptValidationError:
+            raise
+        except ValueError as exc:
+            raise PromptValidationError(
+                f"Prompt '{key}' contains malformed braces: {exc}."
+            ) from exc
+
+        missing = [name for name in spec.required_variables if name not in variables]
+        if missing:
+            formatted = ", ".join(f"{{{name}}}" for name in missing)
+            raise PromptValidationError(
+                f"Prompt '{key}' is missing required variables: {formatted}."
+            )
+
+    def update_prompt(self, key: str, template: str) -> None:
+        """
+        Update or add a prompt template in-memory.
+        Validates placeholders to warn the developer of potential omissions.
+        """
+        if key in PROMPT_SPECS:
+            missing = [
+                f"{{{name}}}"
+                for name in PROMPT_SPECS[key].required_variables
+                if f"{{{name}}}" not in template
+            ]
+            if missing:
+                self.logger.warning(
+                    f"⚠️ Warning: The updated prompt '{key}' is missing required placeholders: {', '.join(missing)}. "
+                    "This may cause runtime failures in the pipeline."
+                )
+
+        self.prompts[key] = template
+
+    def add_prompt(self, key: str, prompt_template: str):
+        """Backwards compatible alias for update_prompt."""
+        self.update_prompt(key, prompt_template)
+
+    def get_all_prompts(self, language: Optional[str] = None) -> Dict[str, str]:
+        """
+        Return all prompts for the selected language.
+        If language is specified and is different from self.language, load it dynamically on-demand.
+        """
+        target_lang = (language or self.language).lower()
+        if target_lang == self.language:
+            return self.prompts.copy()
+        
+        # Load from file dynamically
+        try:
+            prompts = self._load_from_file(target_lang)
+            # Apply Arabic fallbacks if necessary
+            if target_lang != "ar":
+                ar_prompts = self._load_from_file("ar")
+                for key, value in ar_prompts.items():
+                    if key not in prompts:
+                        prompts[key] = value
+            return prompts
+        except Exception as e:
+            self.logger.error(f"Failed to load prompts for language '{target_lang}': {e}")
+            return {}
+
+    def print_all_prompts(self, language: Optional[str] = None) -> None:
+        """
+        Print all loaded prompts for the selected language in a clear, formatted terminal layout.
+        """
+        target_lang = (language or self.language).lower()
+        prompts = self.get_all_prompts(target_lang)
+        
+        print("\n" + "="*80)
+        print(f" MUFAKKIR PROMPT TEMPLATES (Language: {target_lang.upper()}) ".center(80, "="))
+        print("="*80)
+        
+        if not prompts:
+            print(f"No prompts found or failed to load prompts for language: {target_lang}")
+            return
+            
+        for key, template in sorted(prompts.items()):
+            print(f"\n🔑 Key: {key}")
+            print("-" * (len(key) + 8))
+            print(template.strip())
+            print("-" * 80)
+            
+        print("\n" + "="*80 + "\n")
+
+# Backwards compatible alias
+PromptManager = MuffakirPrompt

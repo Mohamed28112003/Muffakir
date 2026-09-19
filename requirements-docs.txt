@@ -1,0 +1,4 @@
+# Documentation site tooling. Keep major versions pinned for reproducible Pages builds.
+mkdocs>=1.6,<2.0
+mkdocs-material>=9.6,<10.0
+mkdocstrings[python]>=0.27,<1.0

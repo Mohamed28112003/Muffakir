@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Muffakir Composer // Pipeline Search Runs</title>
+  <link href="/static/favicon.png" rel="icon" type="image/png"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "background": "#10141a",
+            "surface": "#10141a",
+            "surface-dim": "#10141a",
+            "surface-bright": "#353940",
+            "surface-container-lowest": "#0a0e14",
+            "surface-container-low": "#181c22",
+            "surface-container": "#1c2026",
+            "surface-container-high": "#262a31",
+            "surface-container-highest": "#31353c",
+            "on-surface": "#dfe2eb",
+            "on-surface-variant": "#c0c7d4",
+            "outline": "#8b919d",
+            "outline-variant": "#414752",
+            "primary": "#a2c9ff",
+            "primary-container": "#58a6ff",
+            "on-primary": "#00315c",
+            "secondary": "#7bdb80",
+            "secondary-container": "#007124",
+            "on-secondary-container": "#91f294",
+            "tertiary": "#fabc45",
+            "tertiary-container": "#d29922",
+            "error": "#ffb4ab",
+            "error-container": "#93000a",
+          },
+          fontFamily: {
+            "body-xs": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "code-sm": ["JetBrains Mono"],
+            "code-md": ["JetBrains Mono"],
+            "code-lg": ["JetBrains Mono"],
+            "metric-display": ["JetBrains Mono"],
+            "badge-label": ["JetBrains Mono"],
+          },
+          spacing: {
+            "space-2xs": "0.125rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.375rem",
+            "space-md": "0.5rem",
+            "space-base": "0.75rem",
+            "space-lg": "1rem",
+            "space-xl": "1.5rem",
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-thumb { background: #31353c; border-radius: 3px; }
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md text-[13px] antialiased min-h-screen flex flex-col">
+
+  <!-- Fixed Top Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 h-14 bg-surface-container-lowest border-b border-outline-variant/30 flex items-center justify-between px-space-lg select-none">
+    <div class="flex items-center gap-space-lg">
+      <div class="flex items-center gap-space-base">
+        <div class="w-8 h-8 bg-surface-container border border-outline-variant/50 rounded flex items-center justify-center text-primary">
+          <span class="material-symbols-outlined text-[20px]">hub</span>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-space-xs">
+            <span class="font-code-lg text-[14px] font-bold tracking-tight text-on-surface">MUFFAKIR<span class="text-primary-container">//</span>COMPOSER</span>
+          </div>
+          <span class="font-body-xs text-[11px] text-outline">Pipeline Architecture Search &amp; Eval</span>
+        </div>
+      </div>
+      <div class="h-5 w-px bg-outline-variant/40"></div>
+      <nav class="flex items-center gap-space-xs">
+        <a aria-current="page" class="px-space-base py-space-sm font-body-sm text-[12px] transition-colors bg-surface-container-high text-primary border-b-2 border-primary rounded-t" href="/runs.html">Runs List</a>
+        <a class="px-space-base py-space-sm font-body-sm text-[12px] text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded transition-colors" href="/index.html">New Run</a>
+      </nav>
+    </div>
+    <div class="flex items-center gap-space-base">
+      <div class="inline-flex items-center gap-space-xs px-space-sm py-space-2xs bg-surface-container-low border border-outline-variant/40 rounded font-code-sm text-[11px] text-on-surface-variant" id="header-active-runs">
+        0 runs active
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 pt-14 pb-12 px-space-lg max-w-7xl mx-auto w-full">
+
+    <!-- Header & Action Row -->
+    <div class="py-space-base flex flex-wrap items-center justify-between gap-space-md border-b border-outline-variant/20 mb-space-base">
+      <div class="flex items-center gap-space-base">
+        <div class="flex items-center gap-space-xs min-w-0">
+          <h1 class="font-headline-lg text-[20px] font-semibold text-on-surface tracking-tight">Pipeline Search Runs</h1>
+          <button class="max-w-md inline-flex items-center gap-1.5 font-code-sm text-[11px] text-outline px-2 py-1 bg-surface-container hover:bg-surface-container-high hover:text-primary rounded transition-colors" id="storage-settings-button" title="Change runs workspace" type="button">
+            <span class="material-symbols-outlined text-[14px]">folder</span>
+            <span class="truncate" id="storage-root-label">Loading workspace...</span>
+            <span class="material-symbols-outlined text-[14px]">settings</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-space-sm flex-wrap">
+        <!-- Live Auto-refresh Pill Toggle -->
+        <button class="flex items-center gap-1.5 px-2.5 py-1 bg-surface-container hover:bg-surface-container-high rounded text-on-surface font-code-sm text-[11px] transition-colors" id="refresh-toggle" title="Toggle real-time poll">
+          <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+          <span>Auto-refresh: <strong class="text-secondary font-semibold">3s</strong></span>
+          <span class="material-symbols-outlined text-[14px] text-outline">autorenew</span>
+        </button>
+
+        <!-- New Run CTA Button -->
+        <a href="/index.html" class="flex items-center gap-1.5 px-3 py-1 bg-primary text-on-primary hover:bg-primary-container rounded font-body-sm text-[12px] font-semibold transition-colors shadow-sm">
+          <span class="material-symbols-outlined text-[16px] font-bold">add</span>
+          <span>New Search Run</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Cross-Run Performance Comparison Chart Card -->
+    <div id="cross-run-card" class="bg-surface-container rounded p-space-base border border-outline-variant/30 mb-space-base shadow-sm hidden">
+      <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+        <div class="flex items-center gap-space-xs">
+          <span class="material-symbols-outlined text-secondary text-[18px]">bar_chart</span>
+          <h2 class="font-headline-sm text-[14px] font-semibold text-on-surface">Cross-Run Architecture Performance Comparison</h2>
+        </div>
+        <span class="font-code-sm text-[11px] text-outline">Best Composite Score (%)</span>
+      </div>
+      <div class="relative w-full" style="height: 220px;">
+        <div id="chart-cross-run" class="w-full h-full" role="img" aria-label="Best composite score comparison across recent runs"></div>
+      </div>
+    </div>
+
+    <!-- Filter Pills & Search Input -->
+    <div class="flex flex-wrap items-center justify-between gap-space-md mb-space-base">
+      <!-- Status Filter Tabs -->
+      <div class="flex items-center gap-1 bg-surface-container-lowest p-0.5 rounded border border-outline-variant/30">
+        <button class="px-2.5 py-1 rounded bg-surface-container text-primary font-code-sm text-[11px] font-semibold flex items-center gap-1.5 shadow-sm" data-filter-status="all">
+          <span>All Runs</span>
+          <span class="px-1 py-0.2 bg-surface-container-high rounded text-on-surface text-[10px]" id="count-all">0</span>
+        </button>
+        <button class="px-2.5 py-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-code-sm text-[11px] transition-colors flex items-center gap-1.5" data-filter-status="running">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+          <span>Running</span>
+          <span class="px-1 py-0.2 bg-surface-container rounded text-primary text-[10px]" id="count-running">0</span>
+        </button>
+        <button class="px-2.5 py-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-code-sm text-[11px] transition-colors flex items-center gap-1.5" data-filter-status="completed">
+          <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          <span>Completed</span>
+          <span class="px-1 py-0.2 bg-surface-container rounded text-secondary text-[10px]" id="count-completed">0</span>
+        </button>
+        <button class="px-2.5 py-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-code-sm text-[11px] transition-colors flex items-center gap-1.5" data-filter-status="failed">
+          <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+          <span>Failed</span>
+          <span class="px-1 py-0.2 bg-surface-container rounded text-error text-[10px]" id="count-failed">0</span>
+        </button>
+      </div>
+
+      <!-- Quick Search Bar -->
+      <div class="relative flex-1 min-w-[280px] max-w-md">
+        <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-outline">
+          <span class="material-symbols-outlined text-[15px]">search</span>
+        </div>
+        <input class="w-full pl-8 pr-3 py-1 bg-surface-container-low border border-outline-variant/40 text-on-surface placeholder:text-outline font-code-sm text-[12px] rounded focus:outline-none focus:border-primary transition-all" id="search-runs-input" placeholder="Search by run name or ID..." type="text"/>
+      </div>
+    </div>
+
+    <!-- Runs Table Container -->
+    <div class="w-full overflow-x-auto bg-surface-container rounded border border-outline-variant/30 shadow-sm">
+      <table class="w-full border-collapse text-left">
+        <thead>
+          <tr class="bg-surface-container-high text-outline font-body-xs text-[11px] uppercase tracking-wider select-none border-b border-outline-variant/20">
+            <th class="py-2.5 px-3 font-semibold w-72">Run Name &amp; ID</th>
+            <th class="py-2.5 px-3 font-semibold w-40">Started At</th>
+            <th class="py-2.5 px-3 font-semibold w-36">Status</th>
+            <th class="py-2.5 px-3 font-semibold text-right w-28">Best Score</th>
+            <th class="py-2.5 px-3 font-semibold w-40">Trials Progress</th>
+            <th class="py-2.5 px-3 font-semibold w-24">Duration</th>
+            <th class="py-2.5 px-3 font-semibold">Top Signature</th>
+            <th class="py-2.5 px-3 font-semibold text-right w-20">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-outline-variant/10 font-code-sm text-[12px] text-on-surface" id="runs-table-body">
+          <tr>
+            <td colspan="8" class="py-8 text-center text-outline font-body-sm">
+              Loading search runs...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- Runs Workspace Dialog -->
+  <div class="fixed inset-0 z-[70] hidden items-center justify-center bg-black/65 px-space-lg" id="storage-modal" role="dialog" aria-modal="true" aria-labelledby="storage-modal-title">
+    <div class="w-full max-w-2xl rounded border border-outline-variant/50 bg-surface-container shadow-2xl">
+      <div class="flex items-start justify-between gap-space-base border-b border-outline-variant/30 px-space-lg py-space-base">
+        <div>
+          <h2 class="font-headline-md text-[16px] font-semibold text-on-surface" id="storage-modal-title">Runs Workspace</h2>
+          <p class="mt-1 font-body-xs text-[11px] text-outline">All run configurations, reports, checkpoints, traces, and generated datasets are kept together here.</p>
+        </div>
+        <button class="text-outline hover:text-on-surface" id="storage-modal-close" type="button" aria-label="Close workspace settings">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+
+      <div class="space-y-space-base px-space-lg py-space-lg">
+        <div class="rounded border border-outline-variant/30 bg-surface-container-low p-space-base">
+          <div class="flex items-center justify-between gap-space-base">
+            <span class="font-code-sm text-[11px] uppercase tracking-wider text-outline">Active location</span>
+            <span class="rounded bg-surface-container-high px-2 py-0.5 font-code-sm text-[10px] text-primary" id="storage-source-badge">default</span>
+          </div>
+          <div class="mt-space-sm break-all font-code-sm text-[12px] text-on-surface" id="storage-current-path">Loading...</div>
+        </div>
+
+        <div>
+          <label class="mb-space-xs block font-code-sm text-[11px] text-on-surface-variant" for="storage-path-input">New workspace path</label>
+          <input class="w-full rounded border border-outline-variant/50 bg-surface-container-low px-space-base py-2 font-code-sm text-[12px] text-on-surface placeholder:text-outline focus:border-primary focus:outline-none disabled:cursor-not-allowed disabled:opacity-50" id="storage-path-input" placeholder="D:\\Muffakir\\runs" spellcheck="false" type="text"/>
+          <p class="mt-space-xs font-body-xs text-[11px] text-outline">This is a path on the machine running ComposerUI. Missing folders will be created after validation.</p>
+        </div>
+
+        <div class="hidden" id="storage-recent-section">
+          <p class="mb-space-xs font-code-sm text-[11px] text-on-surface-variant">Recent workspaces</p>
+          <div class="flex flex-col gap-space-xs" id="storage-recent-list"></div>
+        </div>
+
+        <div class="rounded border border-tertiary/30 bg-tertiary/5 px-space-base py-space-sm font-body-xs text-[11px] text-on-surface-variant">
+          Switching changes which runs appear in this UI. Existing files are never moved or deleted; use Recent workspaces to switch back.
+        </div>
+        <div class="hidden rounded border px-space-base py-space-sm font-body-sm text-[12px]" id="storage-feedback"></div>
+      </div>
+
+      <div class="flex justify-end gap-space-sm border-t border-outline-variant/30 px-space-lg py-space-base">
+        <button class="rounded px-space-base py-1.5 font-body-sm text-[12px] text-on-surface-variant hover:bg-surface-container-high" id="storage-cancel-button" type="button">Cancel</button>
+        <button class="inline-flex items-center gap-space-xs rounded bg-primary px-space-base py-1.5 font-body-sm text-[12px] font-semibold text-on-primary hover:bg-primary-container disabled:cursor-not-allowed disabled:opacity-50" id="storage-save-button" type="button">
+          <span class="material-symbols-outlined text-[15px]">folder_open</span>
+          <span>Use This Workspace</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/common.js"></script>
+  <script src="/static/js/runs_list.js?v=local-charts-1"></script>
+</body>
+</html>

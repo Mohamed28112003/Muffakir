@@ -1,362 +1,274 @@
-from langchain_community.document_loaders import DirectoryLoader
-from langchain.text_splitter import (
-    RecursiveCharacterTextSplitter, 
-    CharacterTextSplitter,
-    TokenTextSplitter,
-    SpacyTextSplitter
-)
-from langchain.schema import Document
-from azure.ai.formrecognizer import DocumentAnalysisClient
-from azure.core.credentials import AzureKeyCredential
-from typing import List, Optional, Literal
-import re
-import os
+import glob
 import logging
+import os
+from typing import List, Optional
+
+try:
+    from langchain_core.documents import Document
+except ImportError:
+    from langchain.schema import Document
+
+from DocumentParser import BaseDocumentParser
+from .MuffakirChunking import MuffakirChunking
+from .MuffakirTextCleaner import MuffakirTextCleaner
+
+logger = logging.getLogger(__name__)
+
+# Backward-compatible monkeypatch seam; populated lazily when text files exist.
+TextLoader = None
+# Kept as a lazy seam so applications and tests can supply a compatible PDF
+# reader without importing PyPDF during ordinary module discovery.
+PdfReader = None
+
 
 class ChunkingAndProcessing:
     """
-    A comprehensive class for loading, processing, chunking, and OCR of documents
-    with support for Arabic text processing and multiple chunking strategies.
+    Data Ingestion Pipeline.
+    Responsible for loading documents from a directory (or via OCR parser) and
+    delegating the chunking and text cleaning to MuffakirChunking.
     """
-    
+
     def __init__(
-        self, 
+        self,
         directory_path: str,
         chunk_size: int = 600,
         chunk_overlap: int = 200,
-        azure_endpoint: Optional[str] = None,
-        azure_api_key: Optional[str] = None
+        document_parser: Optional[BaseDocumentParser] = None,
+        language: Optional[str] = None,
+        muffakir_chunking: Optional[MuffakirChunking] = None,
     ):
         """
-        Initialize the ChunkingAndProcessing class.
-        
+        Initialize the Data Ingestion Pipeline.
+
         Args:
-            directory_path (str): Path to directory containing documents
-            chunk_size (int): Size of text chunks (default: 600)
-            chunk_overlap (int): Overlap between chunks (default: 200)
-            azure_endpoint (str, optional): Azure Document Intelligence endpoint
-            azure_api_key (str, optional): Azure Document Intelligence API key
+            directory_path: Path to directory containing documents.
+            chunk_size: Backward compatibility (used only when muffakir_chunking is not provided).
+            chunk_overlap: Backward compatibility (used only when muffakir_chunking is not provided).
+            document_parser: Parser to use if OCR/extraction is needed.
+            language: Backward compatibility language hint for the fallback chunker.
+            muffakir_chunking: Injected MuffakirChunking orchestrator. Overrides other chunk parameters.
         """
         self.directory_path = directory_path
-        self.chunk_size = chunk_size
-        self.chunk_overlap = chunk_overlap
-        
-        # Azure Document Intelligence setup
-        self.azure_endpoint = azure_endpoint 
-        self.azure_api_key = azure_api_key 
-        
-        if self.azure_endpoint and self.azure_api_key:
-            self.document_analysis_client = DocumentAnalysisClient(
-                endpoint=self.azure_endpoint,
-                credential=AzureKeyCredential(self.azure_api_key)
-            )
-        else:
-            self.document_analysis_client = None
-            
-        # Setup logging
-        logging.basicConfig(level=logging.INFO)
+        self.document_parser = document_parser
         self.logger = logging.getLogger(__name__)
+
+        # Set up the chunking orchestrator
+        if muffakir_chunking:
+            self.chunking_orchestrator = muffakir_chunking
+        else:
+            self.logger.info(
+                "No MuffakirChunking provided. Falling back to default recursive chunker."
+            )
+            self.chunking_orchestrator = MuffakirChunking(
+                chunker="recursive",
+                chunker_config={
+                    "size": chunk_size,
+                    "overlap": chunk_overlap,
+                },
+                language=language or "auto",
+            )
 
     def load_documents(self) -> List[Document]:
         """
-        Load all text and PDF documents from the specified directory.
-        
-        Returns:
-            List[Document]: List of loaded documents
+        Load all .txt and .pdf documents from the specified directory.
+
+        .txt files are loaded with LangChain's text loader.
+        .pdf files are loaded page-by-page with PyPDF.  This deliberately
+        avoids the much heavier Unstructured dependency tree.
         """
-        try:
-            loader = DirectoryLoader(
-                self.directory_path,
-                glob=["*.txt", "*.pdf"],
-                show_progress=True
+        documents: List[Document] = []
+
+        # --- Load plain-text files using TextLoader (no unstructured dep) ---
+        txt_files = glob.glob(
+            os.path.join(self.directory_path, "**", "*.txt"), recursive=True
+        )
+        txt_failures: List[tuple] = []
+        if txt_files:
+            from Muffakir.optional_dependencies import require_optional_dependency
+
+            require_optional_dependency("rag")
+            loader_class = TextLoader
+            if loader_class is None:
+                from langchain_community.document_loaders import TextLoader as loader_class
+
+        for txt_path in txt_files:
+            try:
+                loader = loader_class(txt_path, encoding="utf-8", autodetect_encoding=True)
+                docs = loader.load()
+                documents.extend(docs)
+            except Exception as e:
+                txt_failures.append((txt_path, str(e)))
+                self.logger.warning("Could not load '%s': %s", txt_path, e)
+
+        if txt_files and len(txt_failures) == len(txt_files):
+            from Muffakir.exceptions import ParsingError
+
+            raise ParsingError(
+                f"Failed to load all {len(txt_files)} .txt file(s) in '{self.directory_path}'.",
+                context={"directory": self.directory_path, "failures": txt_failures},
             )
-            documents = loader.load()
-            self.logger.info(f"Loaded {len(documents)} documents from {self.directory_path}")
-            return documents
-        except Exception as e:
-            self.logger.error(f"Error loading documents: {str(e)}")
-            raise
 
-    def get_text_splitter(
-        self, 
-        method: Literal["recursive", "character", "token", "spacy"] = "recursive"
-    ):
-        """
-        Get the appropriate text splitter based on the specified method.
-        
-        Args:
-            method (str): Chunking method to use
-            
-        Returns:
-            Text splitter instance
-        """
-        splitter_map = {
-            "recursive": RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-                chunk_size=self.chunk_size, 
-                chunk_overlap=self.chunk_overlap
-            ),
-            "character": CharacterTextSplitter(
-                chunk_size=self.chunk_size,
-                chunk_overlap=self.chunk_overlap,
-                separator="\n"
-            ),
-            "token": TokenTextSplitter(
-                chunk_size=self.chunk_size,
-                chunk_overlap=self.chunk_overlap
-            ),
+        # --- Load text-based PDF files with lightweight PyPDF ---
+        pdf_files = glob.glob(
+            os.path.join(self.directory_path, "**", "*.pdf"), recursive=True
+        )
+        if pdf_files:
+            from Muffakir.optional_dependencies import require_optional_dependency
 
-        }
-        
-        if method not in splitter_map:
-            self.logger.warning(f"Unknown method '{method}', using 'recursive' instead")
-            method = "recursive"
-            
-        return splitter_map[method]
+            require_optional_dependency("pdf")
+            reader_class = PdfReader
+            if reader_class is None:
+                from pypdf import PdfReader as reader_class
 
-    def chunk_documents(
-        self, 
-        documents: List[Document], 
-        method: Literal["recursive", "character", "token", "spacy"] = "recursive"
+            pdf_failures: List[tuple] = []
+            for pdf_path in pdf_files:
+                try:
+                    reader = reader_class(pdf_path)
+                    for page_number, page in enumerate(reader.pages):
+                        text = page.extract_text() or ""
+                        if not text.strip():
+                            continue
+                        documents.append(
+                            Document(
+                                page_content=text,
+                                metadata={
+                                    "source": pdf_path,
+                                    "page": page_number,
+                                    "page_label": str(page_number + 1),
+                                },
+                            )
+                        )
+                except Exception as e:
+                    pdf_failures.append((pdf_path, str(e)))
+                    self.logger.warning("Could not load '%s': %s", pdf_path, e)
+
+            if len(pdf_failures) == len(pdf_files):
+                from Muffakir.exceptions import ParsingError
+
+                raise ParsingError(
+                    f"Failed to load all {len(pdf_files)} .pdf file(s) in "
+                    f"'{self.directory_path}'.",
+                    context={"directory": self.directory_path, "failures": pdf_failures},
+                )
+
+        if not documents:
+            self.logger.warning(
+                "No .txt or .pdf documents found in '%s'.", self.directory_path
+            )
+        else:
+            self.logger.info(
+                "Loaded %d documents from '%s'.", len(documents), self.directory_path
+            )
+
+        return documents
+
+    def process_all(
+        self,
+        chunking_method: Optional[str] = None,
+        use_ocr: bool = False,
+        ocr_output_dir: Optional[str] = None,
     ) -> List[Document]:
         """
-        Split documents into chunks using the specified method.
-        
+        Complete processing pipeline: load, OCR (optional), clean, and chunk.
+
         Args:
-            documents (List[Document]): Documents to chunk
-            method (str): Chunking method to use
-            
+            chunking_method: Backward-compat parameter (ignored when muffakir_chunking was injected).
+            use_ocr: Whether to load documents via the document_parser (OCR mode).
+            ocr_output_dir: Optional directory to persist raw OCR text output.
+
         Returns:
-            List[Document]: List of chunked documents
+            List[Document]: Final processed and chunked documents.
         """
         try:
-            text_splitter = self.get_text_splitter(method)
-            chunked_docs = text_splitter.split_documents(documents)
-            self.logger.info(f"Created {len(chunked_docs)} chunks using {method} method")
-            return chunked_docs
+            # 1. Load documents
+            if use_ocr:
+                if not self.document_parser:
+                    raise ValueError(
+                        "A document_parser must be provided when use_ocr is True."
+                    )
+                parsed_docs = self.document_parser.parse_directory(self.directory_path)
+
+                # Save OCR results if an output directory is specified
+                if ocr_output_dir and parsed_docs:
+                    os.makedirs(ocr_output_dir, exist_ok=True)
+                    for pdoc in parsed_docs:
+                        filename = os.path.basename(pdoc.source_path)
+                        output_file = os.path.join(
+                            ocr_output_dir,
+                            f"{os.path.splitext(filename)[0]}_ocr.txt",
+                        )
+                        with open(output_file, "w", encoding="utf-8") as f:
+                            f.write(pdoc.text)
+
+                # Convert ParsedDocument to LangChain Document
+                documents = [
+                    Document(
+                        page_content=pdoc.text,
+                        metadata={
+                            "source": pdoc.source_path,
+                            "ocr_processed": True,
+                            "original_filename": os.path.basename(pdoc.source_path),
+                            "parser_name": pdoc.parser_name,
+                            **pdoc.metadata,
+                        },
+                    )
+                    for pdoc in parsed_docs
+                ]
+            else:
+                documents = self.load_documents()
+
+            if not documents:
+                self.logger.warning("No documents found to process.")
+                return []
+
+            # 2. Process using the orchestrator (Cleaning + Chunking)
+            # If a legacy method was passed to process_all(), temporarily override the orchestrator
+            if chunking_method and chunking_method != self.chunking_orchestrator.chunker.name:
+                self.logger.warning(
+                    "Legacy parameter 'chunking_method=%s' passed to process_all(). "
+                    "Overriding injected chunker.",
+                    chunking_method,
+                )
+                temp_orchestrator = MuffakirChunking(
+                    chunker=chunking_method,
+                    chunker_config={
+                        "size": getattr(self.chunking_orchestrator.chunker, "size", 600),
+                        "overlap": getattr(self.chunking_orchestrator.chunker, "overlap", 200),
+                    },
+                    text_cleaner=self.chunking_orchestrator.text_cleaner,
+                )
+                final_docs = temp_orchestrator.process(documents)
+            else:
+                final_docs = self.chunking_orchestrator.process(documents)
+
+            # 3. Add chunk IDs and source_file metadata for backward compatibility
+            for i, doc in enumerate(final_docs):
+                doc.metadata["chunk_id"] = i + 1
+                doc.metadata["chunk_size"] = len(doc.page_content)
+                if "source" in doc.metadata and "source_file" not in doc.metadata:
+                    filename = os.path.basename(doc.metadata["source"])
+                    doc.metadata["source_file"] = os.path.splitext(filename)[0]
+
+            self.logger.info(
+                "Processing complete. Final document count: %d", len(final_docs)
+            )
+            return final_docs
+
         except Exception as e:
-            self.logger.error(f"Error chunking documents: {str(e)}")
+            self.logger.error("Error in processing pipeline: %s", str(e))
             raise
+
+    # ------------------------------------------------------------------
+    # Deprecated Aliases (kept for backward compatibility with older code)
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def clean_text(text: str, language: Optional[str] = None) -> str:
+        """Deprecated alias for MuffakirTextCleaner."""
+        cleaner = MuffakirTextCleaner(language=language or "auto")
+        return cleaner.clean(text)
 
     @staticmethod
     def clean_arabic_text(text: str) -> str:
-        """
-        Clean Arabic text by removing unwanted characters and formatting.
-        
-        Args:
-            text (str): Text to clean
-            
-        Returns:
-            str: Cleaned text
-        """
-        # Remove page numbers and formatting
-
-        text = re.sub(r'- \d+ -', '', text)
-        
-        # Keep Arabic characters, numbers, and basic punctuation
-        text = re.sub(r'[^؀-ۿ0-9\s\.\,\!\?\:\;\-\(\)]', '', text)
-        
-        # Normalize whitespace
-        text = re.sub(r'\s+', ' ', text).strip()
-        
-        return text
-
-    def clean_and_process_chunks(self, chunked_documents: List[Document]) -> List[Document]:
-        """
-        Clean text content and update metadata for chunked documents.
-        
-        Args:
-            chunked_documents (List[Document]): Chunked documents to process
-            
-        Returns:
-            List[Document]: Processed documents with cleaned text and updated metadata
-        """
-        processed_docs = []
-        
-        for i, doc in enumerate(chunked_documents):
-            # Clean the text content
-            cleaned_content = self.clean_arabic_text(doc.page_content)
-            
-            # Skip empty chunks
-            if not cleaned_content.strip():
-                continue
-            
-            # Update metadata
-            new_metadata = doc.metadata.copy() if doc.metadata else {}
-            new_metadata['chunk_id'] = i + 1
-            new_metadata['chunk_size'] = len(cleaned_content)
-            
-            # Add source information if available
-            if 'source' in new_metadata:
-                source_path = new_metadata['source']
-                filename = os.path.basename(source_path)
-                filename_without_ext = os.path.splitext(filename)[0]
-                new_metadata['source_file'] = filename_without_ext
-            
-            # Create processed document
-            processed_doc = Document(
-                page_content=cleaned_content,
-                metadata=new_metadata
-            )
-            processed_docs.append(processed_doc)
-        
-        self.logger.info(f"Processed {len(processed_docs)} chunks after cleaning")
-        return processed_docs
-
-    def ocr_document(self, file_path: str, model_id: str = "prebuilt-layout") -> str:
-        """
-        Perform OCR on a document using Azure Document Intelligence.
-        
-        Args:
-            file_path (str): Path to the document file
-            model_id (str): Azure model ID to use (default: "prebuilt-layout")
-            
-        Returns:
-            str: Extracted text from the document
-        """
-        if not self.document_analysis_client:
-            raise ValueError("Azure Document Intelligence client not configured")
-        
-        try:
-            with open(file_path, "rb") as document:
-                poller = self.document_analysis_client.begin_analyze_document(
-                    model_id=model_id,
-                    document=document
-                )
-            
-            result = poller.result()
-            
-            # Extract text from all pages
-            extracted_text = ""
-            for page in result.pages:
-                for line in page.lines:
-                    extracted_text += line.content + "\n"
-            
-            self.logger.info(f"OCR completed for {file_path}. Total pages: {len(result.pages)}")
-            return extracted_text
-            
-        except Exception as e:
-            self.logger.error(f"Error performing OCR on {file_path}: {str(e)}")
-            raise
-
-    def ocr_directory(self, output_dir: Optional[str] = None) -> List[Document]:
-        """
-        Perform OCR on all supported files in the directory.
-        
-        Args:
-            output_dir (str, optional): Directory to save OCR results
-            
-        Returns:
-            List[Document]: Documents created from OCR results
-        """
-        if not self.document_analysis_client:
-            raise ValueError("Azure Document Intelligence client not configured")
-        
-        ocr_documents = []
-        supported_extensions = ['.pdf', '.jpg', '.jpeg', '.png', '.bmp', '.tiff',".txt"]
-        
-        for filename in os.listdir(self.directory_path):
-            file_path = os.path.join(self.directory_path, filename)
-            file_ext = os.path.splitext(filename)[1].lower()
-            
-            if file_ext in supported_extensions:
-                try:
-                    extracted_text = self.ocr_document(file_path)
-                    
-                    # Save OCR result if output directory specified
-                    if output_dir:
-                        os.makedirs(output_dir, exist_ok=True)
-                        output_file = os.path.join(
-                            output_dir, 
-                            f"{os.path.splitext(filename)[0]}_ocr.txt"
-                        )
-                        with open(output_file, 'w', encoding='utf-8') as f:
-                            f.write(extracted_text)
-                    
-                    # Create document
-                    doc = Document(
-                        page_content=extracted_text,
-                        metadata={
-                            'source': file_path,
-                            'ocr_processed': True,
-                            'original_filename': filename
-                        }
-                    )
-                    ocr_documents.append(doc)
-                    
-                except Exception as e:
-                    self.logger.error(f"Failed to process {filename}: {str(e)}")
-                    continue
-        
-        self.logger.info(f"OCR processed {len(ocr_documents)} documents")
-        return ocr_documents
-
-    def process_all(
-        self, 
-        chunking_method: Literal["recursive", "character", "token", "spacy"] = "recursive",
-        use_ocr: bool = False,
-        ocr_output_dir: Optional[str] = None
-    ) -> List[Document]:
-        """
-        Complete processing pipeline: load, OCR (optional), chunk, and clean documents.
-        
-        Args:
-            chunking_method (str): Method to use for chunking
-            use_ocr (bool): Whether to perform OCR on documents
-            ocr_output_dir (str, optional): Directory to save OCR results
-            
-        Returns:
-            List[Document]: Final processed and chunked documents
-        """
-        try:
-            # Load documents
-            if use_ocr:
-                documents = self.ocr_directory(ocr_output_dir)
-            else:
-                documents = self.load_documents()
-            
-            if not documents:
-                self.logger.warning("No documents found to process")
-                return []
-            
-            # Chunk documents
-            chunked_docs = self.chunk_documents(documents, chunking_method)
-            
-            # Clean and process chunks
-            final_docs = self.clean_and_process_chunks(chunked_docs)
-            
-            self.logger.info(f"Processing complete. Final document count: {len(final_docs)}")
-            return final_docs
-            
-        except Exception as e:
-            self.logger.error(f"Error in processing pipeline: {str(e)}")
-            raise
-
-# Example usage:
-    # # Initialize processor
-    # processor = ChunkingAndProcessing(
-    #     directory_path="dir_test",
-    #     chunk_size=600,
-    #     chunk_overlap=200,
-    #     azure_api_key=os.getenv("AZURE_API_KEY"),
-    #     azure_endpoint= "https://documentsfree.cognitiveservices.azure.com/"
-    # )
-    # # Process documents with OCR
-    # processed_docs_ocr = processor.process_all(
-    #     chunking_method="character",
-    #     use_ocr=True,
-    #     ocr_output_dir="./ocr_results",
-    # )
-
-    # processor = ChunkingAndProcessing(
-    #     directory_path="./documents",
-    #     chunk_size=600,
-    #     chunk_overlap=200
-    # )
-    
-    # # Process documents with different methods
-    # processed_docs = processor.process_all(
-    #     chunking_method="recursive",
-    #     use_ocr=False
-    # )
-    
-    # print(f"Processed {len(processed_docs)} document chunks")
+        """Deprecated alias for clean_text(text, language='ar')."""
+        return ChunkingAndProcessing.clean_text(text, language="ar")

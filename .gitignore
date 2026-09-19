@@ -3,4 +3,29 @@ __pycache__/
 Muffakir.egg-info
 dist
 build
-test.py
+# Documentation source pages live in docs/build; only generated build output is ignored.
+!docs/build/
+!docs/build/**
+site/
+.env
+.venv/
+muffakir_db/
+*.pem
+*.key
+credentials*.json
+*.pytest_cache
+.embedding_cache/
+examples/
+*.superpowers_reports
+*.claude
+*logs.txt
+ComposerUI/runs/*
+!ComposerUI/runs/.gitkeep
+
+# Internal planning material is not part of the public repository or docs site.
+docs/superpowers/
+
+# Local/generated experiment artifacts.
+muffakir_checkpoints/
+muffakir_synthetic_data/
+muffakir_eval_results/

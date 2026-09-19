@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Muffakir Composer // New Search Run</title>
+  <link href="/static/favicon.png" rel="icon" type="image/png"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "background": "#10141a",
+            "surface": "#10141a",
+            "surface-dim": "#10141a",
+            "surface-bright": "#353940",
+            "surface-container-lowest": "#0a0e14",
+            "surface-container-low": "#181c22",
+            "surface-container": "#1c2026",
+            "surface-container-high": "#262a31",
+            "surface-container-highest": "#31353c",
+            "on-surface": "#dfe2eb",
+            "on-surface-variant": "#c0c7d4",
+            "outline": "#8b919d",
+            "outline-variant": "#414752",
+            "primary": "#a2c9ff",
+            "primary-container": "#58a6ff",
+            "on-primary": "#00315c",
+            "secondary": "#7bdb80",
+            "secondary-container": "#007124",
+            "on-secondary-container": "#91f294",
+            "tertiary": "#fabc45",
+            "tertiary-container": "#d29922",
+            "error": "#ffb4ab",
+            "error-container": "#93000a",
+          },
+          fontFamily: {
+            "body-xs": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "code-sm": ["JetBrains Mono"],
+            "code-md": ["JetBrains Mono"],
+            "code-lg": ["JetBrains Mono"],
+            "metric-display": ["JetBrains Mono"],
+            "badge-label": ["JetBrains Mono"],
+          },
+          spacing: {
+            "space-2xs": "0.125rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.375rem",
+            "space-md": "0.5rem",
+            "space-base": "0.75rem",
+            "space-lg": "1rem",
+            "space-xl": "1.5rem",
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      [hidden] { display: none !important; }
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-thumb { background: #31353c; border-radius: 3px; }
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md text-[13px] antialiased min-h-screen flex flex-col">
+
+  <!-- Fixed Top Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 h-14 bg-surface-container-lowest border-b border-outline-variant/30 flex items-center justify-between px-space-lg select-none">
+    <div class="flex items-center gap-space-lg">
+      <div class="flex items-center gap-space-base">
+        <div class="w-8 h-8 bg-surface-container border border-outline-variant/50 rounded flex items-center justify-center text-primary">
+          <span class="material-symbols-outlined text-[20px]">hub</span>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-space-xs">
+            <span class="font-code-lg text-[14px] font-bold tracking-tight text-on-surface">MUFFAKIR<span class="text-primary-container">//</span>COMPOSER</span>
+          </div>
+          <span class="font-body-xs text-[11px] text-outline">Pipeline Architecture Search &amp; Eval</span>
+        </div>
+      </div>
+      <div class="h-5 w-px bg-outline-variant/40"></div>
+      <nav class="flex items-center gap-space-xs">
+        <a class="px-space-base py-space-sm font-body-sm text-[12px] text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded transition-colors" href="/runs.html">Runs List</a>
+        <a aria-current="page" class="px-space-base py-space-sm font-body-sm text-[12px] transition-colors bg-surface-container-high text-primary border-b-2 border-primary rounded-t" href="/index.html">New Run</a>
+      </nav>
+    </div>
+    <div class="flex items-center gap-space-base">
+      <div class="inline-flex items-center gap-space-xs px-space-sm py-space-2xs bg-surface-container-low border border-outline-variant/40 rounded font-code-sm text-[11px] text-secondary">
+        <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+        <span>Composer Engine Active</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 pt-14 pb-space-xl px-space-lg max-w-7xl mx-auto w-full">
+    
+    <!-- Top Action & Meta Configuration Bar -->
+    <div class="py-space-base flex flex-col gap-space-sm border-b border-outline-variant/20 mb-space-base">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-space-xs font-code-sm text-[11px]">
+          <span class="text-outline">Composer</span>
+          <span class="text-outline-variant">/</span>
+          <span class="text-primary font-semibold">New Search Space</span>
+          <span class="ml-space-xs px-space-xs py-space-2xs bg-surface-container rounded text-badge-label text-[10px] text-secondary">READY_FOR_DISPATCH</span>
+        </div>
+        <button class="text-outline hover:text-on-surface font-code-sm text-[11px] transition-colors flex items-center gap-space-xs" id="btn-reset" type="button">
+          <span class="material-symbols-outlined text-[14px]">restart_alt</span>
+          <span>Reset Search Space to Defaults</span>
+        </button>
+      </div>
+
+      <!-- Main Run Name -->
+      <div class="flex flex-wrap items-center justify-between gap-space-base mt-1">
+        <div class="flex items-center bg-surface-container-low px-space-sm py-1.5 rounded border border-outline-variant/50 focus-within:border-primary transition-colors flex-1 max-w-xl">
+          <span class="text-outline font-code-sm text-[11px] pr-space-xs select-none">run://</span>
+          <input class="bg-transparent text-on-surface font-code-md text-[13px] w-full focus:outline-none placeholder:text-outline/60" id="run-name-input" placeholder="e.g. arabic-rag-grid-search-v1" type="text" value="arabic-rag-arch-search-01"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notebook Tabs Navigation Bar -->
+    <div class="flex items-center gap-1.5 border-b border-outline-variant/30 mb-space-base overflow-x-auto select-none pt-1" id="notebook-tabs-bar" role="tablist">
+      
+      <!-- Step 1: Pipeline goal and retrieval behavior -->
+      <button type="button" 
+              class="notebook-tab active flex items-center gap-2 px-4 py-2.5 font-headline-sm text-[13px] font-semibold text-primary border-b-2 border-primary bg-surface-container/60 rounded-t transition-all cursor-pointer shadow-sm" 
+              data-tab="tab-panel-data" 
+              role="tab" 
+              aria-selected="true">
+        <span class="material-symbols-outlined text-[18px]">settings_suggest</span>
+        <span>1. Data &amp; Pipeline</span>
+      </button>
+
+      <!-- Step 2: Optional document processing -->
+      <button type="button" 
+              class="notebook-tab flex items-center gap-2 px-4 py-2.5 font-headline-sm text-[13px] font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container/30 border-b-2 border-transparent rounded-t transition-all cursor-pointer" 
+              data-tab="tab-panel-parser" 
+              role="tab" 
+              aria-selected="false">
+        <span class="material-symbols-outlined text-[18px]">document_scanner</span>
+        <span>2. Document Processing</span>
+        <span class="px-1.5 py-0.2 rounded bg-surface-container text-outline text-[10px] font-code-sm">Optional</span>
+      </button>
+
+      <!-- Step 3: Models and external providers -->
+      <button type="button"
+              class="notebook-tab flex items-center gap-2 px-4 py-2.5 font-headline-sm text-[13px] font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container/30 border-b-2 border-transparent rounded-t transition-all cursor-pointer"
+              data-tab="tab-panel-providers"
+              role="tab"
+              aria-selected="false">
+        <span class="material-symbols-outlined text-[18px]">dns</span>
+        <span>3. Models &amp; Providers</span>
+      </button>
+
+      <!-- Step 4: Evaluation metrics -->
+      <button type="button" 
+              class="notebook-tab flex items-center gap-2 px-4 py-2.5 font-headline-sm text-[13px] font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container/30 border-b-2 border-transparent rounded-t transition-all cursor-pointer" 
+              data-tab="tab-panel-eval" 
+              role="tab" 
+              aria-selected="false">
+        <span class="material-symbols-outlined text-[18px]">dataset</span>
+        <span>4. Evaluation</span>
+      </button>
+
+      <!-- Step 5: Search space and run limits -->
+      <button type="button" 
+              class="notebook-tab flex items-center gap-2 px-4 py-2.5 font-headline-sm text-[13px] font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container/30 border-b-2 border-transparent rounded-t transition-all cursor-pointer" 
+              data-tab="tab-panel-search-space" 
+              role="tab" 
+              aria-selected="false">
+        <span class="material-symbols-outlined text-[18px]">hub</span>
+        <span>5. Search Space</span>
+        <span class="px-2 py-0.5 rounded-full bg-primary/10 border border-primary/30 font-code-sm text-[11px] font-bold text-primary" id="tab-combo-badge">0 combos</span>
+      </button>
+
+      <!-- Step 6: Per-run prompt customization -->
+      <button type="button"
+              class="notebook-tab flex items-center gap-2 px-4 py-2.5 font-headline-sm text-[13px] font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container/30 border-b-2 border-transparent rounded-t transition-all cursor-pointer"
+              data-tab="tab-panel-prompts"
+              role="tab"
+              aria-selected="false">
+        <span class="material-symbols-outlined text-[18px]">edit_note</span>
+        <span>6. Prompt Manager</span>
+        <span class="px-1.5 py-0.2 rounded bg-surface-container text-outline text-[10px] font-code-sm" id="prompt-tab-status">Per run</span>
+      </button>
+
+      <!-- Step 7: Review, validate, and launch -->
+      <button type="button"
+              class="notebook-tab flex items-center gap-2 px-4 py-2.5 font-headline-sm text-[13px] font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container/30 border-b-2 border-transparent rounded-t transition-all cursor-pointer"
+              data-tab="tab-panel-review"
+              role="tab"
+              aria-selected="false">
+        <span class="material-symbols-outlined text-[18px]">fact_check</span>
+        <span>7. Review &amp; Launch</span>
+        <span class="px-2 py-0.5 rounded-full bg-surface-container border border-outline-variant/40 font-code-sm text-[10px] text-outline" id="review-validation-badge">Validate first</span>
+      </button>
+
+    </div>
+
+    <!-- Tab Panel 1: Data and pipeline choices -->
+    <div id="tab-panel-data" class="notebook-tab-panel flex flex-col gap-space-base" role="tabpanel">
+      <!-- Retrieval knowledge source -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm order-2" id="retrieval-source-card">
+        <div class="flex items-center justify-between pb-space-xs mb-space-base border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[18px]">source</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Retrieval Knowledge Source</span>
+          </div>
+          <span class="font-code-sm text-[11px] text-outline">Where each trial gets context</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm">
+          <label class="retrieval-source-tile flex items-start gap-space-sm p-space-sm rounded bg-surface-container-high border border-primary text-primary transition-all cursor-pointer" data-source="documents">
+            <input checked class="retrieval-source-radio mt-0.5 w-3.5 h-3.5 text-primary" name="retrieval-knowledge-source" type="radio" value="documents"/>
+            <div><span class="font-headline-sm text-[13px] font-semibold text-on-surface">Corpus Directory</span><p class="text-outline text-body-xs mt-0.5">Required local evidence to parse, chunk, embed, and index.</p></div>
+          </label>
+          <label class="retrieval-source-tile flex items-start gap-space-sm p-space-sm rounded bg-surface-container-low border border-outline-variant/40 text-outline transition-all cursor-pointer" data-source="web_search_only">
+            <input class="retrieval-source-radio mt-0.5 w-3.5 h-3.5 text-primary" name="retrieval-knowledge-source" type="radio" value="web_search_only"/>
+            <div><span class="font-headline-sm text-[13px] font-semibold text-on-surface">Web Search Only</span><p class="text-outline text-body-xs mt-0.5">Skip local indexing and answer from live web results.</p></div>
+          </label>
+          <label class="retrieval-source-tile flex items-start gap-space-sm p-space-sm rounded bg-surface-container-low border border-outline-variant/40 text-outline transition-all cursor-pointer" data-source="adaptive">
+            <input class="retrieval-source-radio mt-0.5 w-3.5 h-3.5 text-primary" name="retrieval-knowledge-source" type="radio" value="adaptive"/>
+            <div><span class="font-headline-sm text-[13px] font-semibold text-on-surface">Adaptive RAG: Corpus + Web</span><p class="text-outline text-body-xs mt-0.5">Use the local corpus first, then fall back to web search when context is weak.</p></div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Pipeline Mode Panel -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm order-1" id="pipeline-mode-card">
+        <div class="flex items-center justify-between pb-space-xs mb-space-base border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[18px]">tune</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Pipeline Mode</span>
+            <span class="help-tip material-symbols-outlined text-[13px] text-outline/60 hover:text-primary cursor-help" title="Full RAG generates an answer per trial and can be scored on faithfulness, answer correctness, or LLM Judge Rating. Retrieval-Only tests embedding/chunking/retrieval/reranking/query-transform quality in isolation -- no answer is ever generated, no main LLM is called.">help</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-space-sm">
+          <label class="pipeline-mode-tile flex-1 flex items-start gap-space-sm p-space-sm rounded bg-surface-container-high border border-primary text-primary transition-all cursor-pointer" data-mode="full_rag">
+            <input checked class="pipeline-mode-radio mt-0.5 w-3.5 h-3.5 text-primary" name="pipeline-mode" type="radio" value="full_rag"/>
+            <div class="flex flex-col min-w-0">
+              <span class="font-headline-sm text-[13px] font-semibold text-on-surface">Full RAG</span>
+              <span class="text-outline text-body-xs mt-0.5">Generate an answer per trial; score retrieval and/or generation metrics.</span>
+            </div>
+          </label>
+          <label class="pipeline-mode-tile flex-1 flex items-start gap-space-sm p-space-sm rounded bg-surface-container-low border border-outline-variant/40 hover:border-primary/50 text-outline transition-all cursor-pointer" data-mode="retrieval_only">
+            <input class="pipeline-mode-radio mt-0.5 w-3.5 h-3.5 text-primary" name="pipeline-mode" type="radio" value="retrieval_only"/>
+            <div class="flex flex-col min-w-0">
+              <span class="font-headline-sm text-[13px] font-semibold text-on-surface">Retrieval-Only</span>
+              <span class="text-outline text-body-xs mt-0.5">Test retrieval quality only -- no answer generated, no main LLM called.</span>
+            </div>
+          </label>
+        </div>
+
+        <div class="bg-surface-container-low border border-outline-variant/30 rounded p-space-base mt-space-base" hidden id="query-transform-provider-card">
+          <div class="flex items-center justify-between gap-space-sm">
+            <div>
+              <div class="font-headline-sm text-[13px] font-semibold text-on-surface">Query-Transform LLM</div>
+              <div class="text-outline text-body-xs mt-0.5" id="query-transform-help">Only needed when an LLM-based query-expansion option is active.</div>
+            </div>
+            <label class="flex items-center gap-space-xs font-code-sm text-[11px] text-on-surface-variant cursor-pointer" id="query-transform-override-control">
+              <input class="w-3.5 h-3.5" id="query-transform-override-checkbox" type="checkbox"/>
+              <span>Use a different LLM</span>
+            </label>
+          </div>
+          <div class="flex flex-wrap items-end gap-space-base mt-space-sm" hidden id="query-transform-llm-fields">
+          <div class="flex flex-col gap-1">
+            <label class="font-code-sm text-[11px] text-outline" for="query-transform-llm-provider-select">Query-Transform LLM Provider</label>
+            <select class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary min-w-[140px]" id="query-transform-llm-provider-select"></select>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-code-sm text-[11px] text-outline" for="query-transform-llm-model-input">Query-Transform LLM Model</label>
+            <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="query-transform-llm-model-input" placeholder="e.g. gpt-4o-mini" type="text"/>
+          </div>
+          <div class="flex flex-col gap-1">
+            <div class="flex items-center justify-between">
+              <label class="font-code-sm text-[11px] text-outline" for="query-transform-api-key-input">Query-Transform API Key</label>
+              <span class="text-[10px] text-secondary font-code-sm">Never saved to disk</span>
+            </div>
+            <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="query-transform-api-key-input" placeholder="sk-..." type="password"/>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-code-sm text-[11px] text-outline" for="query-transform-base-url-input">Base URL <span class="text-outline/60">(Optional)</span></label>
+            <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="query-transform-base-url-input" placeholder="e.g. http://localhost:8000/v1" type="text"/>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Provider & Data Configuration Panel -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm order-3" id="provider-data-card">
+        <div class="flex items-center justify-between pb-space-xs mb-space-base border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[18px]">settings_suggest</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Answer Generation LLM</span>
+          </div>
+          <span class="font-code-sm text-[11px] text-outline" id="provider-card-purpose">Generates the final answer from local or web context</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-base">
+          <!-- Documents Directory Path -->
+          <div class="flex flex-col gap-1" id="documents-config">
+            <label class="font-code-sm text-[11px] text-outline" for="docs-path-input"><span id="documents-path-label">Retrieval Corpus Path</span> <span class="text-error" id="docs-path-required-marker">*</span></label>
+            <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="docs-path-input" placeholder="e.g. ./data" type="text" value="./data"/>
+            <span class="text-[10px] text-outline" id="documents-path-help">Corpus used for indexing and evaluation-data generation.</span>
+          </div>
+
+          <!-- LLM Provider -->
+          <div class="flex flex-col gap-1" id="llm-provider-field">
+            <label class="font-code-sm text-[11px] text-outline" for="llm-provider-select"><span id="main-llm-provider-label">Answer LLM Provider</span> <span class="text-error" id="llm-provider-required-marker">*</span></label>
+            <select class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="llm-provider-select">
+              <option value="openai" selected>openai</option>
+            </select>
+          </div>
+
+          <!-- LLM Model -->
+          <div class="flex flex-col gap-1" id="llm-model-field">
+            <label class="font-code-sm text-[11px] text-outline" for="llm-model-input"><span id="main-llm-model-label">Answer LLM Model</span> <span class="text-error" id="llm-model-required-marker">*</span></label>
+            <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="llm-model-input" placeholder="e.g. gpt-4o-mini" type="text" value="gpt-4o-mini"/>
+          </div>
+
+          <!-- API Key (Password input) -->
+          <div class="flex flex-col gap-1" id="api-key-field">
+            <div class="flex items-center justify-between">
+              <label class="font-code-sm text-[11px] text-outline" for="api-key-input">API Key</label>
+              <span class="text-[10px] text-secondary font-code-sm">Never saved to disk</span>
+            </div>
+            <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="api-key-input" placeholder="sk-..." type="password"/>
+          </div>
+
+          <!-- Optional Base URL -->
+          <div class="flex flex-col gap-1" id="base-url-field">
+            <label class="font-code-sm text-[11px] text-outline flex items-center gap-1" for="base-url-input">Base URL <span class="text-outline/60">(Optional)</span><span class="help-tip material-symbols-outlined text-[13px] text-outline/60 hover:text-primary cursor-help" title="Override the provider's default API endpoint. Use this for self-hosted/proxy-compatible endpoints (e.g. Together, local vLLM/Ollama servers). Leave empty to use the provider's normal endpoint.">help</span></label>
+            <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="base-url-input" placeholder="e.g. https://api.together.xyz/v1" type="text"/>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm order-3" id="data-inputs-card">
+        <div class="flex items-center justify-between pb-space-xs mb-space-base border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[18px]">dataset</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Corpus &amp; Evaluation Data</span>
+          </div>
+          <span class="font-code-sm text-[11px] text-outline" id="data-inputs-purpose">Required inputs for the selected knowledge source</span>
+        </div>
+        <div id="data-corpus-slot"></div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-base mt-space-base" id="data-dataset-slot"></div>
+      </div>
+
+      <div class="flex items-center justify-end pt-space-base border-t border-outline-variant/20 mt-space-base bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm order-4">
+        <button type="button" class="px-space-base py-1.5 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/40 rounded text-primary font-headline-sm text-[12px] flex items-center gap-1 transition-colors cursor-pointer" onclick="advanceWorkflow('tab-panel-parser')">
+          <span>Next: Document Processing</span>
+          <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab Panel 2: Document Parser (OCR) -->
+    <div id="tab-panel-parser" class="notebook-tab-panel flex flex-col gap-space-base hidden" role="tabpanel">
+      <!-- Document Parser (OCR) Panel -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm" id="document-processing-card">
+        <div class="flex items-center justify-between pb-space-xs mb-space-base border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[18px]">document_scanner</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Document Parser (OCR)</span>
+          </div>
+          <span class="font-code-sm text-[11px] text-outline" id="document-processing-purpose">Optional — scanned / complex documents</span>
+        </div>
+
+        <div class="flex flex-wrap items-end gap-space-base">
+          <div class="flex flex-col gap-1">
+            <label class="font-code-sm text-[11px] text-outline flex items-center gap-1" for="parser-select">Parser<span class="help-tip material-symbols-outlined text-[13px] text-outline/60 hover:text-primary cursor-help" title="Which OCR engine reads your documents when 'Use OCR for indexing' is on. Only needed for scanned/image-based PDFs or complex layouts — plain text-based PDFs don't need this.">help</span></label>
+            <select class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary min-w-[160px]" id="parser-select">
+              <option value="" selected>None (default)</option>
+            </select>
+          </div>
+          <div id="parser-fields" class="flex flex-wrap items-end gap-space-base"></div>
+          <div class="flex items-center gap-space-xs pb-1.5">
+            <label class="flex items-center gap-space-xs font-code-sm text-[12px] text-on-surface-variant cursor-pointer">
+              <input class="w-3.5 h-3.5" id="use-ocr-checkbox" type="checkbox"/>
+              <span id="use-ocr-label">Use OCR for indexing</span>
+            </label>
+            <span class="help-tip material-symbols-outlined text-[13px] text-outline/60 hover:text-primary cursor-help" title="When on, documents are read via the OCR parser selected above instead of normal text extraction. Turn this on for scanned pages/photographed documents; leave off for regular text-based PDFs/docs (requires a Parser to be selected).">help</span>
+          </div>
+        </div>
+
+        <!-- Step Navigation Footer -->
+        <div class="flex items-center justify-between pt-space-base border-t border-outline-variant/20 mt-space-base">
+          <button type="button" class="px-space-base py-1.5 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/40 rounded text-on-surface-variant hover:text-on-surface font-headline-sm text-[12px] flex items-center gap-1 transition-colors cursor-pointer" onclick="switchNotebookTab('tab-panel-data')">
+            <span class="material-symbols-outlined text-[15px]">arrow_back</span>
+            <span>Back: Data &amp; Pipeline</span>
+          </button>
+          <button type="button" class="px-space-base py-1.5 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/40 rounded text-primary font-headline-sm text-[12px] flex items-center gap-1 transition-colors cursor-pointer" onclick="advanceWorkflow('tab-panel-providers')">
+            <span>Next: Models &amp; Providers</span>
+            <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Panel 3: Models and external providers -->
+    <div id="tab-panel-providers" class="notebook-tab-panel flex flex-col gap-space-base hidden" role="tabpanel">
+      <div id="answer-provider-slot"></div>
+
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm" hidden id="web-provider-card">
+        <div class="flex items-center justify-between pb-space-xs mb-space-base border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[18px]">travel_explore</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Web Search Provider</span>
+          </div>
+          <span class="font-code-sm text-[11px] text-outline">Retrieves web context; does not generate the answer</span>
+        </div>
+        <div class="flex flex-wrap items-end gap-space-base" id="web-search-provider-fields">
+          <div class="flex flex-col gap-1">
+            <label class="font-code-sm text-[11px] text-outline" for="search-provider-select">Provider</label>
+            <select class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary min-w-[140px]" id="search-provider-select"></select>
+          </div>
+          <div id="search-provider-extra-fields" class="flex flex-wrap items-end gap-space-base"></div>
+          <div class="flex flex-col gap-1">
+            <div class="flex items-center justify-between"><label class="font-code-sm text-[11px] text-outline" for="search-api-key-input">Web Search API Key</label><span class="text-[10px] text-secondary font-code-sm">Never saved</span></div>
+            <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="search-api-key-input" placeholder="Provider credential" type="password"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm" hidden id="dataset-provider-card">
+        <div class="flex items-center justify-between pb-space-xs mb-space-base border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-secondary text-[18px]">auto_awesome</span><span class="font-headline-sm text-[14px] font-semibold text-on-surface">Dataset Generation LLM</span></div>
+          <span class="font-code-sm text-[11px] text-outline">Used only to create evaluation QA pairs</span>
+        </div>
+        <label class="flex items-center gap-space-xs font-code-sm text-[12px] text-on-surface-variant cursor-pointer" id="dataset-llm-reuse-control">
+          <input checked class="w-3.5 h-3.5" id="dataset-llm-reuse-checkbox" type="checkbox"/>
+          <span>Reuse the Answer Generation LLM</span>
+        </label>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-base mt-space-base" hidden id="dataset-llm-fields">
+          <div class="flex flex-col gap-1"><label class="font-code-sm text-[11px] text-outline" for="dataset-llm-provider-select">Provider</label><select class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface" id="dataset-llm-provider-select"></select></div>
+          <div class="flex flex-col gap-1"><label class="font-code-sm text-[11px] text-outline" for="dataset-llm-model-input">Model</label><input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface" id="dataset-llm-model-input" placeholder="e.g. gpt-4o-mini" type="text"/></div>
+          <div class="flex flex-col gap-1"><label class="font-code-sm text-[11px] text-outline" for="dataset-api-key-input">API Key</label><input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface" id="dataset-api-key-input" placeholder="Never saved" type="password"/></div>
+          <div class="flex flex-col gap-1"><label class="font-code-sm text-[11px] text-outline" for="dataset-base-url-input">Base URL <span class="text-outline/60">(Optional)</span></label><input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface" id="dataset-base-url-input" placeholder="Provider default" type="text"/></div>
+        </div>
+      </div>
+
+      <details class="bg-surface-container rounded border border-outline-variant/30 shadow-sm" id="custom-pricing-card">
+        <summary class="cursor-pointer list-none flex flex-wrap items-center justify-between gap-space-sm p-space-base">
+          <div class="flex items-start gap-space-xs">
+            <span class="material-symbols-outlined text-tertiary text-[18px] mt-0.5">payments</span>
+            <div>
+              <div class="font-headline-sm text-[14px] font-semibold text-on-surface">Custom Pricing</div>
+              <p class="text-body-xs text-outline mt-0.5">Optional per-run LLM token rates. Default catalog pricing remains active for models you do not override.</p>
+            </div>
+          </div>
+          <span class="font-code-sm text-[11px] text-outline" id="custom-pricing-status">Default catalog pricing</span>
+        </summary>
+        <div class="px-space-base pb-space-base border-t border-outline-variant/20 pt-space-base">
+          <label class="flex items-start gap-space-xs cursor-pointer">
+            <input class="w-4 h-4 mt-0.5" id="custom-pricing-toggle" type="checkbox"/>
+            <span>
+              <span class="font-headline-sm text-[13px] text-on-surface">Override default LLM pricing for this run</span>
+              <span class="block text-body-xs text-outline mt-0.5">Enter USD per 1 million input and output tokens. Both rates are required; zero is valid.</span>
+            </span>
+          </label>
+          <div class="mt-space-base" hidden id="custom-pricing-controls">
+            <div class="flex items-start gap-space-xs p-space-sm mb-space-sm rounded bg-tertiary/5 border border-tertiary/25 text-body-xs text-on-surface-variant">
+              <span class="material-symbols-outlined text-tertiary text-[16px]">info</span>
+              <span>Only token-based trial calls are priced. Web-search fees, embeddings, infrastructure, and automatic dataset-generation costs are not included.</span>
+            </div>
+            <div class="flex flex-col gap-space-sm" id="custom-pricing-rows"></div>
+            <datalist id="pricing-provider-suggestions"></datalist>
+            <div class="flex flex-wrap items-center justify-between gap-space-sm mt-space-sm">
+              <button class="inline-flex items-center gap-1 px-space-sm py-space-xs rounded bg-surface-container-high border border-outline-variant/40 text-primary font-code-sm text-[11px]" id="btn-add-custom-pricing" type="button">
+                <span class="material-symbols-outlined text-[15px]">add</span>
+                <span>Add provider / model</span>
+              </button>
+              <span class="font-code-sm text-[10px] text-outline" id="custom-pricing-help">Enable an auto-detected row or add a manual model.</span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <div class="flex items-center justify-between pt-space-base border-t border-outline-variant/20 mt-space-base bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm">
+        <button type="button" class="px-space-base py-1.5 bg-surface-container-high border border-outline-variant/40 rounded text-on-surface-variant font-headline-sm text-[12px] flex items-center gap-1" onclick="backWorkflow('tab-panel-parser')"><span class="material-symbols-outlined text-[15px]">arrow_back</span><span>Back: Document Processing</span></button>
+        <button type="button" class="px-space-base py-1.5 bg-surface-container-high border border-outline-variant/40 rounded text-primary font-headline-sm text-[12px] flex items-center gap-1" onclick="advanceWorkflow('tab-panel-eval')"><span>Next: Evaluation</span><span class="material-symbols-outlined text-[15px]">arrow_forward</span></button>
+      </div>
+    </div>
+
+    <!-- Tab Panel 4: Evaluation Metrics -->
+    <div id="tab-panel-eval" class="notebook-tab-panel flex flex-col gap-space-base hidden" role="tabpanel">
+      <!-- Top Live Counter / Status Banner -->
+      <div class="bg-surface-container-low px-space-base py-space-sm rounded flex items-center justify-between border border-outline-variant/20 mb-space-base">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-primary text-[20px]">dataset</span>
+          <span class="font-body-md text-on-surface">Evaluation Metrics:</span>
+          <span class="font-metric-display text-[18px] text-primary font-bold" id="eval-metrics-total-display">0 active</span>
+        </div>
+        <div class="flex items-center gap-space-xs text-outline font-code-sm text-[11px]">
+          <span class="material-symbols-outlined text-[15px] text-secondary">verified</span>
+          <span>Scored against ground-truth Q&amp;A pairs across retrieval &amp; generation quality</span>
+        </div>
+      </div>
+
+      <div class="bg-primary/5 border border-primary/25 px-space-base py-space-sm rounded flex items-start gap-space-sm">
+        <span class="material-symbols-outlined text-primary text-[18px]">info</span>
+        <p class="font-body-xs text-body-xs text-on-surface-variant">
+          Metrics choose what is scored, not which pipeline stages execute. Full RAG always retrieves and generates an answer for every sample; generation metrics add judge-model scoring. Retrieval-Only skips answer generation.
+        </p>
+      </div>
+
+      <!-- 4-Card Evaluation Matrix Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-base" id="evaluation-controls">
+
+        <!-- CARD 01: Dataset Source Strategy -->
+        <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm" id="dataset-strategy-card">
+          <div>
+            <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+              <div class="flex items-center gap-space-xs">
+                <span class="w-5 h-5 rounded bg-surface-container-high flex items-center justify-center font-code-sm text-badge-label text-primary font-bold">01</span>
+                <span class="font-headline-sm text-[14px] text-on-surface font-semibold">Dataset Source Strategy</span>
+                <span class="help-tip material-symbols-outlined text-[13px] text-outline/60 hover:text-primary cursor-help" title="Choose whether Composer generates evaluation Q&A from the retrieval corpus at launch or loads your existing ground-truth dataset.">help</span>
+              </div>
+              <span class="font-code-sm text-badge-label text-outline stage-counter" id="eval-mode-badge">auto-generate</span>
+            </div>
+            <p class="font-body-xs text-body-xs text-outline mb-space-base">Ground-truth Q&amp;A evaluation dataset used to objectively score candidate RAG architectures</p>
+
+            <!-- Retrieval-Only + auto-generate dataset notice -->
+            <div class="bg-tertiary-container/10 border border-tertiary/40 px-space-base py-space-sm rounded flex items-center gap-space-sm mb-space-base" hidden id="retrieval-only-auto-dataset-notice">
+              <span class="material-symbols-outlined text-tertiary text-[18px]">info</span>
+            <span class="font-body-sm text-on-surface">Retrieval-Only does not need an Answer LLM, but auto-generation still needs a Dataset Generation LLM. Configure it in Models &amp; Providers, or use an existing dataset.</span>
+            </div>
+
+            <!-- 2 Selectable Mode Tiles -->
+            <div class="flex flex-col gap-space-sm">
+              <!-- Tile 1: Auto -->
+              <label class="dataset-mode-tile active flex items-start gap-space-sm p-space-sm rounded bg-surface-container-high border border-primary text-primary transition-all cursor-pointer shadow-[0_0_8px_rgba(88,166,255,0.15)]" data-mode="auto">
+                <input checked class="dataset-mode-radio mt-0.5 w-3.5 h-3.5 text-primary" name="eval-dataset-mode" type="radio" value="auto"/>
+                <div class="flex flex-col min-w-0">
+                  <div class="flex items-center gap-space-xs">
+                    <span class="font-headline-sm text-[13px] font-semibold text-on-surface">Auto-generate on launch</span>
+                    <span class="px-1.5 py-0.2 rounded bg-secondary/15 border border-secondary/30 text-secondary text-[10px] font-code-sm font-semibold">Default</span>
+                  </div>
+                  <span class="text-outline text-body-xs mt-0.5">Composer creates evaluation Q&amp;A pairs from the selected retrieval corpus at launch.</span>
+                </div>
+              </label>
+
+              <!-- Tile 2: Existing -->
+              <label class="dataset-mode-tile flex items-start gap-space-sm p-space-sm rounded bg-surface-container-low border border-outline-variant/40 hover:border-primary/50 text-outline transition-all cursor-pointer" data-mode="existing">
+                <input class="dataset-mode-radio mt-0.5 w-3.5 h-3.5 text-primary" name="eval-dataset-mode" type="radio" value="existing"/>
+                <div class="flex flex-col min-w-0 flex-1">
+                  <div class="flex items-center gap-space-xs">
+                    <span class="font-headline-sm text-[13px] font-semibold text-on-surface">Use an existing dataset file</span>
+                  </div>
+                  <span class="text-outline text-body-xs mt-0.5">Supply ground-truth QA triplets for scoring. This does not replace the retrieval corpus.</span>
+                  <div id="dataset-existing-fields" class="flex flex-col gap-1 mt-space-sm" hidden>
+                    <label class="font-code-sm text-[11px] text-outline" for="eval-dataset-path-input">Dataset File Path (csv / xlsx / json / jsonl)</label>
+                    <input class="bg-surface-container border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary w-full" id="eval-dataset-path-input" placeholder="e.g. ./data/eval.csv" type="text"/>
+                    <span class="text-[10px] text-outline">Required columns: <span class="font-code-sm text-on-surface-variant">question, answer, context</span>. Optional: chunk_id, source_file.</span>
+                  </div>
+                </div>
+              </label>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 02: Validation & Split Policy -->
+        <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm" id="split-policy-card">
+          <div>
+            <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+              <div class="flex items-center gap-space-xs">
+                <span class="w-5 h-5 rounded bg-surface-container-high flex items-center justify-center font-code-sm text-badge-label text-primary font-bold">02</span>
+                <span class="font-headline-sm text-[14px] text-on-surface font-semibold">Validation Split Policy</span>
+                <span class="help-tip material-symbols-outlined text-[13px] text-outline/60 hover:text-primary cursor-help" title="Splits an existing dataset so trials are scored only on the held-out test portion — avoiding selection based on the full set.">help</span>
+              </div>
+              <span class="font-code-sm text-badge-label text-outline stage-counter" id="eval-split-badge">Full Set (No Split)</span>
+            </div>
+            <p class="font-body-xs text-body-xs text-outline mb-space-base">Hold out an unseen test split for scoring to prevent configuration overfitting and selection bias</p>
+
+            <!-- Split Control Card -->
+            <div class="bg-surface-container-low p-space-base rounded border border-outline-variant/30 flex flex-col gap-space-base mb-space-base">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-xs">
+                  <input class="w-4 h-4 rounded text-primary border-outline-variant/50 cursor-pointer" disabled id="train-test-split-checkbox" type="checkbox"/>
+                  <label class="font-headline-sm text-[13px] text-on-surface cursor-pointer select-none" for="train-test-split-checkbox">
+                    Split into train/test, score on test only
+                  </label>
+                </div>
+                <span class="px-2 py-0.5 rounded font-code-sm text-[11px] bg-surface-container text-outline" id="split-status-pill">Disabled in Auto Mode</span>
+              </div>
+
+              <div class="flex items-center justify-between gap-space-base pt-space-xs border-t border-outline-variant/20">
+                <div class="flex flex-col gap-0.5">
+                  <label class="font-code-sm text-[11px] text-outline flex items-center gap-1" for="test-size-input">
+                    Test Split Proportion
+                    <span class="help-tip material-symbols-outlined text-[13px] text-outline/60 hover:text-primary cursor-help" title="Fraction of the dataset reserved for scoring (e.g. 0.2 = 20% test / 80% unused train).">help</span>
+                  </label>
+                  <span class="text-body-xs text-outline">Held-out fraction reserved for objective trial scoring</span>
+                </div>
+                <div class="flex items-center gap-space-xs">
+                  <input class="bg-surface-container border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[13px] text-on-surface font-semibold text-right focus:outline-none focus:border-primary w-20" disabled id="test-size-input" max="0.9" min="0.1" step="0.05" type="number" value="0.2"/>
+                </div>
+              </div>
+
+              <!-- Visual Distribution KPI Bar -->
+              <div class="flex flex-col gap-1.5 pt-space-xs">
+                <div class="flex items-center justify-between text-badge-label font-code-sm">
+                  <span class="text-outline" id="split-train-label">Reserved: 80% (not scored)</span>
+                  <span class="text-primary font-semibold" id="split-test-label">Test: 20% (scored)</span>
+                </div>
+                <div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden flex">
+                  <div class="bg-outline-variant/40 h-full transition-all" id="split-train-bar" style="width: 80%"></div>
+                  <div class="bg-primary h-full transition-all" id="split-test-bar" style="width: 20%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 03: Retrieval Evaluation Metrics -->
+        <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm" id="retrieval-metrics-card">
+          <div>
+            <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+              <div class="flex items-center gap-space-xs">
+                <span class="w-5 h-5 rounded bg-surface-container-high flex items-center justify-center font-code-sm text-badge-label text-primary font-bold">03</span>
+                <span class="font-headline-sm text-[14px] text-on-surface font-semibold">Retrieval Metrics</span>
+                <span class="help-tip material-symbols-outlined text-[13px] text-outline/60 hover:text-primary cursor-help" title="Score how well the right context was found (recall, precision, mrr, ndcg). Cheap — no extra LLM calls, computed from retrieved passages directly.">help</span>
+              </div>
+              <span class="font-code-sm text-badge-label text-outline stage-counter" id="retrieval-metrics-counter">0 active</span>
+            </div>
+            <p class="font-body-xs text-body-xs text-outline mb-space-base">Candidate passage relevance &amp; ranking accuracy. These metrics add no judge-model calls; Full RAG answer generation still runs.</p>
+
+            <div class="flex flex-wrap gap-space-xs mb-space-base" id="metrics-retrieval-group"></div>
+          </div>
+          <div class="pt-space-xs border-t border-outline-variant/20 text-outline text-[11px] font-code-sm flex items-center gap-1">
+            <span class="material-symbols-outlined text-[14px] text-secondary">speed</span>
+            <span>Instant deterministic evaluation across document contexts</span>
+          </div>
+        </div>
+
+        <!-- CARD 04: Generation Metrics (LLM Judge) -->
+        <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm" id="generation-metrics-card">
+          <div>
+            <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+              <div class="flex items-center gap-space-xs">
+                <span class="w-5 h-5 rounded bg-surface-container-high flex items-center justify-center font-code-sm text-badge-label text-primary font-bold">04</span>
+                <span class="font-headline-sm text-[14px] text-on-surface font-semibold">Generation Metrics (LLM Judge)</span>
+                <span class="help-tip material-symbols-outlined text-[13px] text-outline/60 hover:text-primary cursor-help" title="Score the final generated answer itself using faithfulness, answer correctness, or a 1–5 LLM Judge Rating. Each selected judge metric adds one LLM call per sample per trial.">help</span>
+              </div>
+              <span class="font-code-sm text-badge-label text-outline stage-counter" id="generation-metrics-counter">0 active</span>
+            </div>
+            <p class="font-body-xs text-body-xs text-outline mb-space-base">Deep semantic answer correctness and faithfulness. Each selected metric is judged independently and can add cost.</p>
+
+            <div class="flex flex-wrap gap-space-xs mb-space-base" id="metrics-generation-group"></div>
+
+            <!-- Judge LLM override -->
+            <div class="pt-space-sm border-t border-outline-variant/20" id="judge-override-controls">
+              <div class="flex items-center gap-space-xs">
+                <input class="w-3.5 h-3.5" id="judge-llm-override-checkbox" type="checkbox"/>
+                <label class="font-code-sm text-[12px] text-on-surface-variant cursor-pointer" for="judge-llm-override-checkbox">Use a different judge LLM</label>
+                <span class="help-tip material-symbols-outlined text-[13px] text-outline/60 hover:text-primary cursor-help" title="By default the same LLM that generates answers also judges them. Turn this on to use a separate, cheaper, or stronger model for generation metrics, including LLM Judge Rating.">help</span>
+              </div>
+              <div class="flex flex-wrap items-end gap-space-base mt-space-sm" hidden id="judge-llm-fields">
+                <div class="flex flex-col gap-1">
+                  <label class="font-code-sm text-[11px] text-outline" for="judge-llm-provider-select">Provider</label>
+                  <select class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary min-w-[140px]" id="judge-llm-provider-select"></select>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label class="font-code-sm text-[11px] text-outline" for="judge-llm-model-input">Model</label>
+                  <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="judge-llm-model-input" placeholder="e.g. gpt-4o-mini" type="text"/>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <div class="flex items-center justify-between">
+                    <label class="font-code-sm text-[11px] text-outline" for="judge-api-key-input">API Key</label>
+                    <span class="text-[10px] text-secondary font-code-sm">Never saved to disk</span>
+                  </div>
+                  <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="judge-api-key-input" placeholder="sk-..." type="password"/>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label class="font-code-sm text-[11px] text-outline" for="judge-base-url-input">Base URL <span class="text-outline/60">(Optional)</span></label>
+                  <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="judge-base-url-input" placeholder="e.g. https://api.together.xyz/v1" type="text"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pt-space-xs border-t border-outline-variant/20 text-outline text-[11px] font-code-sm flex items-center gap-1">
+            <span class="material-symbols-outlined text-[14px] text-tertiary">psychology</span>
+            <span>Each selected judge metric can add one LLM call per sample per trial</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Step Navigation Footer -->
+      <div class="flex items-center justify-between pt-space-base border-t border-outline-variant/20 mt-space-base bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm">
+        <button type="button" class="px-space-base py-1.5 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/40 rounded text-on-surface-variant hover:text-on-surface font-headline-sm text-[12px] flex items-center gap-1 transition-colors cursor-pointer" onclick="backWorkflow('tab-panel-providers')">
+          <span class="material-symbols-outlined text-[15px]">arrow_back</span>
+          <span>Back: Models &amp; Providers</span>
+        </button>
+        <button type="button" class="px-space-base py-1.5 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/40 rounded text-primary font-headline-sm text-[12px] flex items-center gap-1 transition-colors cursor-pointer" onclick="advanceWorkflow('tab-panel-search-space')">
+          <span>Next: Search Space</span>
+          <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab Panel 5: Search Space Combination -->
+    <div id="tab-panel-search-space" class="notebook-tab-panel flex flex-col gap-space-base hidden" role="tabpanel">
+      <!-- Web Search Only mode notice -->
+      <div class="bg-tertiary-container/10 border border-tertiary/40 px-space-base py-space-sm rounded flex items-center gap-space-sm mb-space-base" hidden id="web-search-only-notice">
+        <span class="material-symbols-outlined text-tertiary text-[18px]">info</span>
+        <span class="font-body-sm text-on-surface">Web Search Only runs one trial per selected generation variant, or one trial with no variants. Local retrieval, chunking, embedding, vector DB, reranking, and retrieval-depth controls do not affect this mode.</span>
+      </div>
+
+      <!-- Run limits moved here so provider configuration contains providers only. -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm" id="run-limits">
+        <div class="flex items-center justify-between pb-space-xs mb-space-base border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[18px]">speed</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Run Limits</span>
+          </div>
+          <span class="font-code-sm text-[11px] text-outline">Cost, concurrency, and compute</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-base">
+          <div class="flex flex-col gap-1">
+            <label class="font-code-sm text-[11px] text-outline flex items-center gap-1" for="max-samples-input">Samples per Trial<span class="help-tip material-symbols-outlined text-[13px] text-outline/60 hover:text-primary cursor-help" title="How many evaluation Q&A pairs score each trial. Lower is faster and cheaper; higher gives a more reliable score.">help</span></label>
+            <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="max-samples-input" type="number" value="10" min="1"/>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-code-sm text-[11px] text-outline flex items-center gap-1" for="n-jobs-input">Parallel Trials<span class="help-tip material-symbols-outlined text-[13px] text-outline/60 hover:text-primary cursor-help" title="How many pipeline configurations run simultaneously. Reduce this when provider rate limits are reached.">help</span></label>
+            <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="n-jobs-input" type="number" value="4" min="1"/>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-code-sm text-[11px] text-outline flex items-center gap-1" for="max-trials-input">Maximum Trials <span class="text-outline/60">(Optional)</span><span class="help-tip material-symbols-outlined text-[13px] text-outline/60 hover:text-primary cursor-help" title="Caps how many pipeline combinations are evaluated. Leave empty to evaluate the full search space.">help</span></label>
+            <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="max-trials-input" placeholder="Unlimited" type="number" min="1"/>
+          </div>
+          <div class="flex flex-col gap-1" id="device-config">
+            <label class="font-code-sm text-[11px] text-outline flex items-center gap-1" for="device-select">Embedding / Reranker Device<span class="help-tip material-symbols-outlined text-[13px] text-outline/60 hover:text-primary cursor-help" title="auto selects a GPU when available, otherwise CPU. This does not control hosted LLM or web-search providers.">help</span></label>
+            <select class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="device-select">
+              <option value="auto" selected>auto</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Combination Counter Banner -->
+      <div class="bg-surface-container-low px-space-base py-space-sm rounded flex items-center justify-between border border-outline-variant/20 mb-space-base">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+          <span class="font-body-md text-on-surface">Total Search Space Combinations:</span>
+          <span class="font-metric-display text-[18px] text-primary font-bold" id="combo-total-display">0</span>
+        </div>
+        <div class="flex items-center gap-space-xs text-outline font-code-sm text-[11px]">
+          <span class="material-symbols-outlined text-[15px] text-secondary">info</span>
+          <span id="combo-explanation">Combinations are computed across all active stages below</span>
+        </div>
+      </div>
+
+      <!-- 7-Stage Architecture Matrix Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-base" id="local-search-space">
+
+      <!-- STAGE 1: Query Expansion -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm" id="query-expansion-card">
+        <div>
+          <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+            <div class="flex items-center gap-space-xs">
+              <span class="w-5 h-5 rounded bg-surface-container-high flex items-center justify-center font-code-sm text-badge-label text-primary font-bold">01</span>
+              <span class="font-headline-sm text-[14px] text-on-surface font-semibold">Query Expansion</span>
+            </div>
+            <span class="font-code-sm text-badge-label text-outline stage-counter" data-stage="query_expansion">2 active</span>
+          </div>
+          <p class="font-body-xs text-body-xs text-outline mb-space-base">Multi-query fanout, HyDE hypothetical docs, or direct query. <span class="text-outline/70">Select "none" too if you want the search to compare with vs. without expansion.</span></p>
+          <div class="flex flex-wrap gap-space-xs" data-stage-group="query_expansion">
+            <button class="chip-toggle flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-low border border-outline-variant/40 font-code-sm text-code-sm text-outline hover:border-primary/50 transition-all" data-val="none" type="button">
+              <span class="chip-checkbox w-3.5 h-3.5 rounded border border-outline-variant flex items-center justify-center text-[10px]"></span>
+              <span>none</span>
+            </button>
+            <button class="chip-toggle active flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-high border border-primary text-primary font-code-sm text-code-sm transition-all shadow-[0_0_8px_rgba(88,166,255,0.25)]" data-selected="true" data-val="multi_query" type="button">
+              <span class="chip-checkbox w-3.5 h-3.5 rounded bg-primary text-on-primary flex items-center justify-center text-[10px] font-bold">✓</span>
+              <span>multi_query</span>
+            </button>
+            <button class="chip-toggle active flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-high border border-primary text-primary font-code-sm text-code-sm transition-all shadow-[0_0_8px_rgba(88,166,255,0.25)]" data-selected="true" data-val="hyde" type="button">
+              <span class="chip-checkbox w-3.5 h-3.5 rounded bg-primary text-on-primary flex items-center justify-center text-[10px] font-bold">✓</span>
+              <span>hyde</span>
+            </button>
+            <button class="chip-toggle flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-low border border-outline-variant/40 font-code-sm text-code-sm text-outline hover:border-primary/50 transition-all" data-val="step_back" type="button">
+              <span class="chip-checkbox w-3.5 h-3.5 rounded border border-outline-variant flex items-center justify-center text-[10px]"></span>
+              <span>step_back</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 2: Retrieval Strategy -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+            <div class="flex items-center gap-space-xs">
+              <span class="w-5 h-5 rounded bg-surface-container-high flex items-center justify-center font-code-sm text-badge-label text-primary font-bold">02</span>
+              <span class="font-headline-sm text-[14px] text-on-surface font-semibold">Retrieval Strategy</span>
+            </div>
+            <span class="font-code-sm text-badge-label text-outline stage-counter" data-stage="retrieval">2 active</span>
+          </div>
+          <p class="font-body-xs text-body-xs text-outline mb-space-base">Candidate vector similarity, MMR diversity, or hybrid BM25 + dense</p>
+          <div class="flex flex-wrap gap-space-xs" data-stage-group="retrieval">
+            <button class="chip-toggle active flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-high border border-primary text-primary font-code-sm text-code-sm transition-all shadow-[0_0_8px_rgba(88,166,255,0.25)]" data-selected="true" data-val="similarity_search" type="button">
+              <span class="chip-checkbox w-3.5 h-3.5 rounded bg-primary text-on-primary flex items-center justify-center text-[10px] font-bold">✓</span>
+              <span>similarity_search</span>
+            </button>
+            <button class="chip-toggle flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-low border border-outline-variant/40 font-code-sm text-code-sm text-outline hover:border-primary/50 transition-all" data-val="max_marginal_relevance" type="button">
+              <span class="chip-checkbox w-3.5 h-3.5 rounded border border-outline-variant flex items-center justify-center text-[10px]"></span>
+              <span>max_marginal_relevance</span>
+            </button>
+            <button class="chip-toggle active flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-high border border-primary text-primary font-code-sm text-code-sm transition-all shadow-[0_0_8px_rgba(88,166,255,0.25)]" data-selected="true" data-val="hybrid" type="button">
+              <span class="chip-checkbox w-3.5 h-3.5 rounded bg-primary text-on-primary flex items-center justify-center text-[10px] font-bold">✓</span>
+              <span>hybrid</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 3: Reranking & Fusion -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+            <div class="flex items-center gap-space-xs">
+              <span class="w-5 h-5 rounded bg-surface-container-high flex items-center justify-center font-code-sm text-badge-label text-primary font-bold">03</span>
+              <span class="font-headline-sm text-[14px] text-on-surface font-semibold">Reranking &amp; Fusion</span>
+            </div>
+            <span class="font-code-sm text-badge-label text-outline stage-counter" data-stage="reranking">1 active</span>
+          </div>
+          <p class="font-body-xs text-body-xs text-outline mb-space-base">Choose built-in strategies or connect your own reranking service. <span class="text-outline/70">Select “None” too to compare with and without reranking.</span></p>
+          <div class="flex flex-wrap gap-space-xs" data-stage-group="reranking"></div>
+
+          <div class="mt-space-base bg-surface-container-low border border-outline-variant/30 rounded p-space-sm" hidden id="reranking-model-fields">
+            <div class="flex items-center justify-between gap-space-sm">
+              <label class="font-code-sm text-[11px] text-outline" for="reranking-model-input">Hugging Face reranker models <span class="text-outline/60">(Cross encoder / Pointwise)</span></label>
+              <span class="font-code-sm text-[10px] text-outline stage-counter" data-stage="reranking_model">0 active</span>
+            </div>
+            <p class="text-outline text-[10px] mt-1">Add one or more CrossEncoder-compatible model IDs. BAAI/bge-reranker-v2-m3 is recommended for multilingual and Arabic evaluation; with none selected, BAAI/bge-reranker-base is used.</p>
+            <div class="flex flex-wrap gap-space-xs my-space-sm" data-stage-group="reranking_model"></div>
+            <div class="flex items-center gap-space-xs">
+              <input class="w-full bg-surface-container border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary" id="reranking-model-input" list="reranking-model-suggestions" placeholder="e.g. BAAI/bge-reranker-v2-m3" type="text"/>
+              <datalist id="reranking-model-suggestions"></datalist>
+              <button class="px-space-sm py-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded font-code-sm text-[11px] transition-colors shrink-0" id="btn-add-reranking-model" type="button">+ Add</button>
+            </div>
+          </div>
+
+          <div class="mt-space-sm bg-surface-container-low border border-outline-variant/30 rounded p-space-sm" hidden id="reranker-llm-card">
+            <label class="flex items-center gap-space-xs font-code-sm text-[11px] text-on-surface cursor-pointer">
+              <input class="w-3.5 h-3.5" id="reranker-llm-override-checkbox" type="checkbox"/>
+              <span>Use a dedicated LLM for reranking</span>
+            </label>
+            <p class="text-outline text-[11px] mt-1">When off, Full RAG reuses the Answer LLM and Retrieval-Only reuses its Query-Transform LLM.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm mt-space-sm" hidden id="reranker-llm-fields">
+              <div class="flex flex-col gap-1">
+                <label class="font-code-sm text-[11px] text-outline" for="reranker-llm-provider-select">Provider</label>
+                <select class="bg-surface-container border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface" id="reranker-llm-provider-select"></select>
+              </div>
+              <div class="flex flex-col gap-1">
+                <label class="font-code-sm text-[11px] text-outline" for="reranker-llm-model-input">Model</label>
+                <input class="bg-surface-container border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface" id="reranker-llm-model-input" placeholder="e.g. gpt-4o-mini" type="text"/>
+              </div>
+              <div class="flex flex-col gap-1">
+                <div class="flex justify-between"><label class="font-code-sm text-[11px] text-outline" for="reranker-llm-api-key-input">API key</label><span class="text-[10px] text-secondary font-code-sm">Never saved</span></div>
+                <input class="bg-surface-container border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface" id="reranker-llm-api-key-input" placeholder="sk-..." type="password"/>
+              </div>
+              <div class="flex flex-col gap-1">
+                <label class="font-code-sm text-[11px] text-outline" for="reranker-llm-base-url-input">Base URL <span class="text-outline/60">(Optional)</span></label>
+                <input class="bg-surface-container border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface" id="reranker-llm-base-url-input" placeholder="http://localhost:8000/v1" type="text"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-space-sm bg-surface-container-low border border-outline-variant/30 rounded p-space-sm" hidden id="custom-reranker-fields">
+            <div class="font-headline-sm text-[12px] font-semibold text-on-surface mb-space-sm">Custom HTTP reranker</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+              <div class="flex flex-col gap-1 md:col-span-2">
+                <label class="font-code-sm text-[11px] text-outline" for="reranker-base-url-input">Endpoint URL</label>
+                <input class="bg-surface-container border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface" id="reranker-base-url-input" placeholder="https://reranker.example.com/v1/rerank" type="url"/>
+              </div>
+              <div class="flex flex-col gap-1">
+                <div class="flex justify-between"><label class="font-code-sm text-[11px] text-outline" for="reranker-api-key-input">API key <span class="text-outline/60">(Optional)</span></label><span class="text-[10px] text-secondary font-code-sm">Never saved</span></div>
+                <input class="bg-surface-container border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface" id="reranker-api-key-input" type="password"/>
+              </div>
+              <div class="flex flex-col gap-1">
+                <label class="font-code-sm text-[11px] text-outline" for="reranker-model-input">Model <span class="text-outline/60">(Optional)</span></label>
+                <input class="bg-surface-container border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface" id="reranker-model-input" type="text"/>
+              </div>
+              <div class="flex flex-col gap-1">
+                <label class="font-code-sm text-[11px] text-outline" for="reranker-timeout-input">Timeout (seconds)</label>
+                <input class="bg-surface-container border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface" id="reranker-timeout-input" min="1" max="300" value="30" type="number"/>
+              </div>
+            </div>
+            <p class="text-outline text-[10px] mt-space-sm">POST body: query, documents, top_n, and optional model. Return results with index + relevance_score, or a scores array.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 4: Retrieval Depth (k) -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+            <div class="flex items-center gap-space-xs">
+              <span class="w-5 h-5 rounded bg-surface-container-high flex items-center justify-center font-code-sm text-badge-label text-primary font-bold">04</span>
+              <span class="font-headline-sm text-[14px] text-on-surface font-semibold">Retrieval Depth (k)</span>
+            </div>
+            <span class="font-code-sm text-badge-label text-outline stage-counter" data-stage="k">2 active</span>
+          </div>
+          <p class="font-body-xs text-body-xs text-outline mb-space-base">Number of top candidate context passages passed to LLM</p>
+          <div class="flex flex-wrap gap-space-xs" data-stage-group="k">
+            <button class="chip-toggle active flex items-center gap-space-xs px-space-base py-space-xs rounded bg-surface-container-high border border-primary text-primary font-code-sm text-code-sm transition-all shadow-[0_0_8px_rgba(88,166,255,0.25)]" data-selected="true" data-val="3" type="button">
+              <span class="chip-checkbox w-3.5 h-3.5 rounded bg-primary text-on-primary flex items-center justify-center text-[10px] font-bold">✓</span>
+              <span>k: 3</span>
+            </button>
+            <button class="chip-toggle active flex items-center gap-space-xs px-space-base py-space-xs rounded bg-surface-container-high border border-primary text-primary font-code-sm text-code-sm transition-all shadow-[0_0_8px_rgba(88,166,255,0.25)]" data-selected="true" data-val="5" type="button">
+              <span class="chip-checkbox w-3.5 h-3.5 rounded bg-primary text-on-primary flex items-center justify-center text-[10px] font-bold">✓</span>
+              <span>k: 5</span>
+            </button>
+            <button class="chip-toggle flex items-center gap-space-xs px-space-base py-space-xs rounded bg-surface-container-low border border-outline-variant/40 font-code-sm text-code-sm text-outline hover:border-primary/50 transition-all" data-val="10" type="button">
+              <span class="chip-checkbox w-3.5 h-3.5 rounded border border-outline-variant flex items-center justify-center text-[10px]"></span>
+              <span>k: 10</span>
+            </button>
+          </div>
+          <div class="flex items-center gap-space-xs mt-space-sm">
+            <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary w-20" id="k-custom-input" min="1" placeholder="e.g. 7" type="number"/>
+            <button class="px-space-sm py-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded font-code-sm text-[11px] transition-colors" id="btn-add-k" type="button">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 5: Chunking Strategy -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+            <div class="flex items-center gap-space-xs">
+              <span class="w-5 h-5 rounded bg-surface-container-high flex items-center justify-center font-code-sm text-badge-label text-primary font-bold">05</span>
+              <span class="font-headline-sm text-[14px] text-on-surface font-semibold">Chunking Strategy</span>
+            </div>
+            <span class="font-code-sm text-badge-label text-outline stage-counter" data-stage="chunking">0 active</span>
+          </div>
+          <p class="font-body-xs text-body-xs text-outline mb-space-base">Pick an algorithm, set size/overlap, then Add — repeatable</p>
+
+          <div class="flex flex-wrap gap-space-xs mb-space-sm" id="chunking-quickfill"></div>
+
+          <div class="flex flex-wrap items-end gap-space-xs mb-space-sm">
+            <div class="flex flex-col gap-1">
+              <label class="font-code-sm text-[10px] text-outline" for="chunking-method-select">Method</label>
+              <select class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[11px] text-on-surface focus:outline-none focus:border-primary" id="chunking-method-select"></select>
+            </div>
+            <div class="flex flex-col gap-1">
+              <label class="font-code-sm text-[10px] text-outline" for="chunking-size-input">Size</label>
+              <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[11px] text-on-surface focus:outline-none focus:border-primary w-16" id="chunking-size-input" min="1" type="number" value="600"/>
+            </div>
+            <div class="flex flex-col gap-1">
+              <label class="font-code-sm text-[10px] text-outline" for="chunking-overlap-input">Overlap</label>
+              <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[11px] text-on-surface focus:outline-none focus:border-primary w-16" id="chunking-overlap-input" min="0" type="number" value="100"/>
+            </div>
+            <button class="px-space-sm py-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded font-code-sm text-[11px] transition-colors" id="btn-add-chunking" type="button">+ Add</button>
+          </div>
+
+          <div class="flex flex-wrap gap-space-xs" data-stage-group="chunking"></div>
+        </div>
+      </div>
+
+      <!-- STAGE 6: Embedding Models -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+            <div class="flex items-center gap-space-xs">
+              <span class="w-5 h-5 rounded bg-surface-container-high flex items-center justify-center font-code-sm text-badge-label text-primary font-bold">06</span>
+              <span class="font-headline-sm text-[14px] text-on-surface font-semibold">Embedding Models</span>
+            </div>
+            <span class="font-code-sm text-badge-label text-outline stage-counter" data-stage="embedding_model">0 active</span>
+          </div>
+          <p class="font-body-xs text-body-xs text-outline mb-space-base">Dense embedding models — Arabic and English supported, type any HuggingFace model id</p>
+          <div class="flex flex-wrap gap-space-xs mb-space-sm" data-stage-group="embedding_model"></div>
+          <div class="flex items-center gap-space-xs">
+            <input class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1 font-code-sm text-[12px] text-on-surface focus:outline-none focus:border-primary flex-1 min-w-0" id="embedding-custom-input" list="embedding-suggestions" placeholder="e.g. mohamed2811/Muffakir_Embedding" type="text"/>
+            <datalist id="embedding-suggestions"></datalist>
+            <button class="px-space-sm py-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded font-code-sm text-[11px] transition-colors shrink-0" id="btn-add-embedding" type="button">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 7: Vector DB Backends -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+            <div class="flex items-center gap-space-xs">
+              <span class="w-5 h-5 rounded bg-surface-container-high flex items-center justify-center font-code-sm text-badge-label text-primary font-bold">07</span>
+              <span class="font-headline-sm text-[14px] text-on-surface font-semibold">Vector DB Backends</span>
+            </div>
+            <span class="font-code-sm text-badge-label text-outline stage-counter" data-stage="vector_db_provider">0 active</span>
+          </div>
+          <p class="font-body-xs text-body-xs text-outline mb-space-base">Target index storage &amp; vector search engine backends</p>
+          <div class="flex flex-wrap gap-space-xs" data-stage-group="vector_db_provider"></div>
+        </div>
+      </div>
+
+      </div>
+
+      <!-- Step Navigation Footer -->
+      <div class="flex items-center justify-between pt-space-base border-t border-outline-variant/20 mt-space-base bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm">
+        <button type="button" class="px-space-base py-1.5 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/40 rounded text-on-surface-variant hover:text-on-surface font-headline-sm text-[12px] flex items-center gap-1 transition-colors cursor-pointer" onclick="switchNotebookTab('tab-panel-eval')">
+          <span class="material-symbols-outlined text-[15px]">arrow_back</span>
+          <span>Back: Evaluation</span>
+        </button>
+        <button type="button" class="px-space-base py-1.5 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/40 rounded text-primary font-headline-sm text-[12px] flex items-center gap-1 transition-colors cursor-pointer" onclick="advanceWorkflow('tab-panel-prompts')">
+          <span>Next: Prompt Manager</span>
+          <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Tab Panel 6: Per-run prompts -->
+    <div id="tab-panel-prompts" class="notebook-tab-panel flex flex-col gap-space-base hidden" role="tabpanel">
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm pb-space-xs mb-space-base border-b border-outline-variant/20">
+          <div class="flex items-start gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[18px] mt-0.5">edit_note</span>
+            <div>
+              <div class="font-headline-sm text-[14px] font-semibold text-on-surface">Prompt Manager</div>
+              <p class="text-body-xs text-outline mt-0.5">Only prompts executable by this run are shown. Changes apply to every trial and never edit packaged defaults.</p>
+            </div>
+          </div>
+          <label class="flex items-center gap-space-xs font-code-sm text-[11px] text-outline">
+            <span>Prompt language</span>
+            <select id="prompt-language-select" class="bg-surface-container-low border border-outline-variant/50 rounded px-space-sm py-1.5 text-on-surface focus:outline-none focus:border-primary">
+              <option value="ar">Arabic</option>
+              <option value="en">English</option>
+            </select>
+          </label>
+        </div>
+        <div class="flex items-start gap-space-xs p-space-sm mb-space-base rounded bg-tertiary/5 border border-tertiary/25 text-body-xs text-on-surface-variant">
+          <span class="material-symbols-outlined text-tertiary text-[17px]">privacy_tip</span>
+          <span>Do not paste credentials or secrets into prompts. Required variables must remain present so runtime formatting stays safe.</span>
+        </div>
+        <div id="prompt-manager-loading" class="hidden p-space-base text-center text-outline text-body-xs">Resolving prompts for this pipeline…</div>
+        <div id="prompt-manager-empty" class="hidden p-space-base rounded bg-surface-container-low border border-outline-variant/30 text-outline text-body-xs">This configuration executes no managed prompt, so this step is skipped automatically.</div>
+        <div id="prompt-manager-cards" class="grid grid-cols-1 xl:grid-cols-2 gap-space-base"></div>
+      </div>
+
+      <div class="flex items-center justify-between pt-space-base border-t border-outline-variant/20 mt-space-base bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm">
+        <button type="button" class="px-space-base py-1.5 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/40 rounded text-on-surface-variant hover:text-on-surface font-headline-sm text-[12px] flex items-center gap-1 transition-colors cursor-pointer" onclick="switchNotebookTab('tab-panel-search-space')">
+          <span class="material-symbols-outlined text-[15px]">arrow_back</span>
+          <span>Back: Search Space</span>
+        </button>
+        <button type="button" class="px-space-base py-1.5 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/40 rounded text-primary font-headline-sm text-[12px] flex items-center gap-1 transition-colors cursor-pointer" onclick="advanceWorkflow('tab-panel-review')">
+          <span>Next: Review Before Launch</span>
+          <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab Panel 7: Complete review, validation, and launch -->
+    <div id="tab-panel-review" class="notebook-tab-panel flex flex-col gap-space-base hidden" role="tabpanel">
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm" id="configuration-review-card">
+        <div class="flex items-center justify-between pb-space-xs mb-space-base border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-secondary text-[18px]">fact_check</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Review Before Launch</span>
+          </div>
+          <span class="font-code-sm text-[11px] text-outline">Complete submitted configuration; sensitive keys are never displayed</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-base" id="configuration-summary"></div>
+      </div>
+
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm" id="prompt-review-card">
+        <div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-xs mb-space-base border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[18px]">edit_note</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Resolved Prompts</span>
+          </div>
+          <span class="font-code-sm text-[11px] text-outline" id="prompt-review-status">Arabic · defaults</span>
+        </div>
+        <div id="prompt-review-content" class="flex flex-col gap-space-xs"></div>
+      </div>
+
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm" hidden id="pricing-review-card">
+        <div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-xs mb-space-base border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-tertiary text-[18px]">payments</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Custom LLM Pricing</span>
+          </div>
+          <span class="font-code-sm text-[11px] text-outline" id="pricing-review-status">Default catalog pricing</span>
+        </div>
+        <div class="overflow-auto border border-outline-variant/30 rounded" id="pricing-review-content"></div>
+      </div>
+
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-xs mb-space-base border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[18px]">account_tree</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Search Space Configuration</span>
+          </div>
+          <span class="font-code-sm text-[11px] text-outline">Every selected value by stage</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm" id="search-space-summary"></div>
+      </div>
+
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-xs mb-space-base border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[18px]">view_list</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Resolved Search Space Combinations</span>
+          </div>
+          <span class="px-2 py-0.5 rounded-full bg-primary/10 border border-primary/30 font-code-sm text-[11px] font-bold text-primary" id="review-combination-count">0 combinations</span>
+        </div>
+        <p class="font-body-xs text-body-xs text-outline mb-space-sm">These are the exact pipeline trials that will run before an optional maximum-trials cap is applied.</p>
+        <div class="overflow-auto max-h-[30rem] border border-outline-variant/30 rounded" id="resolved-combinations"></div>
+      </div>
+
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-base">
+          <div class="flex items-start gap-space-sm">
+            <span class="material-symbols-outlined text-outline text-[22px] mt-0.5" id="dry-run-status-icon">verified_user</span>
+            <div>
+              <div class="font-headline-sm text-[14px] font-semibold text-on-surface" id="dry-run-status-title">Validate before launch</div>
+              <div class="font-body-xs text-body-xs text-outline mt-0.5" id="dry-run-status-message">Run the dry-run check to verify the current providers, dataset, metrics, and search space. Launch appears only after it succeeds.</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-space-sm shrink-0">
+            <button class="h-9 px-space-base bg-surface-container-high hover:bg-surface-container-highest text-on-surface border border-outline-variant/50 rounded font-headline-sm text-[13px] flex items-center gap-space-xs transition-colors shadow-sm cursor-pointer" id="btn-dry-run" type="button">
+              <span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+              <span>Dry Run Validate</span>
+            </button>
+            <button class="h-9 px-5 bg-tertiary hover:bg-tertiary/90 text-on-tertiary font-headline-sm text-[13px] rounded flex items-center gap-space-xs transition-all shadow-lg active:scale-95 cursor-pointer" hidden id="btn-launch-run" type="button">
+              <span class="material-symbols-outlined text-[17px]">rocket_launch</span>
+              <span>Launch Search</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-space-base border-t border-outline-variant/20 mt-space-base bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm">
+        <button type="button" class="px-space-base py-1.5 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/40 rounded text-on-surface-variant hover:text-on-surface font-headline-sm text-[12px] flex items-center gap-1 transition-colors cursor-pointer" onclick="backWorkflow('tab-panel-prompts')">
+          <span class="material-symbols-outlined text-[15px]">arrow_back</span>
+          <span>Back: Prompt Manager</span>
+        </button>
+        <span class="flex items-center gap-1.5 text-[11px] text-outline font-code-sm">
+          <span class="material-symbols-outlined text-[15px] text-tertiary">lock</span>
+          <span>Changing any setting requires a new dry run</span>
+        </span>
+      </div>
+    </div>
+  </main>
+
+  <script src="/static/js/common.js"></script>
+  <script src="/static/js/llm_settings.js?v=1"></script>
+  <script src="/static/js/new_run.js?v=llm-parameters-1"></script>
+</body>
+</html>

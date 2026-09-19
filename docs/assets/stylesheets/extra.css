@@ -1,0 +1,24 @@
+:root {
+  --md-primary-fg-color: #00695c;
+  --md-accent-fg-color: #d97706;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #14b8a6;
+  --md-accent-fg-color: #fbbf24;
+}
+
+.md-typeset h1 {
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+
+.md-typeset .grid.cards > ul > li {
+  border-radius: 0.55rem;
+}
+
+.md-typeset img.screenshot {
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.6rem;
+  box-shadow: var(--md-shadow-z2);
+}

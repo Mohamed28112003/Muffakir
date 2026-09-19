@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Muffakir Composer // Run Telemetry</title>
+  <link href="/static/favicon.png" rel="icon" type="image/png"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "background": "#10141a",
+            "surface": "#10141a",
+            "surface-dim": "#10141a",
+            "surface-bright": "#353940",
+            "surface-container-lowest": "#0a0e14",
+            "surface-container-low": "#181c22",
+            "surface-container": "#1c2026",
+            "surface-container-high": "#262a31",
+            "surface-container-highest": "#31353c",
+            "on-surface": "#dfe2eb",
+            "on-surface-variant": "#c0c7d4",
+            "outline": "#8b919d",
+            "outline-variant": "#414752",
+            "primary": "#a2c9ff",
+            "primary-container": "#58a6ff",
+            "on-primary": "#00315c",
+            "secondary": "#7bdb80",
+            "secondary-container": "#007124",
+            "on-secondary-container": "#91f294",
+            "tertiary": "#fabc45",
+            "tertiary-container": "#d29922",
+            "error": "#ffb4ab",
+            "error-container": "#93000a",
+          },
+          fontFamily: {
+            "body-xs": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "code-sm": ["JetBrains Mono"],
+            "code-md": ["JetBrains Mono"],
+            "code-lg": ["JetBrains Mono"],
+            "metric-display": ["JetBrains Mono"],
+            "badge-label": ["JetBrains Mono"],
+          },
+          spacing: {
+            "space-2xs": "0.125rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.375rem",
+            "space-md": "0.5rem",
+            "space-base": "0.75rem",
+            "space-lg": "1rem",
+            "space-xl": "1.5rem",
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-thumb { background: #31353c; border-radius: 3px; }
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md text-[13px] antialiased min-h-screen flex flex-col">
+
+  <!-- Fixed Top Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 h-14 bg-surface-container-lowest border-b border-outline-variant/30 flex items-center justify-between px-space-lg select-none">
+    <div class="flex items-center gap-space-lg">
+      <div class="flex items-center gap-space-base">
+        <div class="w-8 h-8 bg-surface-container border border-outline-variant/50 rounded flex items-center justify-center text-primary">
+          <span class="material-symbols-outlined text-[20px]">hub</span>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-space-xs">
+            <span class="font-code-lg text-[14px] font-bold tracking-tight text-on-surface">MUFFAKIR<span class="text-primary-container">//</span>COMPOSER</span>
+          </div>
+          <span class="font-body-xs text-[11px] text-outline">Pipeline Architecture Search &amp; Eval</span>
+        </div>
+      </div>
+      <div class="h-5 w-px bg-outline-variant/40"></div>
+      <nav class="flex items-center gap-space-xs">
+        <a class="px-space-base py-space-sm font-body-sm text-[12px] text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded transition-colors" href="/runs.html">Runs List</a>
+        <a class="px-space-base py-space-sm font-body-sm text-[12px] text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded transition-colors" href="/index.html">New Run</a>
+      </nav>
+    </div>
+    <div class="flex items-center gap-space-base">
+      <div class="inline-flex items-center gap-1.5 px-space-sm py-space-2xs bg-surface-container-low border border-outline-variant/40 rounded font-code-sm text-[11px]" id="live-indicator">
+        <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+        <span class="text-secondary font-semibold">Live Polling Active (2s)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 pt-14 pb-12 px-space-lg max-w-7xl mx-auto w-full" id="main-detail-content">
+
+    <!-- Breadcrumb & Status Header Row -->
+    <div class="py-space-base flex flex-wrap items-center justify-between gap-space-md border-b border-outline-variant/20 mb-space-base">
+      <div class="flex flex-col gap-1">
+        <div class="flex items-center gap-space-xs font-code-sm text-[11px]">
+          <a href="/runs.html" class="text-outline hover:text-primary transition-colors">Runs</a>
+          <span class="text-outline-variant">/</span>
+          <span class="text-outline truncate max-w-xs" id="detail-run-id">Loading...</span>
+        </div>
+        <div class="flex items-center gap-space-sm">
+          <h1 class="font-headline-lg text-[20px] font-semibold text-on-surface tracking-tight" id="detail-run-name">Loading Run...</h1>
+          <div id="detail-status-badge">
+            <span class="px-2 py-0.5 rounded bg-surface-container text-outline text-badge-label font-code-sm">INITIALIZING</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-space-sm">
+        <button type="button" id="btn-run-metadata" class="flex items-center gap-1.5 px-3 py-1 bg-surface-container hover:bg-surface-container-high rounded text-on-surface font-body-sm text-[12px] transition-colors border border-outline-variant/40">
+          <span class="material-symbols-outlined text-[15px] text-primary">data_object</span>
+          <span>Run Metadata</span>
+        </button>
+        <button type="button" id="btn-run-config" class="flex items-center gap-1.5 px-3 py-1 bg-surface-container hover:bg-surface-container-high rounded text-on-surface font-body-sm text-[12px] transition-colors border border-outline-variant/40">
+          <span class="material-symbols-outlined text-[15px] text-secondary">tune</span>
+          <span>Configuration</span>
+        </button>
+        <a href="/runs.html" class="flex items-center gap-1.5 px-3 py-1 bg-surface-container hover:bg-surface-container-high rounded text-on-surface font-body-sm text-[12px] transition-colors border border-outline-variant/40">
+          <span class="material-symbols-outlined text-[15px]">arrow_back</span>
+          <span>Back to Runs</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- KPI Metric Cards Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-space-base mb-space-base">
+      <!-- Card 1: Best Score -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm">
+        <div class="flex items-center justify-between text-outline">
+          <span class="font-code-sm text-[10px] uppercase tracking-wider">Best Composite Score</span>
+          <span class="material-symbols-outlined text-secondary text-[18px]">verified</span>
+        </div>
+        <div class="my-space-xs">
+          <span class="font-metric-display text-[26px] text-secondary font-bold tracking-tight" id="kpi-best-score">—</span>
+        </div>
+        <div class="text-[11px] text-outline font-code-sm">Evaluation weighted score</div>
+      </div>
+
+      <!-- Card 2: Trials Progress -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm">
+        <div class="flex items-center justify-between text-outline">
+          <span class="font-code-sm text-[10px] uppercase tracking-wider">Trials Evaluated</span>
+          <span class="material-symbols-outlined text-primary text-[18px]">scatter_plot</span>
+        </div>
+        <div class="my-space-xs flex items-baseline justify-between">
+          <span class="font-metric-display text-[26px] text-primary font-bold tracking-tight" id="kpi-progress">0 / —</span>
+        </div>
+        <div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+          <div class="bg-primary h-full transition-all duration-300" id="kpi-progress-bar" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- Card 3: Total Cost -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm">
+        <div class="flex items-center justify-between text-outline">
+          <span class="font-code-sm text-[10px] uppercase tracking-wider">Total LLM Cost (USD)</span>
+          <span class="material-symbols-outlined text-tertiary text-[18px]">payments</span>
+        </div>
+        <div class="my-space-xs">
+          <span class="font-metric-display text-[26px] text-on-surface font-bold tracking-tight" id="kpi-cost">$0.00</span>
+        </div>
+        <div class="text-[11px] text-outline font-code-sm">Accumulated across trials</div>
+      </div>
+
+      <!-- Card 4: Web Search Fallbacks -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm">
+        <div class="flex items-center justify-between text-outline">
+          <span class="font-code-sm text-[10px] uppercase tracking-wider">Web Search Fallbacks</span>
+          <span class="material-symbols-outlined text-tertiary text-[18px]">travel_explore</span>
+        </div>
+        <div class="my-space-xs">
+          <span class="font-metric-display text-[26px] text-on-surface font-bold tracking-tight" id="kpi-web-search-fallbacks">0</span>
+        </div>
+        <div class="text-[11px] text-outline font-code-sm">Adaptive RAG search-tool uses</div>
+      </div>
+
+      <!-- Card 5: Architecture Status -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col justify-between shadow-sm">
+        <div class="flex items-center justify-between text-outline">
+          <span class="font-code-sm text-[10px] uppercase tracking-wider">Execution Model</span>
+          <span class="material-symbols-outlined text-outline text-[18px]">memory</span>
+        </div>
+        <div class="my-space-xs">
+          <span class="font-metric-display text-[20px] text-on-surface font-semibold tracking-tight">Grid Search</span>
+        </div>
+        <div class="text-[11px] text-secondary font-code-sm">Atomic Trace Drained</div>
+      </div>
+    </div>
+
+    <!-- Visual Analytics Charts (Cost Accumulation & Stage Timing Trend) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-base mb-space-base">
+      <!-- Chart 1: Cost Accumulation -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm flex flex-col">
+        <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-tertiary text-[18px]">trending_up</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Cost Accumulation Over Trials</span>
+          </div>
+          <span class="font-code-sm text-[11px] text-outline">Cumulative USD</span>
+        </div>
+        <div class="relative w-full" style="height: 220px;">
+          <div id="chart-cost" class="w-full h-full" role="img" aria-label="Cumulative cost over completed trials"></div>
+        </div>
+      </div>
+
+      <!-- Chart 2: Stage Timing Trend -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 shadow-sm flex flex-col">
+        <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-primary text-[18px]">show_chart</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Stage Timing Trends Over Trials</span>
+          </div>
+          <span class="font-code-sm text-[11px] text-outline">Hover points · click for details</span>
+        </div>
+        <div class="relative w-full" style="height: 220px;">
+          <div id="chart-stage-timings" class="w-full h-full" role="region" aria-label="Interactive mean stage timings over completed trials"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Best-trial stage timing breakdown -->
+    <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 mb-space-base shadow-sm">
+      <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+
+        <div class="flex items-center gap-space-xs">
+          <span class="material-symbols-outlined text-tertiary text-[18px]">speed</span>
+          <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Best Configuration: Mean Latency by Stage</span>
+        </div>
+        <span class="font-code-sm text-[11px] text-outline">Average per evaluation query</span>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-space-sm">
+        <!-- Tile 1 -->
+        <div class="bg-surface-container-low rounded p-space-sm border border-outline-variant/20 flex flex-col justify-between">
+          <span class="font-code-sm text-[10px] text-outline">01. Query Expand</span>
+          <span class="font-code-lg text-[15px] font-semibold text-primary mt-1" id="time-query-transform">—</span>
+        </div>
+        <!-- Tile 2 -->
+        <div class="bg-surface-container-low rounded p-space-sm border border-outline-variant/20 flex flex-col justify-between">
+          <span class="font-code-sm text-[10px] text-outline">02. Query Embed</span>
+          <span class="font-code-lg text-[15px] font-semibold text-primary mt-1" id="time-query-embedding">—</span>
+        </div>
+        <!-- Tile 3 -->
+        <div class="bg-surface-container-low rounded p-space-sm border border-outline-variant/20 flex flex-col justify-between">
+          <span class="font-code-sm text-[10px] text-outline">03. Vector Search</span>
+          <span class="font-code-lg text-[15px] font-semibold text-primary mt-1" id="time-vector-search">—</span>
+        </div>
+        <!-- Tile 4 -->
+        <div class="bg-surface-container-low rounded p-space-sm border border-outline-variant/20 flex flex-col justify-between">
+          <span class="font-code-sm text-[10px] text-outline">04. Reranking</span>
+          <span class="font-code-lg text-[15px] font-semibold text-primary mt-1" id="time-rerank">—</span>
+        </div>
+        <!-- Tile 5 -->
+        <div class="bg-surface-container-low rounded p-space-sm border border-outline-variant/20 flex flex-col justify-between">
+          <span class="font-code-sm text-[10px] text-outline">05. Relevance</span>
+          <span class="font-code-lg text-[15px] font-semibold text-primary mt-1" id="time-relevance-check">—</span>
+        </div>
+        <!-- Tile 6 -->
+        <div class="bg-surface-container-low rounded p-space-sm border border-outline-variant/20 flex flex-col justify-between">
+          <span class="font-code-sm text-[10px] text-outline">06. Web Search</span>
+          <span class="font-code-lg text-[15px] font-semibold text-primary mt-1" id="time-web-search">—</span>
+        </div>
+        <!-- Tile 7 -->
+        <div class="bg-surface-container-low rounded p-space-sm border border-outline-variant/20 flex flex-col justify-between">
+          <span class="font-code-sm text-[10px] text-outline">07. Generation</span>
+          <span class="font-code-lg text-[15px] font-semibold text-primary mt-1" id="time-generation">—</span>
+        </div>
+        <!-- Tile 8 -->
+        <div class="bg-surface-container-low rounded p-space-sm border border-outline-variant/20 flex flex-col justify-between">
+          <span class="font-code-sm text-[10px] text-outline">08. Hallucination</span>
+          <span class="font-code-lg text-[15px] font-semibold text-primary mt-1" id="time-hallucination-check">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two Columns: Failure Clusters & Best Architecture Config -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-base mb-space-base">
+      <!-- Error Rate Observability Panel -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col shadow-sm" aria-live="polite">
+        <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-error text-[18px]">monitor_heart</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Error Rate Observability</span>
+          </div>
+          <span id="error-health-badge" class="font-code-sm text-[10px] text-outline">Loading…</span>
+        </div>
+
+        <div id="error-rate-overview" class="grid grid-cols-3 gap-space-xs mb-space-sm">
+          <div class="bg-surface-container-low rounded p-space-sm">
+            <div class="font-code-sm text-[9px] uppercase tracking-wider text-outline">Error Rate</div>
+            <div id="error-rate-value" class="font-metric-display text-[22px] font-bold text-on-surface mt-0.5">—</div>
+          </div>
+          <div class="bg-surface-container-low rounded p-space-sm">
+            <div class="font-code-sm text-[9px] uppercase tracking-wider text-outline">Recovered</div>
+            <div id="error-recovered-value" class="font-code-lg text-[18px] font-semibold text-tertiary mt-0.5">—</div>
+          </div>
+          <div class="bg-surface-container-low rounded p-space-sm">
+            <div class="font-code-sm text-[9px] uppercase tracking-wider text-outline">Unrecovered</div>
+            <div id="error-unrecovered-value" class="font-code-lg text-[18px] font-semibold text-error mt-0.5">—</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-space-xs mb-space-sm">
+          <div class="bg-surface-container-low rounded p-space-sm">
+            <div class="font-code-sm text-[9px] uppercase tracking-wider text-outline">Answer Refusals</div>
+            <div id="answer-refusal-count-value" class="font-code-lg text-[18px] font-semibold text-tertiary mt-0.5">—</div>
+          </div>
+          <div class="bg-surface-container-low rounded p-space-sm">
+            <div class="font-code-sm text-[9px] uppercase tracking-wider text-outline">Refusal Rate</div>
+            <div id="answer-refusal-rate-value" class="font-metric-display text-[18px] font-semibold text-tertiary mt-0.5">—</div>
+            <div id="answer-refusal-samples-value" class="font-code-sm text-[9px] text-outline mt-0.5">—</div>
+          </div>
+        </div>
+
+        <div id="error-stage-rates" class="flex flex-col gap-1.5 overflow-y-auto max-h-48 mb-space-sm">
+          <div class="px-space-sm py-3 text-outline text-body-sm bg-surface-container-low rounded">Waiting for observed operations…</div>
+        </div>
+
+        <details id="error-events-details" class="border-t border-outline-variant/20 pt-space-xs">
+          <summary class="cursor-pointer text-[11px] font-code-sm text-primary select-none">Recent sanitized errors and terminal trial groups</summary>
+          <div id="error-event-filter" class="flex flex-wrap gap-1 mt-space-xs"></div>
+          <div id="error-events-container" class="flex flex-col gap-1.5 overflow-y-auto max-h-52 mt-space-xs">
+            <div class="text-outline text-[11px]">No errors recorded.</div>
+          </div>
+          <div class="mt-space-xs pt-space-xs border-t border-outline-variant/10">
+            <div class="font-code-sm text-[9px] uppercase tracking-wider text-outline mb-1">Terminal trial error groups</div>
+            <div class="flex flex-col gap-space-xs" id="failure-clusters-container">
+              <div class="text-outline text-[11px]">No terminal trial failures recorded.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- Best Result Card -->
+      <div class="bg-surface-container rounded p-space-base border border-outline-variant/30 flex flex-col shadow-sm">
+        <div class="flex items-center justify-between pb-space-xs mb-space-sm border-b border-outline-variant/20">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-secondary text-[18px]">military_tech</span>
+            <span class="font-headline-sm text-[14px] font-semibold text-on-surface">Top Architecture Result</span>
+          </div>
+          <button type="button" id="btn-best-config" class="font-code-sm text-[11px] text-primary hover:text-primary-fixed-dim flex items-center gap-1 transition-colors">
+            <span>View evaluation samples</span>
+            <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+          </button>
+        </div>
+        <div class="bg-surface-container-low rounded p-space-sm flex-1 max-h-72 overflow-y-auto" id="kpi-best-result">No successful trials completed yet.</div>
+      </div>
+    </div>
+
+    <!-- Live Trials Table Container -->
+    <div class="bg-surface-container rounded border border-outline-variant/30 shadow-sm">
+      <div class="p-space-base pb-space-xs border-b border-outline-variant/20 flex items-center justify-between">
+        <div class="flex items-center gap-space-xs">
+          <span class="material-symbols-outlined text-primary text-[18px]">table_rows</span>
+          <h2 class="font-headline-sm text-[14px] font-semibold text-on-surface">Live Trials Telemetry Stream</h2>
+        </div>
+        <span class="font-code-sm text-[11px] text-outline">Updates live · click a heading to sort</span>
+      </div>
+
+      <div class="w-full overflow-x-auto">
+        <table class="w-full border-collapse text-left">
+          <thead>
+            <tr class="bg-surface-container-high text-outline font-body-xs text-[11px] uppercase tracking-wider select-none border-b border-outline-variant/20">
+              <th class="py-2.5 px-3 font-semibold w-24" data-trial-sort-header="trial_id" aria-sort="ascending"><button type="button" data-trial-sort="trial_id" data-sort-label="Trial" class="inline-flex items-center gap-1 hover:text-on-surface transition-colors">Trial<span data-sort-icon class="material-symbols-outlined text-[14px]">arrow_upward</span></button></th>
+              <th class="py-2.5 px-3 font-semibold w-28" data-trial-sort-header="status" aria-sort="none"><button type="button" data-trial-sort="status" data-sort-label="Status" class="inline-flex items-center gap-1 hover:text-on-surface transition-colors">Status<span data-sort-icon class="material-symbols-outlined text-[14px]">unfold_more</span></button></th>
+              <th class="py-2.5 px-3 font-semibold text-right w-28">Sample Progress</th>
+              <th class="py-2.5 px-3 font-semibold text-right w-24">Elapsed</th>
+              <th class="py-2.5 px-3 font-semibold text-right w-32" data-trial-sort-header="composite_score" aria-sort="none"><button type="button" data-trial-sort="composite_score" data-sort-label="Composite score" class="inline-flex items-center gap-1 hover:text-on-surface transition-colors">Composite Score<span data-sort-icon class="material-symbols-outlined text-[14px]">unfold_more</span></button></th>
+              <th class="py-2.5 px-3 font-semibold text-right w-28" data-trial-sort-header="mean_pipeline_latency_ms" aria-sort="none"><button type="button" data-trial-sort="mean_pipeline_latency_ms" data-sort-label="Mean pipeline latency" class="inline-flex items-center gap-1 hover:text-on-surface transition-colors">Mean Pipeline<span data-sort-icon class="material-symbols-outlined text-[14px]">unfold_more</span></button></th>
+              <th class="py-2.5 px-3 font-semibold text-right w-24" data-trial-sort-header="cost_usd" aria-sort="none"><button type="button" data-trial-sort="cost_usd" data-sort-label="Cost" class="inline-flex items-center gap-1 hover:text-on-surface transition-colors">Cost<span data-sort-icon class="material-symbols-outlined text-[14px]">unfold_more</span></button></th>
+              <th class="py-2.5 px-3 font-semibold text-right w-20" data-trial-sort-header="web_search_fallback_count" aria-sort="none"><button type="button" data-trial-sort="web_search_fallback_count" data-sort-label="Web search usage" class="inline-flex items-center gap-1 hover:text-on-surface transition-colors">Web Search<span data-sort-icon class="material-symbols-outlined text-[14px]">unfold_more</span></button></th>
+              <th class="py-2.5 px-3 font-semibold" data-trial-sort-header="resolved_rag_config" aria-sort="none"><button type="button" data-trial-sort="resolved_rag_config" data-sort-label="Resolved architecture parameters" class="inline-flex items-center gap-1 hover:text-on-surface transition-colors">Resolved Architecture Parameters<span data-sort-icon class="material-symbols-outlined text-[14px]">unfold_more</span></button></th>
+              <th class="py-2.5 px-3 font-semibold text-right w-20">Inspect</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-outline-variant/10 font-code-sm text-[12px] text-on-surface" id="trials-table-body">
+            <tr id="no-trials-row">
+              <td colspan="10" class="py-8 text-center text-outline font-body-sm">
+                Waiting for trials to execute...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Persistent terminal-state notification shown when polling observes completion. -->
+  <aside id="run-completion-popup" hidden role="status" aria-live="assertive" aria-atomic="true" class="fixed top-20 right-space-lg z-[90] w-[calc(100%-2rem)] max-w-md bg-surface-container-high border border-secondary rounded shadow-2xl p-space-base">
+    <div class="flex items-start gap-space-base">
+      <div id="completion-popup-icon-wrap" class="w-10 h-10 rounded bg-secondary-container/20 text-secondary flex items-center justify-center shrink-0">
+        <span id="completion-popup-icon" class="material-symbols-outlined text-[24px]">task_alt</span>
+      </div>
+      <div class="min-w-0 flex-1">
+        <div class="flex items-start justify-between gap-space-sm">
+          <div>
+            <div class="font-code-sm text-[10px] uppercase tracking-wider text-outline">Run notification</div>
+            <h2 id="completion-popup-title" class="font-headline-md text-[16px] font-semibold text-on-surface mt-0.5">Run completed</h2>
+          </div>
+          <button type="button" id="completion-popup-dismiss" class="w-7 h-7 rounded hover:bg-surface-container-highest text-outline hover:text-on-surface flex items-center justify-center transition-colors" aria-label="Dismiss run notification">
+            <span class="material-symbols-outlined text-[17px]">close</span>
+          </button>
+        </div>
+        <p id="completion-popup-message" class="font-body-sm text-[12px] leading-5 text-on-surface-variant mt-space-xs"></p>
+        <div class="grid grid-cols-2 gap-space-xs mt-space-sm">
+          <div class="bg-surface-container rounded px-space-sm py-space-xs">
+            <div class="font-code-sm text-[9px] uppercase tracking-wider text-outline">Trials</div>
+            <div id="completion-popup-progress" class="font-code-sm text-[12px] font-semibold text-on-surface mt-0.5">—</div>
+          </div>
+          <div class="bg-surface-container rounded px-space-sm py-space-xs">
+            <div class="font-code-sm text-[9px] uppercase tracking-wider text-outline">Best score</div>
+            <div id="completion-popup-score" class="font-code-sm text-[12px] font-semibold text-on-surface mt-0.5">—</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-space-xs mt-space-base">
+          <button type="button" id="completion-popup-view-result" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-primary text-on-primary font-semibold text-[12px] hover:brightness-110 transition-all">
+            <span class="material-symbols-outlined text-[16px]">analytics</span>
+            <span>View best result</span>
+          </button>
+          <a href="/runs.html" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded text-outline hover:text-on-surface hover:bg-surface-container-highest font-code-sm text-[11px] transition-colors">Back to runs</a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Engineering data inspector: keeps the dashboard visible while drilling down. -->
+  <div class="fixed inset-0 z-[100]" id="inspector-layer" hidden>
+    <button type="button" class="absolute inset-0 bg-surface-container-lowest/80 backdrop-blur-[1px] cursor-default" id="inspector-backdrop" aria-label="Close inspector"></button>
+    <section class="absolute right-0 top-0 bottom-0 w-full max-w-3xl bg-surface-container-lowest border-l border-outline-variant/50 shadow-2xl flex flex-col" role="dialog" aria-modal="true" aria-labelledby="inspector-title">
+      <header class="px-space-lg py-space-base bg-surface-container-low border-b border-outline-variant/30 flex items-start justify-between gap-space-base">
+        <div class="min-w-0">
+          <div class="font-code-sm text-[10px] uppercase tracking-wider text-primary" id="inspector-eyebrow">Data Inspector</div>
+          <h2 class="font-headline-md text-[16px] font-semibold text-on-surface truncate" id="inspector-title">Loading…</h2>
+          <p class="font-code-sm text-[11px] text-outline mt-0.5 truncate" id="inspector-subtitle"></p>
+        </div>
+        <div class="flex items-center gap-space-xs shrink-0">
+          <button type="button" id="inspector-copy" class="flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface font-code-sm text-[11px] transition-colors" title="Copy the current inspector data as JSON">
+            <span class="material-symbols-outlined text-[15px]">content_copy</span>
+            <span>Copy JSON</span>
+          </button>
+          <button type="button" id="inspector-close" class="w-8 h-8 rounded bg-surface-container-high hover:bg-surface-container-highest text-outline hover:text-on-surface flex items-center justify-center transition-colors" aria-label="Close inspector">
+            <span class="material-symbols-outlined text-[18px]">close</span>
+          </button>
+        </div>
+      </header>
+      <nav class="px-space-lg bg-surface-container-low border-b border-outline-variant/30 flex gap-space-xs overflow-x-auto" id="inspector-tabs" aria-label="Inspector sections"></nav>
+      <div class="flex-1 overflow-y-auto p-space-lg" id="inspector-content">
+        <div class="h-full flex items-center justify-center text-outline font-code-sm text-[12px]">
+          <span class="material-symbols-outlined text-[18px] animate-spin mr-space-xs">progress_activity</span>
+          Loading engineering data…
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="/static/js/common.js"></script>
+  <script src="/static/js/run_detail.js?v=llm-parameters-1"></script>
+</body>
+</html>

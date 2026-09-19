@@ -1,33 +1,56 @@
-import re
-from LLMProvider.LLMProvider import *
-from PromptManager.PromptManager import *
+"""
+Backward-compatible HallucinationsCheck entry point.
+Wraps the factory and preserves the original check_answer(answer) interface.
+"""
+from typing import Optional, Any
+from .base import BaseHallucinationChecker, HallucinationResult
+from .factory import create_hallucination_checker
+from LLMProvider.LLMProvider import LLMProvider
+from PromptManager.PromptManager import MuffakirPrompt
+
 
 class HallucinationsCheck:
- 
-    def __init__(self, llm_provider: LLMProvider, prompt_manager: PromptManager):
-        self.llm_provider = llm_provider
-        self.hallucination_check_prompt = prompt_manager.get_prompt("hallucination_check_prompt")
+    """
+    Backward-compatible HallucinationsCheck wrapper.
 
-    def clean_text(self, text: str) -> str:
+    By default delegates to `TextCleanerChecker` (identical to original behavior).
+    Pass `method=` to use a different strategy.
 
-        # If you need to allow additional punctuation, add them inside the brackets.
-        return re.sub(r'[^\u0600-\u06FF\s]', '', text)
+    Exposes both:
+    - `check_answer(answer)` — original interface (returns str)
+    - `check(answer, context, query)` — new interface (returns HallucinationResult)
 
-    def check_answer(self, answer: str) -> str:
-        try:
-            llm = self.llm_provider.get_llm()
-            prompt = self.hallucination_check_prompt.format(answer=answer)
-            response = llm.invoke(prompt)
+    Note: ``llm_provider`` is only required for the ``context_grounding`` and
+    ``text_cleaner`` methods; ``nli`` and ``semantic_similarity`` strategies
+    do not use an LLM and accept ``None`` here.
+    """
 
-            if hasattr(response, 'content'):
-                response_text = response.content
-            elif isinstance(response, str):
-                response_text = response
-            else:
-                response_text = str(response)
-            
-            cleaned_response = self.clean_text(response_text)
-            return cleaned_response
-        except Exception as e:
-            print(f"Error HallucinationsCheck: {e}")
+    def __init__(
+        self,
+        llm_provider: Optional[LLMProvider] = None,
+        prompt_manager: Optional[MuffakirPrompt] = None,
+        method: str = "text_cleaner",
+        embedding_provider: Optional[Any] = None,
+        **kwargs: Any
+    ):
+        self._checker: BaseHallucinationChecker = create_hallucination_checker(
+            method=method,
+            llm_provider=llm_provider,
+            prompt_manager=prompt_manager,
+            embedding_provider=embedding_provider,
+            **kwargs
+        )
 
+    def check(
+        self,
+        answer: str,
+        context: str = "",
+        query: str = ""
+    ) -> HallucinationResult:
+        """Full hallucination check — returns structured HallucinationResult."""
+        return self._checker.check(answer=answer, context=context, query=query)
+
+    def check_answer(self, answer: str, context: str = "", query: str = "") -> str:
+        """Backward-compatible interface — returns only the cleaned answer string."""
+        result = self._checker.check(answer=answer, context=context, query=query)
+        return result.cleaned_answer

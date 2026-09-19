@@ -1,0 +1,371 @@
+query_rewrite: |
+  You are an AI engineer specializing in Query Transformation for RAG pipelines.
+  Your task is to take the latest user message, along with any relevant chat history, and rewrite it into a single, direct, keyword-rich search query optimized for semantic search.
+
+  **Instructions:**
+  1. Strip out conversational filler (e.g., 'please show me', 'can you tell me', 'thanks').
+  2. Resolve all ambiguous pronouns (e.g., change 'its pricing' to 'SaaS product pricing').
+  3. Maintain the original query's language.
+  4. Output ONLY the rewritten search query without any introductory text or markdown formatting.
+
+  Original Query: {original_query}
+
+  Rewritten Query:
+
+multi_query_expansion: |
+  You are an AI engineer optimizing queries for a RAG retrieval system.
+  Your task is to break down the user's input query and generate 3 to 5 alternative versions for vector search.
+
+  **Instructions:**
+  1. Use different synonyms, verbs, and phrasing for the same underlying intent.
+  2. Think about alternative ways an author might write the answer in the source documentation.
+  3. Do not make the queries overly broad; keep them focused on the user's specific problem.
+  4. Include the original user query as the first item in the list.
+
+  User Query: {original_query}
+
+  Alternative Queries:
+
+query_decomposition: |
+  You are an expert AI engineer optimizing retrieval for an advanced RAG pipeline.
+  Your task is to analyze a user query and determine if it contains multiple distinct questions, comparisons, or multi-step requests. If it does, break it down into explicit, standalone sub-queries.
+
+  **Instructions:**
+  1. Each sub-query must be fully self-contained (no pronouns like 'it', 'them', 'former', 'latter').
+  2. Each sub-query should focus on a single concept, feature, or policy.
+  3. Do not over-decompose simple, direct questions; if a query is simple, return it as a single-item list.
+
+  User Query: {original_query}
+
+  Sub-queries:
+
+hyde: |
+  You are an AI assistant tasked with generating a hypothetical document for a search engine.
+  Write a direct, factual, and highly specific answer to the user's query.
+
+  **Instructions:**
+  1. Do not include conversational filler like 'Sure, here is...', 'Based on my knowledge...', or 'According to documentation'.
+  2. Pretend you are writing an official technical wiki, policy document, or user manual page.
+  3. Maintain the original query's language.
+
+  Query: {original_query}
+
+  Hypothetical Document:
+
+step_back: |
+  You are an AI engineer optimizing a RAG system using Step-Back Prompting.
+  Your task is to take a hyper-specific user inquiry and generate a broader, generic question that addresses the underlying core concept, principle, or domain theory.
+
+  **Examples:**
+  - Specific: 'Why did my specific webhook call fail with a 413 error?' -> Step-back: 'What does a HTTP 413 status code mean?'
+  - Specific: 'How do I change the oil on a 2021 Honda Civic LX?' -> Step-back: 'What is the general procedure for changing car oil?'
+
+  **Instructions:**
+  1. Do not mention specific brand names, specific version numbers, or narrow parameters in the step-back query.
+  2. Keep it abstract, broad, and foundational.
+  3. Maintain the original query's language.
+
+  Specific Query: {original_query}
+
+  Step-back Query:
+
+summary_generation: |
+  INSTRUCTIONS
+  You are an expert at summarizing text.
+  Create a concise but comprehensive summary that captures the main points.
+  Focus on key concepts and important details.
+  The summary should be in English and self-contained.
+  Text: {text}
+
+  Summary:
+
+question_generation: |
+  You are a model that generates questions based on text content.
+  Given the text below, generate a relevant question in English.
+
+  Text: {text}
+
+  Question:
+
+generation: |
+  Use the following context to answer the question,
+  [Context]: {context}
+  [Question]: {question}
+  [Instructions]:
+  1. The answer must be in English.
+  2. Use information exclusively from the provided context.
+  3. If the question is not related to the context, provide a suitable response.
+  4. If the context does not contain enough information to answer the question, write only: I cannot answer this question.
+  [Answer]:
+
+context_relevance: |
+  You are a context relevance grader for Retrieval-Augmented Generation (RAG) systems.
+  Your task is to decide whether the retrieved context contains enough relevant information to answer the question.
+
+  [Question]: {question}
+  [Context]: {context}
+
+  [Instructions]:
+  1. Answer with relevant only if the context contains sufficient information to answer the question.
+  2. Answer with not_relevant only if the context is empty, unrelated, or insufficient.
+  3. Your answer must be exactly one of these two words with no extra explanation:
+  relevant
+  not_relevant
+
+answer_correctness: |
+  You are an LLM-as-judge evaluating answer correctness for a RAG system.
+  Compare the gold (reference) answer with the predicted answer for the given question.
+
+  [Question]: {question}
+  [Gold Answer]: {gold_answer}
+  [Predicted Answer]: {predicted_answer}
+
+  [Instructions]:
+  1. Focus on meaning and key facts, not exact wording.
+  2. Assign a score from 0.0 to 1.0 where:
+     - 1.0 = fully correct and aligned with the gold answer
+     - 0.5 = partially correct
+     - 0.0 = incorrect or irrelevant
+  3. Return only this line with no extra explanation:
+  score: <number>
+
+llm_judge_rating: |
+  You are an LLM judge evaluating the semantic correctness of a generated answer.
+  Compare the generated answer with the ground truth/reference answer.
+
+  [Ground Truth / Reference Answer]: {gold_answer}
+  [Generated Answer]: {predicted_answer}
+
+  [Instructions]:
+  1. Focus on meaning and correctness, not exact wording.
+  2. Assign exactly one integer rating using this scale:
+     - 1 = Completely incorrect or unrelated to the ground truth.
+     - 2 = Mostly incorrect, with only a small amount of correct information.
+     - 3 = Partially correct, but missing or contradicting important information.
+     - 4 = Mostly correct and consistent with the ground truth, with only minor issues or missing details.
+     - 5 = Fully correct and semantically consistent with the ground truth.
+  3. Return only this line with no explanation:
+  rating: <integer>
+
+hallucination_check_prompt: |
+  You are an intelligent assistant specialized in clean formatting and fact-checking text.
+  **Instructions:**
+  1. Examine the provided text to detect any fabricated (hallucinated) or inaccurate information.
+  2. Remove any unnecessary repetition and redundant information.
+  3. Correct factual errors or questionable information.
+  4. Rewrite the text to be concise, clear, and expressive.
+  5. Focus on delivering a clean version of the original content without additions.
+
+  Original Text: {answer}
+
+  Clean Text:
+
+MCQ: |
+  You are an educational assessment expert specialized in crafting high-quality Multiple Choice Questions (MCQs).
+
+  ## Context
+
+  {context}
+
+  ## Instructions
+  Based on the context above, create a high-quality multiple choice question that satisfies the following:
+  1. Tests comprehension of core concepts, facts, or relationships in the text.
+  2. Contains only one correct answer and three plausible incorrect distractors.
+  3. Covers important information rather than secondary details.
+  4. Is clear, concise, and unambiguous.
+  5. Includes a brief explanation explaining why the correct answer is correct.
+
+  ## Response Format
+  For each question, follow this format:
+
+  Question: [Question text]
+
+  Options:
+  A. [Option text]
+  B. [Option text]
+  C. [Option text]
+  D. [Option text]
+
+  Correct Answer: [Correct option letter]
+
+  Explanation: [Brief explanation of why the correct answer is correct]
+
+  Your response must contain only the generated MCQs following the format above.
+  Do not add any additional introductory or concluding comments.
+
+history_classification_prompt: |
+  You are an assistant specialized in analyzing questions and determining if a new question requires the previous conversation history or if it is standalone.
+
+  Information:
+  Previous Conversation History:
+  {conversation_history}
+
+  New Query:
+  {new_query}
+
+  Task:
+  Analyze the new query and determine its correct classification.
+
+  Output Rules:
+  1. You must provide your response in the XML structure specified below.
+  2. Choose exactly one classification: either "original" (for standalone questions) or "history" (for questions dependent on context).
+  3. Do not add any text, explanation, or punctuation outside the XML structure.
+
+  <output>
+  <classification>CLASSIFICATION</classification>
+  </output>
+
+  Where:
+  - "original": means the question is standalone and does not need the previous context to be understood.
+  - "history": means the question depends on the previous context to be understood.
+
+search_query: |
+  Rewrite the following question to focus on general search optimization while preserving the original intent. The formulation should be:
+  - Natural and grammatical.
+  - Keep the core of the original question.
+  - Without adding external details.
+
+  Original Query: {original_query}
+
+  (Response should contain only the new question without any additional words)
+
+faithfulness_extraction: |
+  Extract individual claims from the following answer. Number each claim on a separate line:
+  {answer}
+  Requirements: 1. Identify each discrete fact or claim 2. Serial numbering 3. Do not add explanations.
+  List of Claims:
+
+faithfulness_verification: |
+  Is the following claim directly supported by the attached context?
+  Claim: {claim}
+  Context: {context}
+
+  Answer with one word only (Yes/No):
+
+youtube: |
+  You are an intelligent assistant specialized in optimizing search queries for educational content on YouTube.
+
+  Your task is to convert the user's sentence or keyword into an optimized and clear search query, focusing on requesting "tutorial videos" or "explanation videos" for this topic on YouTube.
+
+  Instructions:
+  - Use clear and standard language.
+  - Add terms like: "tutorial videos", "explanation videos", and "on YouTube".
+  - Specify the field precisely if possible.
+
+  Example:
+  - User Input: criminal law
+  - Optimized Query: criminal law tutorial videos explanation on YouTube
+
+  Question:
+  {original_query}
+
+  Start only with the optimized query sentence without additional introductory remarks.
+
+mindmap: |
+  Convert the following text into JSON representing a mind map.
+  Ensure that each main idea becomes a main branch, and sub-ideas become its children.
+  Text:
+  ---
+  {context}
+  ---
+  Return only the JSON block without any extra explanation.
+
+history_query_prompt: |
+  You are an intelligent assistant specialized in understanding conversation context and answering questions based on the previous context.
+
+  In the previous query, the user asked:
+  "{last_query}"
+
+  And your response was:
+  "{last_response}"
+
+  Now the user is asking a new question that depends on the previous context:
+  "{new_query}"
+
+  Please answer the new question taking the previous context into account. Provide a complete and accurate response that meets the user's needs.
+
+summary_map: |
+  You are an expert at text summarization. Please summarize the following text clearly and concisely:
+
+  {text}
+
+  Summary:
+
+summary_combine: |
+  You are an expert in combining summaries. Below is a set of summaries for different sections of the same document:
+
+  {text}
+
+  Please merge these summaries into a single comprehensive and coherent summary of the entire document. Organize the final summary into appropriate paragraphs, focusing on the main points.
+
+  Final Summary:
+
+summary_direct: |
+  You are an expert at text summarization. Please summarize the following text clearly and concisely, focusing on key concepts and main points:
+
+  {text}
+
+  Comprehensive Summary:
+
+summary_check: |
+  You are an expert in evaluating text summaries. Evaluate the following summary based on:
+  1. Comprehensiveness (does it cover the main points)
+  2. Conciseness (is it appropriately brief)
+  3. Accuracy (is the information contained accurate)
+
+  Original Text:
+  {original_text}
+
+  Summary:
+  {summary}
+
+  Your evaluation (evaluate each element on a scale of 1-5, then provide a brief comment):
+
+QA: |
+  You are an intelligent assistant. Based on the following context, extract a question and an answer that can be answered solely using the information provided in this context.
+  You are strictly forbidden from using external information or making assumptions. The answer must be 100% accurate and grounded in the text provided.
+
+  Context:
+
+  {context}
+
+
+  Your task:
+  - Write a clear and direct question that can be answered only using this context.
+  - Provide a precise and concise answer based entirely on the text.
+
+  Required format:
+  Question: <write the question here>
+  Answer: <write the answer here>
+
+reranker_scoring: |
+  You are an intelligent relevance scoring system for RAG pipelines.
+  Your task is to evaluate how relevant a given document is to the user's query.
+
+  **Instructions:**
+  1. Read the query and the document carefully.
+  2. Score the document's relevance to the query on a scale from 0.0 to 1.0:
+     - 1.0 = Directly and fully relevant; the document precisely answers the query.
+     - 0.7-0.9 = Highly relevant; contains important related information.
+     - 0.4-0.6 = Moderately relevant; related to the topic but does not directly answer.
+     - 0.1-0.3 = Weakly relevant; loosely related to the query topic.
+     - 0.0 = Completely irrelevant.
+  3. Reply with a decimal number only (e.g., 0.85). No explanation.
+
+  Query: {query}
+
+  Document: {document}
+
+  Relevance Score (0.0 to 1.0):
+
+context_grounding: |
+  Evaluate whether the answer is fully supported by the supplied context.
+
+  Context:
+  {context}
+
+  Answer:
+  {answer}
+
+  If a plain-text response is required, reply with only "yes" when the answer
+  is grounded in the context, or "no" when it is not.

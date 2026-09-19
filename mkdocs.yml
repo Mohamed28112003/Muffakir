@@ -1,0 +1,133 @@
+site_name: Muffakir
+site_description: Build reliable Arabic RAG applications with Muffakir.
+site_url: https://mohamed28112003.github.io/Muffakir_Arabic_RAG/
+repo_url: https://github.com/Mohamed28112003/Muffakir_Arabic_RAG
+repo_name: Mohamed28112003/Muffakir_Arabic_RAG
+edit_uri: edit/main/docs/
+copyright: Copyright &copy; 2026 Muffakir contributors
+
+# Keep internal engineering plans out of the public site even if they remain in docs/.
+exclude_docs: |
+  /superpowers/
+  /build/providers.md
+  /build/query-transformation.md
+
+theme:
+  name: material
+  language: en
+  logo: assets/brand/muffakir-mark.png
+  favicon: assets/brand/muffakir-mark.png
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+    - content.action.view
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: false
+            show_root_heading: true
+            members_order: source
+            show_signature_annotations: true
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Mohamed28112003/Muffakir_Arabic_RAG
+      name: Muffakir on GitHub
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+nav:
+  - Overview: index.md
+  - Get started:
+      - Installation: getting-started/installation.md
+      - Build your first RAG app: getting-started/quickstart.md
+      - ComposerUI: getting-started/composer-ui.md
+  - Build:
+      - Document parsing and OCR:
+          - Python library: build/document-parsers.md
+          - ComposerUI: build/document-parsers-ui.md
+      - Chunking and text cleaning: build/documents.md
+      - LLM providers:
+          - Python library: build/llm-providers.md
+          - ComposerUI: build/llm-providers-ui.md
+      - Embeddings:
+          - Python library: build/embeddings.md
+          - ComposerUI: build/embeddings-ui.md
+      - Retrieval and vector stores: build/retrieval.md
+      - Reranking:
+          - Python library: build/reranking.md
+          - ComposerUI: build/reranking-ui.md
+      - Query transformation:
+          - Python library: build/query-transformers.md
+          - ComposerUI: build/query-transformers-ui.md
+      - Prompt management:
+          - Python library: build/prompts-and-language.md
+          - ComposerUI: build/prompts-ui.md
+      - Adaptive web search: build/web-search.md
+      - Cost and pricing:
+          - Python library: build/pricing.md
+          - ComposerUI: build/pricing-ui.md
+  - Evaluate and optimize:
+      - Evaluation: evaluate/evaluation.md
+      - Composer search: evaluate/composer.md
+      - Traces and observability: evaluate/observability.md
+      - Cost and pricing:
+          - Python library: build/pricing.md
+          - ComposerUI: build/pricing-ui.md
+      - Synthetic data: guides/synthetic-data.md
+      - Export a trial to Python: evaluate/python-export.md
+  - Reference:
+      - Configuration: reference/configuration.md
+      - Public Python API: reference/api.md
+      - Command line: reference/cli.md
+  - Help:
+      - Troubleshooting: help/troubleshooting.md
+      - Contributing: contributing.md

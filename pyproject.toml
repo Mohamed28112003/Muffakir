@@ -1,3 +1,166 @@
 [build-system]
-requires = ["setuptools>=42"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "Muffakir"
+version = "0.3.0"
+description = "Multilingual RAG experimentation and evaluation toolkit"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Mohamed" }]
+dependencies = [
+  "langchain-core>=0.3.33,<2.0.0",
+  "pydantic>=2.11,<3.0",
+  "PyYAML>=6.0,<7.0",
+]
+
+[project.optional-dependencies]
+rag = [
+  "langchain>=0.3.17,<2.0.0",
+  "langchain-community>=0.3.16,<1.0.0",
+  "langchain-text-splitters>=0.3.5,<2.0.0",
+  "requests>=2.32,<3.0",
+  "tqdm>=4.67,<5.0",
+]
+local = ["sentence-transformers>=3.4.1,<4.0.0"]
+chroma = [
+  "chromadb>=0.6.3,<0.7.0",
+  "langchain-chroma>=0.2.1,<2.0.0",
+  "posthog>=2.4.0,<3.0.0",
+]
+openai = ["langchain-openai>=0.3.3,<2.0.0"]
+groq = ["langchain-groq>=0.2.4,<2.0.0"]
+anthropic = ["langchain-anthropic>=0.3.0,<2.0.0"]
+gemini = ["langchain-google-genai>=2.0.0,<5.0.0"]
+ollama = ["langchain-ollama>=0.2.0,<2.0.0"]
+azure_openai = ["langchain-openai>=0.3.3,<2.0.0"]
+cohere = ["langchain-cohere>=0.3.0,<1.0.0"]
+faiss = ["faiss-cpu>=1.8.0,<2.0.0", "langchain-community>=0.3.16,<1.0.0"]
+qdrant = ["qdrant-client>=1.9.0,<2.0.0", "langchain-qdrant>=0.2.0,<2.0.0"]
+milvus = ["langchain-milvus>=0.1.0,<2.0.0"]
+pinecone = ["langchain-pinecone>=0.2.0,<2.0.0"]
+datasets = ["pandas>=2.2,<4.0", "openpyxl>=3.1,<4.0"]
+pdf = ["pypdf>=5.0,<7.0"]
+token = ["tiktoken>=0.8,<1.0"]
+semantic = ["langchain-experimental>=0.3.4,<1.0.0"]
+bm25 = ["rank-bm25>=0.2.2,<0.3.0"]
+azure = ["azure-ai-formrecognizer>=3.3.3,<4.0.0", "tqdm>=4.67,<5.0"]
+docling = ["langchain-docling>=1.0.0,<3.0.0", "tqdm>=4.67,<5.0"]
+llamaparse = ["llama-parse>=0.5.0,<1.0.0", "tqdm>=4.67,<5.0"]
+firecrawl = ["firecrawl-py>=1.0.0,<2.0.0"]
+tavily = ["langchain-tavily>=0.1.0,<1.0.0"]
+serpapi = ["google-search-results>=2.4.0,<3.0.0", "langchain-community>=0.3.16,<1.0.0"]
+ui = [
+  "fastapi>=0.110.0,<1.0.0",
+  "uvicorn[standard]>=0.29.0,<1.0.0",
+  "platformdirs>=4.0.0,<5.0.0",
+]
+providers = [
+  "langchain-openai>=0.3.3,<2.0.0",
+  "langchain-groq>=0.2.4,<2.0.0",
+  "langchain-anthropic>=0.3.0,<2.0.0",
+  "langchain-google-genai>=2.0.0,<5.0.0",
+  "langchain-ollama>=0.2.0,<2.0.0",
+  "langchain-cohere>=0.3.0,<1.0.0",
+]
+vectordbs = [
+  "chromadb>=0.6.3,<0.7.0",
+  "langchain-chroma>=0.2.1,<2.0.0",
+  "posthog>=2.4.0,<3.0.0",
+  "faiss-cpu>=1.8.0,<2.0.0",
+  "langchain-community>=0.3.16,<1.0.0",
+  "qdrant-client>=1.9.0,<2.0.0",
+  "langchain-qdrant>=0.2.0,<2.0.0",
+  "langchain-milvus>=0.1.0,<2.0.0",
+  "langchain-pinecone>=0.2.0,<2.0.0",
+]
+parsers = [
+  "azure-ai-formrecognizer>=3.3.3,<4.0.0",
+  "langchain-docling>=1.0.0,<3.0.0",
+  "llama-parse>=0.5.0,<1.0.0",
+  "tqdm>=4.67,<5.0",
+]
+websearch = [
+  "firecrawl-py>=1.0.0,<2.0.0",
+  "langchain-tavily>=0.1.0,<1.0.0",
+  "google-search-results>=2.4.0,<3.0.0",
+  "langchain-community>=0.3.16,<1.0.0",
+]
+standard = [
+  "langchain>=0.3.17,<2.0.0",
+  "langchain-community>=0.3.16,<1.0.0",
+  "langchain-text-splitters>=0.3.5,<2.0.0",
+  "requests>=2.32,<3.0",
+  "tqdm>=4.67,<5.0",
+  "sentence-transformers>=3.4.1,<4.0.0",
+  "chromadb>=0.6.3,<0.7.0",
+  "langchain-chroma>=0.2.1,<2.0.0",
+  "posthog>=2.4.0,<3.0.0",
+  "langchain-openai>=0.3.3,<2.0.0",
+  "langchain-groq>=0.2.4,<2.0.0",
+  "pandas>=2.2,<4.0",
+  "openpyxl>=3.1,<4.0",
+  "pypdf>=5.0,<7.0",
+  "tiktoken>=0.8,<1.0",
+  "rank-bm25>=0.2.2,<0.3.0",
+  "fastapi>=0.110.0,<1.0.0",
+  "uvicorn[standard]>=0.29.0,<1.0.0",
+  "platformdirs>=4.0.0,<5.0.0",
+]
+all = [
+  "langchain>=0.3.17,<2.0.0",
+  "langchain-community>=0.3.16,<1.0.0",
+  "langchain-text-splitters>=0.3.5,<2.0.0",
+  "requests>=2.32,<3.0",
+  "tqdm>=4.67,<5.0",
+  "sentence-transformers>=3.4.1,<4.0.0",
+  "chromadb>=0.6.3,<0.7.0",
+  "langchain-chroma>=0.2.1,<2.0.0",
+  "posthog>=2.4.0,<3.0.0",
+  "langchain-openai>=0.3.3,<2.0.0",
+  "langchain-groq>=0.2.4,<2.0.0",
+  "langchain-anthropic>=0.3.0,<2.0.0",
+  "langchain-google-genai>=2.0.0,<5.0.0",
+  "langchain-ollama>=0.2.0,<2.0.0",
+  "langchain-cohere>=0.3.0,<1.0.0",
+  "faiss-cpu>=1.8.0,<2.0.0",
+  "qdrant-client>=1.9.0,<2.0.0",
+  "langchain-qdrant>=0.2.0,<2.0.0",
+  "langchain-milvus>=0.1.0,<2.0.0",
+  "langchain-pinecone>=0.2.0,<2.0.0",
+  "pandas>=2.2,<4.0",
+  "openpyxl>=3.1,<4.0",
+  "pypdf>=5.0,<7.0",
+  "tiktoken>=0.8,<1.0",
+  "langchain-experimental>=0.3.4,<1.0.0",
+  "rank-bm25>=0.2.2,<0.3.0",
+  "azure-ai-formrecognizer>=3.3.3,<4.0.0",
+  "langchain-docling>=1.0.0,<3.0.0",
+  "llama-parse>=0.5.0,<1.0.0",
+  "firecrawl-py>=1.0.0,<2.0.0",
+  "langchain-tavily>=0.1.0,<1.0.0",
+  "google-search-results>=2.4.0,<3.0.0",
+  "fastapi>=0.110.0,<1.0.0",
+  "uvicorn[standard]>=0.29.0,<1.0.0",
+  "platformdirs>=4.0.0,<5.0.0",
+]
+
+[project.scripts]
+muffakir = "Muffakir.cli:main"
+
+[project.urls]
+Repository = "https://github.com/Mohamed28112003/Muffakir_Arabic_RAG"
+
+[tool.setuptools.packages.find]
+where = ["."]
+namespaces = false
+exclude = ["examples", "examples.*", "build", "build.*"]
+
+[tool.setuptools.package-data]
+PromptManager = ["prompts/*.yaml"]
+ComposerUI = ["frontend/*.html", "frontend/static/*.png", "frontend/static/js/*.js"]
+
+[tool.pytest.ini_options]
+testpaths = ["."]
+python_files = ["test_*.py"]
