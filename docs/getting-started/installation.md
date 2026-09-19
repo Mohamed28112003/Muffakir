@@ -38,8 +38,8 @@ pip install "Muffakir[datasets,pdf,token,bm25]"
 ## Development installation
 
 ```bash
-git clone https://github.com/Mohamed28112003/Muffakir_Arabic_RAG.git
-cd Muffakir_Arabic_RAG
+git clone https://github.com/Mohamed28112003/Muffakir.git
+cd Muffakir
 python -m venv .venv
 
 # Windows

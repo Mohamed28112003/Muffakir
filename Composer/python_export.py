@@ -280,7 +280,7 @@ variables take precedence. For a script-only download, install the requirements 
 in ComposerUI and set the variables listed in `ENVIRONMENT` at the top of the script.
 
 If using an unreleased local Muffakir checkout, replace the Muffakir line in
-requirements.txt with `-e /path/to/Muffakir_Arabic_RAG[{','.join(sorted(set(features)))}]`
+requirements.txt with `-e /path/to/Muffakir[{','.join(sorted(set(features)))}]`
 before installing. Exported code
 requires the matching implementation, not merely a matching package version number.
 

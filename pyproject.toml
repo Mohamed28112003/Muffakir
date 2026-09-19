@@ -150,7 +150,7 @@ all = [
 muffakir = "Muffakir.cli:main"
 
 [project.urls]
-Repository = "https://github.com/Mohamed28112003/Muffakir_Arabic_RAG"
+Repository = "https://github.com/Mohamed28112003/Muffakir"
 
 [tool.setuptools.packages.find]
 where = ["."]

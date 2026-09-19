@@ -1,8 +1,8 @@
 site_name: Muffakir
 site_description: Build reliable Arabic RAG applications with Muffakir.
-site_url: https://mohamed28112003.github.io/Muffakir_Arabic_RAG/
-repo_url: https://github.com/Mohamed28112003/Muffakir_Arabic_RAG
-repo_name: Mohamed28112003/Muffakir_Arabic_RAG
+site_url: https://mohamed28112003.github.io/Muffakir/
+repo_url: https://github.com/Mohamed28112003/Muffakir
+repo_name: Mohamed28112003/Muffakir
 edit_uri: edit/main/docs/
 copyright: Copyright &copy; 2026 Muffakir contributors
 
@@ -78,7 +78,7 @@ markdown_extensions:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/Mohamed28112003/Muffakir_Arabic_RAG
+      link: https://github.com/Mohamed28112003/Muffakir
       name: Muffakir on GitHub
 
 extra_css:

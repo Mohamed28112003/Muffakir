@@ -16,13 +16,13 @@
 <p align="center">
   <a href="#start-tuning-with-composerui"><strong>Launch ComposerUI</strong></a>
   ·
-  <a href="https://mohamed28112003.github.io/Muffakir_Arabic_RAG/">Documentation</a>
+  <a href="https://mohamed28112003.github.io/Muffakir/">Documentation</a>
   ·
   <a href="https://youtu.be/SOXkpL4Q9PE"><strong>Video Walkthrough</strong></a>
   ·
   <a href="#python-api">Python API</a>
   ·
-  <a href="https://github.com/Mohamed28112003/Muffakir_Arabic_RAG">GitHub</a>
+  <a href="https://github.com/Mohamed28112003/Muffakir">GitHub</a>
 </p>
 
 <p align="center">
@@ -120,7 +120,7 @@ Web-search-only exports skip the indexing step. The application runs the selecte
 pipeline without repeating Composer's search. Failed trials can also be exported for
 debugging when their configuration is available.
 
-[Read the Python export guide](https://mohamed28112003.github.io/Muffakir_Arabic_RAG/evaluate/python-export/).
+[Read the Python export guide](https://mohamed28112003.github.io/Muffakir/evaluate/python-export/).
 
 ### What can Composer tune?
 
@@ -138,7 +138,7 @@ debugging when their configuration is available.
 Tune the answer model without changing your judge. ComposerUI's **Advanced LLM settings**
 lets you configure each LLM role independently; **Generation model variants** lets you
 duplicate a model and compare different parameter sets. Settings appear in trial details
-and carry into Python exports. [Configure LLM parameters](https://mohamed28112003.github.io/Muffakir_Arabic_RAG/build/llm-providers-ui/#advanced-llm-settings).
+and carry into Python exports. [Configure LLM parameters](https://mohamed28112003.github.io/Muffakir/build/llm-providers-ui/#advanced-llm-settings).
 
 Composer expands only meaningful combinations. For example, Hugging Face reranker
 models multiply cross-encoder and pointwise trials without duplicating rerankers that
@@ -169,7 +169,7 @@ Question → retrieve local documents → is the evidence sufficient?
 For a pure web-backed agent, choose **Web Search Only** instead. It skips local
 indexing entirely and evaluates answers built from live search results.
 
-> [Configure Adaptive RAG and web search](https://mohamed28112003.github.io/Muffakir_Arabic_RAG/build/web-search/)
+> [Configure Adaptive RAG and web search](https://mohamed28112003.github.io/Muffakir/build/web-search/)
 > for provider setup, citations, resilience behavior, and Python examples.
 
 ### Synthetic data: turn documents into an evaluation dataset
@@ -205,7 +205,7 @@ Synthetic data is a fast way to bootstrap experiments, not a substitute for expe
 review. Curate the generated pairs and keep a separate reviewed holdout dataset for
 release decisions.
 
-> [Read the synthetic-data guide](https://mohamed28112003.github.io/Muffakir_Arabic_RAG/guides/synthetic-data/)
+> [Read the synthetic-data guide](https://mohamed28112003.github.io/Muffakir/guides/synthetic-data/)
 > for validation, checkpoints, output formats, and prompt customization.
 
 ## Start tuning with ComposerUI
@@ -254,7 +254,7 @@ muffakir serve --port 2812 --open
 Then create a run, select the dimensions to tune, review the generated trial matrix,
 and launch the search.
 
-> [Read the ComposerUI guide](https://mohamed28112003.github.io/Muffakir_Arabic_RAG/getting-started/composer-ui/)
+> [Read the ComposerUI guide](https://mohamed28112003.github.io/Muffakir/getting-started/composer-ui/)
 > for the complete visual workflow.
 
 ## The Composer workflow
@@ -421,21 +421,21 @@ synthetic-data workflows to another language or domain.
 
 ## Documentation
 
-- [Install Muffakir](https://mohamed28112003.github.io/Muffakir_Arabic_RAG/getting-started/installation/)
-- [Tune with ComposerUI](https://mohamed28112003.github.io/Muffakir_Arabic_RAG/getting-started/composer-ui/)
-- [Understand Composer search](https://mohamed28112003.github.io/Muffakir_Arabic_RAG/evaluate/composer/)
-- [Choose LLM providers](https://mohamed28112003.github.io/Muffakir_Arabic_RAG/build/llm-providers/)
-- [Configure embeddings, retrieval, and reranking](https://mohamed28112003.github.io/Muffakir_Arabic_RAG/build/)
-- [Evaluate RAG quality](https://mohamed28112003.github.io/Muffakir_Arabic_RAG/evaluate/evaluation/)
-- [Inspect traces and observability](https://mohamed28112003.github.io/Muffakir_Arabic_RAG/evaluate/observability/)
-- [Browse the public API](https://mohamed28112003.github.io/Muffakir_Arabic_RAG/reference/api/)
-- [Troubleshoot common issues](https://mohamed28112003.github.io/Muffakir_Arabic_RAG/help/troubleshooting/)
+- [Install Muffakir](https://mohamed28112003.github.io/Muffakir/getting-started/installation/)
+- [Tune with ComposerUI](https://mohamed28112003.github.io/Muffakir/getting-started/composer-ui/)
+- [Understand Composer search](https://mohamed28112003.github.io/Muffakir/evaluate/composer/)
+- [Choose LLM providers](https://mohamed28112003.github.io/Muffakir/build/llm-providers/)
+- [Configure embeddings, retrieval, and reranking](https://mohamed28112003.github.io/Muffakir/build/)
+- [Evaluate RAG quality](https://mohamed28112003.github.io/Muffakir/evaluate/evaluation/)
+- [Inspect traces and observability](https://mohamed28112003.github.io/Muffakir/evaluate/observability/)
+- [Browse the public API](https://mohamed28112003.github.io/Muffakir/reference/api/)
+- [Troubleshoot common issues](https://mohamed28112003.github.io/Muffakir/help/troubleshooting/)
 
 ## Development installation
 
 ```bash
-git clone https://github.com/Mohamed28112003/Muffakir_Arabic_RAG.git
-cd Muffakir_Arabic_RAG
+git clone https://github.com/Mohamed28112003/Muffakir.git
+cd Muffakir
 pip install -e ".[standard]"
 ```
 
