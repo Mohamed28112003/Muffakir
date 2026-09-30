@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/brand/muffakir-platform-logo.png" alt="Muffakir — RAG experimentation platform" width="760">
+  <img src="https://raw.githubusercontent.com/Mohamed28112003/Muffakir/main/docs/assets/brand/muffakir-platform-logo.png" alt="Muffakir — RAG experimentation platform" width="760">
 </p>
 
 <h1 align="center">Muffakir</h1>
